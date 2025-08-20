@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Swedish Laravel Association - Laravel Sweden</title>
     <meta name="description" content="Föreningens syfte är att sprida kännedom om PHP-ramverket Laravel genom möten, konferenser och andra aktiviteter.">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://laravelsweden.org/">
@@ -534,7 +534,7 @@
         /* Skip navigation for keyboard users */
         .skip-nav {
             position: absolute;
-            top: -40px;
+            top: -50px;
             left: 6px;
             background: #FF2D20;
             color: white;
@@ -560,7 +560,7 @@
             .header {
                 background: #000000;
             }
-            
+
             .section h2 {
                 background: #000000;
                 -webkit-background-clip: unset;
@@ -700,7 +700,7 @@
                     <div class="board-member" role="listitem">
                         <h3>Ola Ebbesson</h3>
                         <div class="title" aria-label="Roll">Styrelseledamot</div>
-                        <div class="company" aria-label="Företag">Ceaser Dev</div>
+                        <div class="company" aria-label="Företag">Caesar Dev</div>
                     </div>
                     <div class="board-member" role="listitem">
                         <h3>Martin Danielsson</h3>

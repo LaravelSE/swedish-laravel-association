@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Swedish Laravel Association - Laravel Sweden</title>
     <meta name="description" content="Föreningens syfte är att sprida kännedom om PHP-ramverket Laravel genom möten, konferenser och andra aktiviteter.">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://laravelsweden.org/">
@@ -23,7 +23,7 @@
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    
+
     <style>
         :root {
             --laravel-red: #FF2D20;
@@ -77,7 +77,7 @@
         /* Skip navigation */
         .skip-nav {
             position: absolute;
-            top: -40px;
+            top: -50px;
             left: var(--spacing-4);
             background: var(--laravel-red);
             color: white;
@@ -518,7 +518,7 @@
 </head>
 <body>
     <a href="#main-content" class="skip-nav">Hoppa till huvudinnehåll</a>
-    
+
     <header class="header" role="banner">
         <div class="header-content">
             <div class="logo">
@@ -658,7 +658,7 @@
                         <div class="board-avatar">OE</div>
                         <div class="board-name">Ola Ebbesson</div>
                         <div class="board-role">Styrelseledamot</div>
-                        <div class="board-company">Ceaser Dev</div>
+                        <div class="board-company">Caesar Dev</div>
                     </div>
                     <div class="board-card">
                         <div class="board-avatar">JA</div>
