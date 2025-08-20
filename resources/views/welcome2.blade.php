@@ -11,18 +11,17 @@
     <meta property="og:url" content="https://laravelsweden.org/">
     <meta property="og:title" content="Swedish Laravel Association - Laravel Sweden">
     <meta property="og:description" content="Föreningens syfte är att sprida kännedom om PHP-ramverket Laravel genom möten, konferenser och andra aktiviteter.">
-    <meta property="og:image" content="/banner-1500x500.jpeg">
+    <meta property="og:image" content="{{ asset('banner-1500x500.jpeg') }}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://laravelsweden.org/">
     <meta property="twitter:title" content="Swedish Laravel Association - Laravel Sweden">
     <meta property="twitter:description" content="Föreningens syfte är att sprida kännedom om PHP-ramverket Laravel genom möten, konferenser och andra aktiviteter.">
-    <meta property="twitter:image" content="/banner-1500x500.jpeg">
+    <meta property="twitter:image" content="{{ asset('banner-1500x500.jpeg') }}">
 
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
     <style>
         :root {
@@ -398,8 +397,13 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gray-600);
+            overflow: hidden;
+        }
+
+        .board-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .board-name {
@@ -522,7 +526,7 @@
     <header class="header" role="banner">
         <div class="header-content">
             <div class="logo">
-                <img src="/square-logo.jpg" alt="Laravel Sweden">
+                <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden">
                 <span class="logo-text">Laravel Sweden</span>
             </div>
             <nav class="nav-links">
@@ -631,43 +635,43 @@
                 </div>
                 <div class="board-grid">
                     <div class="board-card">
-                        <div class="board-avatar">ML</div>
+                        <div class="board-avatar"><img src="{{ asset('mikko.jpeg') }}" alt="Mikko Lauhakari"></div>
                         <div class="board-name">Mikko Lauhakari</div>
                         <div class="board-role">Ordförande</div>
                         <div class="board-company">Glesys AB</div>
                     </div>
                     <div class="board-card">
-                        <div class="board-avatar">IB</div>
+                        <div class="board-avatar"><img src="{{ asset('isak.jpeg') }}" alt="Isak Berglind"></div>
                         <div class="board-name">Isak Berglind</div>
                         <div class="board-role">Sekreterare</div>
                         <div class="board-company">CampusBokhandel</div>
                     </div>
                     <div class="board-card">
-                        <div class="board-avatar">MD</div>
+                        <div class="board-avatar"><img src="{{ asset('martin.jpeg') }}" alt="Martin Danielsson"></div>
                         <div class="board-name">Martin Danielsson</div>
                         <div class="board-role">Kassör</div>
                         <div class="board-company">ePark</div>
                     </div>
                     <div class="board-card">
-                        <div class="board-avatar">TL</div>
+                        <div class="board-avatar"><img src="{{ asset('tommie.jpeg') }}" alt="Tommie Lagerroos"></div>
                         <div class="board-name">Tommie Lagerroos</div>
                         <div class="board-role">Styrelseledamot</div>
                         <div class="board-company">Techlove</div>
                     </div>
                     <div class="board-card">
-                        <div class="board-avatar">OE</div>
+                        <div class="board-avatar"><img src="{{ asset('ola.jpeg') }}" alt="Ola Ebbesson"></div>
                         <div class="board-name">Ola Ebbesson</div>
                         <div class="board-role">Styrelseledamot</div>
                         <div class="board-company">Caesar Dev</div>
                     </div>
                     <div class="board-card">
-                        <div class="board-avatar">JA</div>
+                        <div class="board-avatar"><img src="{{ asset('jonatan.jpeg') }}" alt="Jonatan Alvarsson"></div>
                         <div class="board-name">Jonatan Alvarsson</div>
                         <div class="board-role">Revisor</div>
                         <div class="board-company">JA Webb</div>
                     </div>
                     <div class="board-card">
-                        <div class="board-avatar">OS</div>
+                        <div class="board-avatar"><img src="{{ asset('oliver.jpeg') }}" alt="Oliver Scase"></div>
                         <div class="board-name">Oliver Scase</div>
                         <div class="board-role">Suppleant</div>
                         <div class="board-company">Techlove</div>
@@ -701,7 +705,7 @@
 
     <footer class="footer" role="contentinfo">
         <div class="footer-content">
-            <img src="/square-logo.jpg" alt="Laravel Sweden" class="footer-logo">
+            <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden" class="footer-logo">
             <p>Swedish Laravel Association - Laravel Sweden</p>
             <p>Spreading knowledge about Laravel across Sweden</p>
             <p><a href="mailto:hej@laravelsweden.org">hej@laravelsweden.org</a></p>
