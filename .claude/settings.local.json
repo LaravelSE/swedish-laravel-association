@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.laravel.dk)",
+      "WebFetch(domain:dutchlaravelfoundation.nl)",
+      "WebFetch(domain:laraveldk.org)",
+      "WebFetch(domain:laraveldenmark.org)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
