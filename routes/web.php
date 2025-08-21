@@ -9,7 +9,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/welcome2', function () {
-    return view('welcome2');
+    return redirect()->route('home');
 })->name('welcome2');
 
 Route::post('/contact', function () {

@@ -11,19 +11,54 @@
     <meta property="og:url" content="https://laravelsweden.org/">
     <meta property="og:title" content="Swedish Laravel Association - Laravel Sweden">
     <meta property="og:description" content="Föreningens syfte är att sprida kännedom om PHP-ramverket Laravel genom möten, konferenser och andra aktiviteter.">
-    <meta property="og:image" content="{{ asset('/banner-1500x500.jpeg') }}">
+    <meta property="og:image" content="{{ asset('banner-1500x500.jpeg') }}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://laravelsweden.org/">
     <meta property="twitter:title" content="Swedish Laravel Association - Laravel Sweden">
     <meta property="twitter:description" content="Föreningens syfte är att sprida kännedom om PHP-ramverket Laravel genom möten, konferenser och andra aktiviteter.">
-    <meta property="twitter:image" content="{{ asset('/banner-1500x500.jpeg') }}">
+    <meta property="twitter:image" content="{{ asset('banner-1500x500.jpeg') }}">
 
-    <link rel="icon" href="{{ asset('/favicon.svg') }}" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="{{ asset('/apple-touch-icon.png') }}">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
     <style>
+        :root {
+            --laravel-red: #FF2D20;
+            --laravel-red-dark: #dc2626;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            --spacing-12: 3rem;
+            --spacing-16: 4rem;
+            --spacing-20: 5rem;
+            --spacing-24: 6rem;
+            --border-radius-sm: 0.375rem;
+            --border-radius: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -31,557 +66,497 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #374151;
-            background: #ffffff;
+            color: var(--gray-700);
+            background: var(--gray-50);
+            font-size: 16px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1f2937 0%, #111827 50%, #FF2D20 100%);
-            color: white;
-            padding: 120px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 45, 32, 0.1) 0%, transparent 70%);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .main-heading {
-            max-width: 600px;
-            width: 100%;
-            height: auto;
-            margin: 0 auto 40px;
-            position: relative;
-            z-index: 10;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .main-heading img {
-            width: 100%;
-            height: auto;
-            border-radius: 16px;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-
-        .header .subtitle {
-            font-size: 1.25rem;
-            opacity: 0.9;
-            font-weight: 400;
-            color: #9ca3af;
-        }
-
-        .logo {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 32px;
-            position: relative;
-            z-index: 10;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 20px;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 10px 30px rgba(255, 45, 32, 0.3);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 15px 40px rgba(255, 45, 32, 0.4);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-10px) rotate(1deg); }
-            66% { transform: translateY(5px) rotate(-1deg); }
-        }
-
-        .content {
-            padding: 80px 0;
-            background: linear-gradient(45deg, #f9fafb 0%, #ffffff 50%, #f3f4f6 100%);
-            position: relative;
-        }
-
-        .content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 20% 80%, rgba(255, 45, 32, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 45, 32, 0.03) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .section {
-            margin-bottom: 64px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 32px;
-            background: linear-gradient(135deg, #111827 0%, #FF2D20 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 800;
-            position: relative;
-        }
-
-        .section h2::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, #FF2D20, #dc2626);
-            border-radius: 2px;
-        }
-
-        .section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 16px;
-            color: #1f2937;
-            font-weight: 600;
-        }
-
-        .section p {
-            margin-bottom: 16px;
-            line-height: 1.75;
-            color: #4b5563;
-            font-size: 1.125rem;
-        }
-
-        .mission {
-            background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
-            padding: 48px;
-            border-radius: 24px;
-            box-shadow:
-                0 20px 25px -5px rgba(0, 0, 0, 0.1),
-                0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            border-left: 6px solid #FF2D20;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .mission::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(135deg, #FF2D20, #dc2626, #FF2D20);
-            border-radius: 26px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .mission:hover::before {
-            opacity: 0.1;
-        }
-
-        .mission:hover {
-            transform: translateY(-5px);
-            box-shadow:
-                0 25px 30px -5px rgba(0, 0, 0, 0.15),
-                0 15px 15px -5px rgba(0, 0, 0, 0.08);
-        }
-
-        .community-links {
-            background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
-            padding: 48px;
-            border-radius: 24px;
-            box-shadow:
-                0 20px 25px -5px rgba(0, 0, 0, 0.1),
-                0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            transition: all 0.3s ease;
-        }
-
-        .community-links:hover {
-            transform: translateY(-5px);
-            box-shadow:
-                0 25px 30px -5px rgba(0, 0, 0, 0.15),
-                0 15px 15px -5px rgba(0, 0, 0, 0.08);
-        }
-
-        .community-links a {
-            display: inline-block;
-            background: linear-gradient(135deg, #FF2D20 0%, #dc2626 100%);
-            color: white;
-            padding: 16px 32px;
-            text-decoration: none;
-            border-radius: 12px;
-            margin-right: 16px;
-            margin-bottom: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 700;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(255, 45, 32, 0.2);
-        }
-
-        .community-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .community-links a:hover::before {
-            left: 100%;
-        }
-
-        .community-links a:hover {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 45, 32, 0.3);
-        }
-
-        .board-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-top: 32px;
-        }
-
-        .board-member {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow:
-                0 10px 15px -3px rgba(0, 0, 0, 0.1),
-                0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .board-member-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin: 0 auto 16px;
-            overflow: hidden;
-        }
-
-        .board-member-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .board-member::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #FF2D20, #dc2626, #FF2D20);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .board-member:hover::before {
-            transform: scaleX(1);
-        }
-
-        .board-member:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow:
-                0 20px 25px -5px rgba(0, 0, 0, 0.1),
-                0 10px 10px -5px rgba(0, 0, 0, 0.04),
-                0 0 0 1px rgba(255, 45, 32, 0.1);
-        }
-
-        .board-member:nth-child(even):hover {
-            transform: translateY(-8px) scale(1.02) rotate(1deg);
-        }
-
-        .board-member:nth-child(odd):hover {
-            transform: translateY(-8px) scale(1.02) rotate(-1deg);
-        }
-
-        .board-member h3 {
-            color: #111827;
-            margin-bottom: 8px;
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
-
-        .board-member .title {
-            color: #FF2D20;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 8px;
-        }
-
-        .board-member .company {
-            color: #6b7280;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .coming-soon {
-            background: #f3f4f6;
-            padding: 48px;
-            border-radius: 16px;
-            text-align: center;
-            border: 2px dashed #d1d5db;
-        }
-
-        .footer {
-            background: #111827;
-            color: #9ca3af;
-            padding: 48px 0;
-            text-align: center;
-            margin-top: 80px;
-        }
-
-        .footer-logo {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-
-        .footer-logo:hover {
-            opacity: 1;
-        }
-
-        .footer-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .footer a {
-            color: #FF2D20;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .footer a:hover {
-            color: #dc2626;
-        }
-
-        .contact-form {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            padding: 48px;
-            border-radius: 24px;
-            box-shadow:
-                0 20px 25px -5px rgba(0, 0, 0, 0.1),
-                0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            margin-top: 32px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-form::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, #FF2D20, #dc2626, #b91c1c, #dc2626, #FF2D20);
-            background-size: 200% 100%;
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { background-position: 200% 0; }
-            50% { background-position: -200% 0; }
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #111827;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 16px;
-            border: 2px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.2s;
-            background: #fff;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #FF2D20;
-            box-shadow:
-                0 0 0 3px rgba(255, 45, 32, 0.1),
-                0 4px 8px rgba(255, 45, 32, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .contact-form button {
-            background: linear-gradient(135deg, #FF2D20 0%, #dc2626 100%);
-            color: white;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(255, 45, 32, 0.2);
-        }
-
-        .contact-form button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .contact-form button:hover::before {
-            left: 100%;
-        }
-
-        .contact-form button:hover {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 45, 32, 0.3);
-        }
-
-        .success-message {
-            background: #ecfdf5;
-            border: 2px solid #10b981;
-            color: #047857;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            font-weight: 600;
-        }
-
-        .error-message {
-            background: #fef2f2;
-            border: 2px solid #ef4444;
-            color: #b91c1c;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            font-weight: 600;
-        }
-
-        .error-message ul {
-            margin: 0;
-            padding-left: 24px;
-        }
-
-        /* Skip navigation for keyboard users */
+        /* Skip navigation */
         .skip-nav {
             position: absolute;
             top: -50px;
-            left: 6px;
-            background: #FF2D20;
+            left: var(--spacing-4);
+            background: var(--laravel-red);
             color: white;
-            padding: 8px;
+            padding: var(--spacing-2) var(--spacing-4);
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             z-index: 1000;
             font-weight: 600;
+            transition: top 0.3s ease;
         }
 
         .skip-nav:focus {
-            top: 6px;
+            top: var(--spacing-4);
         }
 
-        /* Focus indicators for better keyboard navigation */
-        a:focus, button:focus, input:focus, textarea:focus, select:focus {
-            outline: 3px solid #FF2D20;
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+        }
+
+        .logo img {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--border-radius);
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-8);
+        }
+
+        .nav-links a {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--laravel-red);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%);
+            color: white;
+            padding: var(--spacing-20) 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-6);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-6);
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray-300);
+            margin-bottom: var(--spacing-8);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: var(--spacing-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            padding: var(--spacing-3) var(--spacing-6);
+            border-radius: var(--border-radius-lg);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--laravel-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--laravel-red-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-50);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-16) var(--spacing-6);
+        }
+
+        .section {
+            margin-bottom: var(--spacing-20);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-12);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            gap: var(--spacing-8);
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: var(--spacing-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-4px);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--laravel-red);
+            border-radius: var(--border-radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-4);
+            font-size: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .card p {
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-4);
+        }
+
+        /* Community Section */
+        .community-grid {
+            display: grid;
+            gap: var(--spacing-6);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .community-card {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: var(--spacing-6);
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
+        }
+
+        .community-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .community-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .community-card h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .community-card p {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-4);
+        }
+
+        /* Events Section */
+        .event-list {
+            gap: var(--spacing-6);
+            display: grid;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: var(--spacing-8);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
+            border-left: 4px solid var(--laravel-red);
+        }
+
+        .event-date {
+            display: inline-block;
+            background: var(--laravel-red);
+            color: white;
+            padding: var(--spacing-1) var(--spacing-3);
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .event-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .event-location {
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-4);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+
+        .event-subtitle {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: var(--spacing-6);
+            margin-bottom: var(--spacing-3);
+            color: var(--gray-800);
+        }
+
+        .event-schedule {
+            width: 100%;
+            margin-bottom: var(--spacing-6);
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .event-schedule td {
+            padding: var(--spacing-1) 0;
+            vertical-align: top;
+        }
+
+        .event-schedule td:first-child {
+            font-weight: 600;
+            padding-right: var(--spacing-4);
+            white-space: nowrap;
+            width: 60px;
+        }
+
+        .event-organizers {
+            display: grid;
+            gap: var(--spacing-4);
+        }
+
+        .organizer h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-1);
+            color: var(--laravel-red);
+        }
+
+        .organizer p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Board Section */
+        .board-grid {
+            display: grid;
+            gap: var(--spacing-6);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .board-card {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: var(--spacing-6);
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
+        }
+
+        .board-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .board-avatar {
+            width: 64px;
+            height: 64px;
+            background: var(--gray-200);
+            border-radius: 50%;
+            margin: 0 auto var(--spacing-4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            overflow: hidden;
+        }
+
+        .board-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .board-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-1);
+        }
+
+        .board-role {
+            color: var(--laravel-red);
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-2);
+        }
+
+        .board-company {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: var(--gray-400);
+            padding: var(--spacing-16) 0 var(--spacing-8);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-6);
+            text-align: center;
+        }
+
+        .footer-logo {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto var(--spacing-4);
+            border-radius: var(--border-radius);
+            opacity: 0.8;
+        }
+
+        .footer p {
+            margin-bottom: var(--spacing-4);
+        }
+
+        .footer a {
+            color: var(--laravel-red);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 var(--spacing-4);
+                min-height: 70px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: var(--spacing-12) 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-content {
+                padding: var(--spacing-12) var(--spacing-4);
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .card-grid,
+            .community-grid,
+            .board-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card,
+            .event-card {
+                padding: var(--spacing-6);
+            }
+        }
+
+        /* Focus styles for accessibility */
+        a:focus, button:focus, input:focus, textarea:focus {
+            outline: 3px solid var(--laravel-red);
             outline-offset: 2px;
-        }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            .header {
-                background: #000000;
-            }
-
-            .section h2 {
-                background: #000000;
-                -webkit-background-clip: unset;
-                -webkit-text-fill-color: unset;
-                background-clip: unset;
-                color: #000000;
-            }
         }
 
         /* Reduced motion support */
@@ -592,246 +567,313 @@
                 transition-duration: 0.01ms !important;
             }
         }
-
-        /* Screen reader only content */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        .sr-only:focus {
-            position: static;
-            width: auto;
-            height: auto;
-            padding: inherit;
-            margin: inherit;
-            overflow: visible;
-            clip: auto;
-            white-space: normal;
-        }
-
-        /* Optional field indicator */
-        .optional {
-            color: #6b7280;
-            font-weight: 400;
-        }
-
-        @media (max-width: 768px) {
-            .main-heading {
-                max-width: 90%;
-                margin-bottom: 30px;
-            }
-
-            .container {
-                padding: 0 16px;
-            }
-
-            .board-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .mission, .community-links, .contact-form {
-                padding: 24px;
-            }
-
-            .content {
-                padding: 48px 0;
-            }
-
-            .section {
-                margin-bottom: 48px;
-            }
-        }
     </style>
 </head>
 <body>
-    <a href="#main-content" class="skip-nav">Hoppa till huvudinnehåll</a>
-    <header class="header" role="banner">
-        <div class="container">
-            <h1 class="main-heading">
-                <img src="{{ asset('/banner-1500x500.jpeg') }}" alt="Swedish Laravel Association - Laravel Sweden">
-            </h1>
-            <p class="subtitle">Föreningens syfte är att sprida kännedom om PHP-ramverket Laravel</p>
+<a href="#main-content" class="skip-nav">Hoppa till huvudinnehåll</a>
+
+<header class="header" role="banner">
+    <div class="header-content">
+        <div class="logo">
+            <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden">
+            <span class="logo-text">Laravel Sweden</span>
         </div>
-    </header>
+        <nav class="nav-links">
+            <a href="#community">Community</a>
+            <a href="#events">Events</a>
+            <a href="#board">Board</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+</header>
 
-    <main class="content" role="main" id="main-content">
-        <div class="container">
-            <section class="section" aria-labelledby="about-heading">
-                <div class="mission">
-                    <h2 id="about-heading">Om föreningen</h2>
-                    <p><strong>Föreningens syfte är att sprida kännedom om PHP-ramverket Laravel. Detta gör vi genom att anordna möten, konferenser, webbplatser och andra aktiviteter på internet.</strong></p>
-                    <p lang="en"><em>The association's purpose is to spread knowledge about the PHP framework Laravel. We do this by organizing meetings, conferences, websites and other activities on the internet.</em></p>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="community-heading">
-                <h2 id="community-heading">Community</h2>
-                <div class="community-links">
-                    <p>Gå med i vår community och håll dig uppdaterad med Laravel-utvecklingen i Sverige.</p>
-                    <a href="https://bit.ly/laravelse-slack" target="_blank" rel="noopener noreferrer" aria-label="Gå med i Laravel Sweden Slack kanal (öppnar i nytt fönster)">💬 Laravel Sweden Slack</a>
-                    <a href="https://www.linkedin.com/company/swedish-laravel-association/" target="_blank" rel="noopener noreferrer" aria-label="Besök Swedish Laravel Association på LinkedIn (öppnar i nytt fönster)">💼 LinkedIn</a>
-                    <a href="https://x.com/laravelsweden" target="_blank" rel="noopener noreferrer" aria-label="Följ Laravel Sweden på Twitter/X (öppnar i nytt fönster)">🐦 Twitter/X</a>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="events-heading">
-                <h2 id="events-heading">Kommande aktiviteter</h2>
-                <div class="community-links">
-                    <h3>📅 Laravel Meetup Norrköping</h3>
-                    <p><strong>Datum:</strong> <time datetime="2024-09-25">25 september 2024</time></p>
-                    <p><strong>Plats:</strong> Norrköping</p>
-                    <p>Mer information kommer snart!</p>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="board-heading">
-                <h2 id="board-heading">Styrelse</h2>
-                <div class="board-grid" role="list" aria-label="Styrelsemedlemmar">
-                    <div class="board-member" role="listitem">
-                        <div class="board-member-avatar">
-                            <img src="{{ asset('mikko.jpeg') }}" alt="Mikko Lauhakari">
-                        </div>
-                        <h3>Mikko Lauhakari</h3>
-                        <div class="title" aria-label="Roll">Ordförande</div>
-                        <div class="company" aria-label="Företag">Glesys AB</div>
-                    </div>
-                    <div class="board-member" role="listitem">
-                        <div class="board-member-avatar">
-                            <img src="{{ asset('tommie.jpeg') }}" alt="Tommie Lagerroos">
-                        </div>
-                        <h3>Tommie Lagerroos</h3>
-                        <div class="title" aria-label="Roll">Styrelseledamot</div>
-                        <div class="company" aria-label="Företag">Techlove</div>
-                    </div>
-                    <div class="board-member" role="listitem">
-                        <div class="board-member-avatar">
-                            <img src="{{ asset('isak.jpeg') }}" alt="Isak Berglind">
-                        </div>
-                        <h3>Isak Berglind</h3>
-                        <div class="title" aria-label="Roll">Sekreterare</div>
-                        <div class="company" aria-label="Företag">CampusBokhandel</div>
-                    </div>
-                    <div class="board-member" role="listitem">
-                        <div class="board-member-avatar">
-                            <img src="{{ asset('ola.jpeg') }}" alt="Ola Ebbesson">
-                        </div>
-                        <h3>Ola Ebbesson</h3>
-                        <div class="title" aria-label="Roll">Styrelseledamot</div>
-                        <div class="company" aria-label="Företag">Caesar Dev</div>
-                    </div>
-                    <div class="board-member" role="listitem">
-                        <div class="board-member-avatar">
-                            <img src="{{ asset('martin.jpeg') }}" alt="Martin Danielsson">
-                        </div>
-                        <h3>Martin Danielsson</h3>
-                        <div class="title" aria-label="Roll">Kassör</div>
-                        <div class="company" aria-label="Företag">ePark</div>
-                    </div>
-                    <div class="board-member" role="listitem">
-                        <div class="board-member-avatar">
-                            <img src="{{ asset('jonatan.jpeg') }}" alt="Jonatan Alvarsson">
-                        </div>
-                        <h3>Jonatan Alvarsson</h3>
-                        <div class="title" aria-label="Roll">Revisor</div>
-                        <div class="company" aria-label="Företag">JA Webb</div>
-                    </div>
-                    <div class="board-member" role="listitem">
-                        <div class="board-member-avatar">
-                            <img src="{{ asset('oliver.jpeg') }}" alt="Oliver Scase">
-                        </div>
-                        <h3>Oliver Scase</h3>
-                        <div class="title" aria-label="Roll">Suppleant</div>
-                        <div class="company" aria-label="Företag">Techlove</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="members-heading">
-                <h2 id="members-heading">Medlemmar & Partners</h2>
-                <div class="coming-soon">
-                    <h3>Kommer snart</h3>
-                    <p>Vi arbetar på att visa våra medlemmar och partners här. Håll utkik!</p>
-                    <p style="margin-top: 16px; font-size: 0.95rem;">
-                        Känner du till ett företag i Sverige som använder Laravel?
-                        <a href="https://forms.gle/6NPAM4EdPRqe2x9g9" target="_blank" rel="noopener noreferrer" style="color: #FF2D20; text-decoration: underline; font-weight: 600;" aria-label="Tipsa om Laravel företag i Sverige (öppnar Google formulär i nytt fönster)">Tipsa oss här →</a>
-                    </p>
-                </div>
-            </section>
-
-            <section class="section" aria-labelledby="contact-heading">
-                <h2 id="contact-heading">Kontakta oss</h2>
-                <div class="community-links">
-                    <p>Har du frågor eller vill du engagera dig i föreningen? Hör av dig till oss!</p>
-                    <p style="margin-bottom: 20px;">📧 <a href="mailto:hej@laravelsweden.org" aria-label="Skicka e-post till hej@laravelsweden.org">hej@laravelsweden.org</a></p>
-
-                    @if(session('success'))
-                        <div class="success-message" role="alert" aria-live="polite">
-                            <p>✅ {{ session('success') }}</p>
-                        </div>
-                    @endif
-
-                    @if($errors->any())
-                        <div class="error-message" role="alert" aria-live="polite">
-                            <ul>
-                                @foreach($errors->all() as $error)
-                                    <li>❌ {{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    @if(session('error'))
-                        <div class="error-message" role="alert" aria-live="polite">
-                            <p>❌ {{ session('error') }}</p>
-                        </div>
-                    @endif
-
-                    <form action="{{ route('contact') }}" method="POST" class="contact-form" aria-labelledby="contact-form-heading">
-                        @csrf
-                        <div class="form-group">
-                            <label for="name">Namn <span aria-label="Obligatoriskt fält">*</span></label>
-                            <input type="text" id="name" name="name" value="{{ old('name') }}" required aria-required="true">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">E-post <span aria-label="Obligatoriskt fält">*</span></label>
-                            <input type="email" id="email" name="email" value="{{ old('email') }}" required aria-required="true">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="company">Företag <span class="optional">(valfritt)</span></label>
-                            <input type="text" id="company" name="company" value="{{ old('company') }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Meddelande <span aria-label="Obligatoriskt fält">*</span></label>
-                            <textarea id="message" name="message" rows="5" required aria-required="true">{{ old('message') }}</textarea>
-                        </div>
-
-                        <button type="submit" aria-describedby="submit-help">Skicka meddelande</button>
-                        <div id="submit-help" class="sr-only">Skickar ditt meddelande till Swedish Laravel Association</div>
-                    </form>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <div class="footer-logo">
-                <img src="{{ asset('/square-logo.jpg') }}" alt="Laravel Sweden Logo">
+<main role="main" id="main-content">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Swedish Laravel Association</h1>
+            <p>Föreningens syfte är att sprida kännedom om PHP-ramverket Laravel genom möten, konferenser och andra aktiviteter på internet.</p>
+            <div class="hero-cta">
+                <a href="https://bit.ly/laravelse-slack" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                    Join Our Slack
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    Get In Touch
+                </a>
             </div>
-            <p>Swedish Laravel Association - Laravel Sweden</p>
         </div>
-    </footer>
+    </section>
+
+    <div class="main-content">
+        <section class="section" id="about">
+            <div class="section-header">
+                <h2 class="section-title">What We Do</h2>
+                <p class="section-subtitle">We spread knowledge about the Laravel PHP framework through meetings, conferences, websites and other online activities.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">🎓</div>
+                    <h3>Education & Learning</h3>
+                    <p>We organize workshops, talks, and educational events to help developers master Laravel and modern PHP development.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Community Building</h3>
+                    <p>Connecting Laravel developers across Sweden through our Slack community, meetups, and networking events.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Innovation</h3>
+                    <p>Supporting the growth of the Laravel ecosystem in Sweden by sharing best practices and promoting modern development techniques.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="community">
+            <div class="section-header">
+                <h2 class="section-title">Join Our Community</h2>
+                <p class="section-subtitle">Connect with Laravel developers across Sweden through our various community channels.</p>
+            </div>
+            <div class="community-grid">
+                <div class="community-card">
+                    <div class="community-icon">💬</div>
+                    <h4>Slack Community</h4>
+                    <p>Join our active Slack community for real-time discussions, help, and networking.</p>
+                    <a href="https://bit.ly/laravelse-slack" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        Join Slack
+                    </a>
+                </div>
+                <div class="community-card">
+                    <div class="community-icon">💼</div>
+                    <h4>LinkedIn</h4>
+                    <p>Follow us on LinkedIn for professional updates and industry news.</p>
+                    <a href="https://www.linkedin.com/company/swedish-laravel-association/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        Follow us
+                    </a>
+                </div>
+                <div class="community-card">
+                    <div class="community-icon">🐦</div>
+                    <h4>Twitter/X</h4>
+                    <p>Stay updated with the latest news and announcements from our community.</p>
+                    <a href="https://x.com/laravelsweden" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        Follow us
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="events">
+            <div class="section-header">
+                <h2 class="section-title">Upcoming Events</h2>
+                <p class="section-subtitle">Join us at our upcoming meetups and conferences across Sweden.</p>
+            </div>
+            <div class="event-list">
+                <div class="event-card">
+                    <span class="event-date">Sept 25, 2025</span>
+                    <h3 class="event-title">Laravel Meetup Norrköping</h3>
+                    <div class="event-location">
+                        <span>📍</span>
+                        <span>Åtta91, Sandgatan 11, Norrköping</span>
+                    </div>
+                    <p>Welcome to the first Laravel meetup in Östergötland and Norrköping! Join us for Laravel talks, networking with the community, and enjoy some refreshments and drinks.</p>
+                    <br>
+                    <p>Location: Åtta91 office, Sandgatan 11, Norrköping</p>
+                    <p>Date: September 25, 2025</p>
+                    <p>Time: 18:00-21:00 (networking starts at 17:30)</p>
+                    <p>Signup: To sign up for the event, please visit the event page on <a href="https://lu.ma/h65jwwlu">Luma</a>.</p>
+                    <br>
+                    <p>The venue is less than a 10-minute walk from Norrköping Central Station (1h 15min by train from Stockholm). Parking is available in the nearby parking garage and street parking in the area.</p>
+
+                    <h4 class="event-subtitle">Schedule</h4>
+                    <table class="event-schedule">
+                        <tbody>
+                        <tr>
+                            <td>17:30</td>
+                            <td>Welcome, snacks and drinks</td>
+                        </tr>
+                        <tr>
+                            <td>18:00</td>
+                            <td>Introduction</td>
+                        </tr>
+                        <tr>
+                            <td>18:05</td>
+                            <td>There and back again: Our Journey with Repositories in Laravel (Isak Berglind)</td>
+                        </tr>
+                        <tr>
+                            <td>18:30</td>
+                            <td>Dinner break</td>
+                        </tr>
+                        <tr>
+                            <td>19:00</td>
+                            <td>Agentic Coding with Claude Code (Peter Elmered) (preliminary subject)</td>
+                        </tr>
+                        <tr>
+                            <td>19:30</td>
+                            <td>Networking, followed by after-work drinks nearby for those interested</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="event-subtitle">Organizers</h4>
+                    <div class="event-organizers">
+                        <div class="organizer">
+                            <h5>Åtta91</h5>
+                            <p>We are a small team of 3 people with over 20 years of experience in website building and marketing to help businesses grow online.</p>
+                        </div>
+                        <div class="organizer">
+                            <h5>Oderland</h5>
+                            <p>This meetup is sponsored by Oderland - visit Oderland.se to learn more about their services for Laravel developers.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <span class="event-date">Oct 1, 2025</span>
+                    <h3 class="event-title">Laravel Meetup Stockholm</h3>
+                    <div class="event-location">
+                        <span>📍</span>
+                        <span>Kameo, Tegnérgatan 8, Stockholm</span>
+                    </div>
+                    <p>Welcome to the first Laravel Meetup of the year in Stockholm! Whether you are an experienced Laravel or PHP developer, or just starting out, this evening brings together developers, enthusiasts, and the curious for inspiration, knowledge sharing, and networking.</p>
+                    <br>
+                    <p>Join us to catch up on trends, hear engaging talks, and chat about code over snacks and drinks. The event is free, open to all, and whether you come alone or in a group, you are warmly welcome into the community.</p>
+                    <br>
+                    <p>Location: Kameo, Tegnérgatan 8, 113 58 Stockholm</p>
+                    <p>Date: Wednesday, October 1, 2025</p>
+                    <p>Time: 17:00-21:00 The main event wraps up around 19:45, after which we’ll continue at a nearby bar for those who wish.</p>
+                    <p>Signup: Open for anyone!</p>
+
+                    <h4 class="event-subtitle">Schedule</h4>
+                    <table class="event-schedule">
+                        <tbody>
+                        <tr>
+                            <td>17:00</td>
+                            <td>Doors open – mingle and get in the mood</td>
+                        </tr>
+                        <tr>
+                            <td>17:30</td>
+                            <td>Session 1: Presentations and inspiration</td>
+                        </tr>
+                        <tr>
+                            <td>18:15</td>
+                            <td>Break: Snacks and drinks</td>
+                        </tr>
+                        <tr>
+                            <td>18:45</td>
+                            <td>Session 2: More talks and closing</td>
+                        </tr>
+                        <tr>
+                            <td>19:45</td>
+                            <td>Afterparty at a nearby bar</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <p>The event is for anyone working with or interested in PHP and Laravel – no seniority required. We’ll provide snacks and drinks throughout the evening, and there are always chances to network with fellow developers.</p>
+                    <br>
+                    <p>The event is hosted by Techlove in collaboration with Kameo and is the first meetup supported by the newly launched Swedish Laravel Association. Many thanks also to Laravel for their collaboration and support for the community.</p>
+
+                    <h4 class="event-subtitle">Organizers</h4>
+                    <div class="event-organizers">
+                        <div class="organizer">
+                            <h5>Kameo</h5>
+                            <p>Investment platform using Laravel for secure and scalable systems</p>
+                        </div>
+                        <div class="organizer">
+                            <h5>Techlove</h5>
+                            <p>Supporting businesses with smart development and Laravel expertise</p>
+                        </div>
+                        <div class="organizer">
+                            <h5>Swedish Laravel Association</h5>
+                            <p>Community hub for Laravel developers in Sweden</p>
+                        </div>
+                    </div>
+                    <br>
+                    <p>Mark the date in your calendar and stay tuned for more information – we hope to see you on October 1 at Laravel Meetup Stockholm!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="board">
+            <div class="section-header">
+                <h2 class="section-title">Board Members</h2>
+                <p class="section-subtitle">Meet the team behind Swedish Laravel Association.</p>
+            </div>
+            <div class="board-grid">
+                <div class="board-card">
+                    <div class="board-avatar"><img src="{{ asset('mikko.jpeg') }}" alt="Mikko Lauhakari"></div>
+                    <div class="board-name">Mikko Lauhakari</div>
+                    <div class="board-role">Ordförande</div>
+                    <div class="board-company">Glesys AB</div>
+                </div>
+                <div class="board-card">
+                    <div class="board-avatar"><img src="{{ asset('isak.jpeg') }}" alt="Isak Berglind"></div>
+                    <div class="board-name">Isak Berglind</div>
+                    <div class="board-role">Sekreterare</div>
+                    <div class="board-company">CampusBokhandel</div>
+                </div>
+                <div class="board-card">
+                    <div class="board-avatar"><img src="{{ asset('martin.jpeg') }}" alt="Martin Danielsson"></div>
+                    <div class="board-name">Martin Danielsson</div>
+                    <div class="board-role">Kassör</div>
+                    <div class="board-company">ePark</div>
+                </div>
+                <div class="board-card">
+                    <div class="board-avatar"><img src="{{ asset('tommie.jpeg') }}" alt="Tommie Lagerroos"></div>
+                    <div class="board-name">Tommie Lagerroos</div>
+                    <div class="board-role">Styrelseledamot</div>
+                    <div class="board-company">Techlove</div>
+                </div>
+                <div class="board-card">
+                    <div class="board-avatar"><img src="{{ asset('ola.jpeg') }}" alt="Ola Ebbesson"></div>
+                    <div class="board-name">Ola Ebbesson</div>
+                    <div class="board-role">Styrelseledamot</div>
+                    <div class="board-company">Caesar Dev</div>
+                </div>
+                <div class="board-card">
+                    <div class="board-avatar"><img src="{{ asset('jonatan.jpeg') }}" alt="Jonatan Alvarsson"></div>
+                    <div class="board-name">Jonatan Alvarsson</div>
+                    <div class="board-role">Revisor</div>
+                    <div class="board-company">JA Webb</div>
+                </div>
+                <div class="board-card">
+                    <div class="board-avatar"><img src="{{ asset('oliver.jpeg') }}" alt="Oliver Scase"></div>
+                    <div class="board-name">Oliver Scase</div>
+                    <div class="board-role">Suppleant</div>
+                    <div class="board-company">Techlove</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Have questions or want to get involved? We'd love to hear from you.</p>
+            </div>
+            <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+                <div class="card-icon" style="margin: 0 auto var(--spacing-4);">📧</div>
+                <h3>Contact Us</h3>
+                <p>For questions, partnership opportunities, or if you want to get involved with the association.</p>
+                <a href="mailto:hej@laravelsweden.org" class="btn btn-primary">
+                    Send us an email
+                </a>
+                <div style="margin-top: var(--spacing-6); padding-top: var(--spacing-6); border-top: 1px solid var(--gray-200);">
+                    <h4 style="margin-bottom: var(--spacing-3);">Know a Swedish Laravel Company?</h4>
+                    <p style="font-size: 0.875rem; margin-bottom: var(--spacing-4);">Help us build a comprehensive directory of Laravel companies in Sweden.</p>
+                    <a href="https://forms.gle/6NPAM4EdPRqe2x9g9" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+                        Submit Company
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="footer" role="contentinfo">
+    <div class="footer-content">
+        <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden" class="footer-logo">
+        <p>Swedish Laravel Association - Laravel Sweden</p>
+        <p>Spreading knowledge about Laravel across Sweden</p>
+        <p><a href="mailto:hej@laravelsweden.org">hej@laravelsweden.org</a></p>
+    </div>
+</footer>
 </body>
 </html>
