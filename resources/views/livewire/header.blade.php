@@ -8,8 +8,10 @@
             
             <!-- Mobile menu button -->
             <button class="mobile-menu-button" wire:click="toggleMobileMenu" aria-label="Toggle menu">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
                 </svg>
             </button>
             
@@ -23,7 +25,7 @@
         </div>
         
         <!-- Mobile navigation -->
-        <nav class="mobile-nav" x-data x-show="$wire.mobileMenuOpen" x-transition.opacity x-cloak>
+        <nav class="mobile-nav" style="display: {{ $mobileMenuOpen ? 'block' : 'none' }}">
             <div class="mobile-nav-container">
                 <a href="#community" wire:click="toggleMobileMenu">Community</a>
                 <a href="#events" wire:click="toggleMobileMenu">Events</a>
@@ -39,12 +41,21 @@
         }
         
         .mobile-menu-button {
-            display: none;
+            display: none; /* Hidden by default */
             background: none;
             border: none;
             color: var(--gray-800);
             cursor: pointer;
             padding: 0.5rem;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mobile-menu-button svg {
+            width: 24px;
+            height: 24px;
         }
         
         .mobile-nav {
@@ -53,8 +64,8 @@
             top: 100%;
             left: 0;
             right: 0;
-            background-color: white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background: white;
+            box-shadow: var(--shadow-md);
             z-index: 50;
         }
         
@@ -65,9 +76,9 @@
         }
         
         .mobile-nav a {
-            padding: 0.75rem 1rem;
-            color: var(--gray-800);
+            color: var(--gray-700);
             text-decoration: none;
+            padding: 0.75rem 1rem;
             border-bottom: 1px solid var(--gray-200);
         }
         
@@ -75,8 +86,8 @@
             border-bottom: none;
         }
         
-        [x-cloak] {
-            display: none !important;
+        .mobile-nav a:hover {
+            background: var(--gray-100);
         }
         
         @media (max-width: 768px) {
@@ -85,11 +96,7 @@
             }
             
             .mobile-menu-button {
-                display: block;
-            }
-            
-            .mobile-nav {
-                display: block;
+                display: flex; /* Only show on mobile */
             }
         }
     </style>

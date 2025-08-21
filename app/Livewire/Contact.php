@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Mail\ContactFormSubmission;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
@@ -34,11 +35,10 @@ class Contact extends Component
     {
         $this->validate();
 
-        // In a real application, you would send an email here
-        // Mail::to('hello@laravelsweden.org')->send(new \App\Mail\ContactFormSubmission($this->name, $this->email, $this->message));
+        Mail::to('hello@laravelsweden.org')->send(new ContactFormSubmission($this->name, $this->email, $this->message));
 
+        // Show success message
         $this->showSuccessMessage = true;
-        $this->reset(['name', 'email', 'message']);
     }
 
     public function render()
