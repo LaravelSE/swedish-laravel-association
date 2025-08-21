@@ -12,6 +12,11 @@ Route::get('/welcome2', function () {
     return redirect()->route('home');
 })->name('welcome2');
 
+Route::get('/{city}', function () {
+    return redirect()->route('home');
+})->whereIn('city', ['stockholm', 'malmo', 'gothenburg', 'gbg', 'sthlm', 'norrkoping'])
+    ->name('events');
+
 Route::post('/contact', function () {
     $validated = request()->validate([
         'name' => 'required|string|max:255',
