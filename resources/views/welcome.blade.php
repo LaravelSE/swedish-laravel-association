@@ -775,15 +775,15 @@
                     <div class="event-organizers">
                         <div class="organizer">
                             <h5>Kameo</h5>
-                            <p>Investment platform using Laravel for secure and scalable systems</p>
+                            <p>Kameo is an investment platform that enables both private individuals and institutional investors to invest in secured loans for real estate projects in Scandinavia. They use Laravel to build stable and reliable systems that meet high demands for security and scalability.</p>
                         </div>
                         <div class="organizer">
                             <h5>Techlove</h5>
-                            <p>Supporting businesses with smart development and Laravel expertise</p>
+                            <p>Techlove supports businesses all the way from prototype to full-scale business systems, focusing on smart development, business value, and an active developer community around Laravel and PHP.</p>
                         </div>
                         <div class="organizer">
                             <h5>Swedish Laravel Association</h5>
-                            <p>Community hub for Laravel developers in Sweden</p>
+                            <p>Swedish Laravel Association is an organization and community hub for anyone in Sweden building with Laravel, focusing on knowledge sharing, networking, and strengthening the community.</p>
                         </div>
                     </div>
                     <br>

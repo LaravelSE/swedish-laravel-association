@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -27,14 +27,14 @@ Nytt meddelande från kontaktformuläret på Swedish Laravel Association
 
 Namn: {$validated['name']}
 E-post: {$validated['email']}
-Företag: " . ($validated['company'] ?? 'Inget angivet') . "
+Företag: ".($validated['company'] ?? 'Inget angivet')."
 
 Meddelande:
 {$validated['message']}
         ", function ($message) use ($validated) {
             $message->to('hej@laravelsweden.org')
-                    ->subject('Kontaktformulär - Swedish Laravel Association')
-                    ->replyTo($validated['email'], $validated['name']);
+                ->subject('Kontaktformulär - Swedish Laravel Association')
+                ->replyTo($validated['email'], $validated['name']);
         });
 
         return back()->with('success', 'Tack för ditt meddelande! Vi kommer att höra av oss så snart som möjligt.');
