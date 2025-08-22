@@ -724,6 +724,17 @@
                             <p>This meetup is sponsored by Oderland - visit Oderland.se to learn more about their services for Laravel developers.</p>
                         </div>
                     </div>
+                    <br>
+                    <a
+                        href="https://lu.ma/event/evt-HA56UTb2tSc6T9t"
+                        class="luma-checkout--button"
+                        data-luma-action="checkout"
+                        data-luma-event-id="evt-HA56UTb2tSc6T9t"
+                    >
+                        Register for Event
+                    </a>
+
+                    <script id="luma-checkout" src="https://embed.lu.ma/checkout-button.js"></script>
                 </div>
                 <div class="event-card">
                     <span class="event-date">Oct 1, 2025</span>
