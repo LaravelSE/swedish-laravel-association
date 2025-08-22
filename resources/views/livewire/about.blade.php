@@ -95,7 +95,7 @@
                 <div class="community-icon">💬</div>
                 <h4>Slack Community</h4>
                 <p>Join our active Slack community for real-time discussions, help, and networking.</p>
-                <a href="https://bit.ly/laravelse-slack" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                <a href="https://join.slack.com/t/laravel-sweden/shared_invite/zt-3c8n148lc-nWo_0tO9cNtU~CJJR9nNUg" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
                     Join Slack
                 </a>
             </div>
