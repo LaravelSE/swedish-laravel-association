@@ -862,7 +862,7 @@
                 <div class="card-icon" style="margin: 0 auto var(--spacing-4);">📧</div>
                 <h3>Contact Us</h3>
                 <p>For questions, partnership opportunities, or if you want to get involved with the association.</p>
-                <a href="mailto:hej@laravelsweden.org" class="btn btn-primary">
+                <a href="mailto:hello@laravelsweden.org" class="btn btn-primary">
                     Send us an email
                 </a>
                 <div style="margin-top: var(--spacing-6); padding-top: var(--spacing-6); border-top: 1px solid var(--gray-200);">
@@ -882,7 +882,7 @@
         <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden" class="footer-logo">
         <p>Swedish Laravel Association - Laravel Sweden</p>
         <p>Spreading knowledge about Laravel across Sweden</p>
-        <p><a href="mailto:hej@laravelsweden.org">hej@laravelsweden.org</a></p>
+        <p><a href="mailto:hello@laravelsweden.org">hello@laravelsweden.org</a></p>
     </div>
 </footer>
 </body>

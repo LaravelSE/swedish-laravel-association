@@ -37,14 +37,14 @@ Företag: ".($validated['company'] ?? 'Inget angivet')."
 Meddelande:
 {$validated['message']}
         ", function ($message) use ($validated) {
-            $message->to('hej@laravelsweden.org')
+            $message->to('hello@laravelsweden.org')
                 ->subject('Kontaktformulär - Swedish Laravel Association')
                 ->replyTo($validated['email'], $validated['name']);
         });
 
         return back()->with('success', 'Tack för ditt meddelande! Vi kommer att höra av oss så snart som möjligt.');
     } catch (\Exception $e) {
-        return back()->with('error', 'Något gick fel när meddelandet skulle skickas. Prova igen senare eller skicka ett e-postmeddelande direkt till hej@laravelsweden.org');
+        return back()->with('error', 'Något gick fel när meddelandet skulle skickas. Prova igen senare eller skicka ett e-postmeddelande direkt till hello@laravelsweden.org');
     }
 })->name('contact');
 
