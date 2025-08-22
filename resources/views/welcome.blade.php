@@ -788,6 +788,16 @@
                     </div>
                     <br>
                     <p>Mark the date in your calendar and stay tuned for more information – we hope to see you on October 1 at Laravel Meetup Stockholm!</p>
+                    <a
+                        href="https://lu.ma/event/evt-mJSCEaPwHBjNNmJ"
+                        class="luma-checkout--button"
+                        data-luma-action="checkout"
+                        data-luma-event-id="evt-mJSCEaPwHBjNNmJ"
+                    >
+                        Anmäl dig till evenemang
+                    </a>
+
+                    <script id="luma-checkout" src="https://embed.lu.ma/checkout-button.js"></script>
                 </div>
             </div>
         </section>
