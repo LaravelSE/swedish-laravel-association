@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Mail;
+use App\Livewire\EditProfile;
+use App\Livewire\Member;
+use App\Livewire\Subscription\Checkout;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use Laravel\Cashier\Http\Controllers\WebhookController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,40 +20,33 @@ Route::get('/{city}', function () {
 })->whereIn('city', ['stockholm', 'malmo', 'gothenburg', 'gbg', 'sthlm', 'norrkoping'])
     ->name('events');
 
-Route::post('/contact', function () {
-    $validated = request()->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'company' => 'nullable|string|max:255',
-        'message' => 'required|string|max:2000',
-    ]);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('member', Member::class)
+        ->name('member');
 
-    // Send email using Laravel's Mail facade
-    try {
-        Mail::raw("
-Nytt meddelande från kontaktformuläret på Swedish Laravel Association
+    Route::get('member/edit', EditProfile::class)
+        ->name('member.edit');
 
-Namn: {$validated['name']}
-E-post: {$validated['email']}
-Företag: ".($validated['company'] ?? 'Inget angivet')."
+    // Subscription routes - only register if subscriptions are enabled
+    if (config('stripe.features.subscriptions')) {
+        // Subscription Checkout
+        Route::get('member/subscription/checkout', Checkout::class)
+            ->name('subscription.checkout');
 
-Meddelande:
-{$validated['message']}
-        ", function ($message) use ($validated) {
-            $message->to('hello@laravelsweden.org')
-                ->subject('Kontaktformulär - Swedish Laravel Association')
-                ->replyTo($validated['email'], $validated['name']);
-        });
+        // Stripe Customer Portal
+        Route::get('member/billing', function (Request $request) {
+            return $request->user()->redirectToBillingPortal(route('member'));
+        })->name('member.billing');
 
-        return back()->with('success', 'Tack för ditt meddelande! Vi kommer att höra av oss så snart som möjligt.');
-    } catch (\Exception $e) {
-        return back()->with('error', 'Något gick fel när meddelandet skulle skickas. Prova igen senare eller skicka ett e-postmeddelande direkt till hello@laravelsweden.org');
+        // Stripe Webhook
+        Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook'])
+            ->name('cashier.webhook');
     }
-})->name('contact');
+});
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-require __DIR__.'/settings.php';
+// require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
+
+Route::fallback(function () {
+    return view('404');
+});
