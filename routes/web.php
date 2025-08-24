@@ -2,7 +2,10 @@
 
 use App\Livewire\EditProfile;
 use App\Livewire\Member;
+use App\Livewire\Subscription\Checkout;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Cashier\Http\Controllers\WebhookController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,13 +20,33 @@ Route::get('/{city}', function () {
 })->whereIn('city', ['stockholm', 'malmo', 'gothenburg', 'gbg', 'sthlm', 'norrkoping'])
     ->name('events');
 
-Route::get('member', Member::class)
-    ->middleware(['auth', 'verified'])
-    ->name('member');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('member', Member::class)
+        ->name('member');
 
-Route::get('member/edit', EditProfile::class)
-    ->middleware(['auth', 'verified'])
-    ->name('member.edit');
+    Route::get('member/edit', EditProfile::class)
+        ->name('member.edit');
+
+    // Subscription routes - only register if subscriptions are enabled
+    if (config('stripe.features.subscriptions')) {
+        // Subscription Checkout
+        Route::get('member/subscription/checkout', Checkout::class)
+            ->name('subscription.checkout');
+
+        // Stripe Customer Portal
+        Route::get('member/billing', function (Request $request) {
+            return $request->user()->redirectToBillingPortal(route('member'));
+        })->name('member.billing');
+
+        // Stripe Webhook
+        Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook'])
+            ->name('cashier.webhook');
+    }
+});
 
 // require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
+
+Route::fallback(function () {
+    return view('404');
+});

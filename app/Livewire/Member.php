@@ -21,6 +21,7 @@ class Member extends Component
     {
         return view('livewire.member', [
             'user' => Auth::user(),
+            'subscriptionsEnabled' => config('stripe.features.subscriptions'),
         ])->layout('components.layouts.app', ['title' => 'Member Area - Swedish Laravel Association']);
     }
 }
