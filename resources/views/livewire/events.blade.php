@@ -9,32 +9,32 @@
             <div class="event-list">
                 @foreach($upcomingEvents as $event)
                     <div class="event-card">
-                        <div class="event-header" wire:click="toggleEvent({{ $event['id'] }})">
+                        <div class="event-header" wire:click="toggleEvent({{ $event->id }})">
                             <div class="event-date-badge">
-                                <span class="event-month">{{ Carbon\Carbon::parse($event['datetime'])->format('M') }}</span>
-                                <span class="event-day">{{ Carbon\Carbon::parse($event['datetime'])->format('d') }}</span>
+                                <span class="event-month">{{ $event->starts_at->format('M') }}</span>
+                                <span class="event-day">{{ $event->starts_at->format('d') }}</span>
                             </div>
                             <div class="event-info">
-                                <h3 class="event-title">{{ $event['title'] }}</h3>
+                                <h3 class="event-title">{{ $event->title }}</h3>
                                 <div class="event-meta-container">
                                     <div class="event-meta-item">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
                                             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
                                         </svg>
-                                        <span>{{ Carbon\Carbon::parse($event['datetime'])->format('H:i') }}</span>
+                                        <span>{{ $event->starts_at->format('H:i') }}</span>
                                     </div>
                                     <div class="event-meta-item">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                                         </svg>
-                                        <span>{{ $event['location'] }}</span>
+                                        <span>{{ $event->location }}</span>
                                     </div>
                                 </div>
-                                <p class="event-description">{{ $event['description'] }}</p>
+                                <p class="event-description">{!! $event->teaser !!}</p>
                                 <div class="toggle-button">
                                     <button class="btn btn-sm btn-outline">
-                                        {{ $this->isExpanded($event['id']) ? 'Show less' : 'Show more' }}
+                                        {{ $this->isExpanded($event->id) ? 'Show less' : 'Show more' }}
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="{{ $this->isExpanded($event['id']) ? 'rotate-180' : '' }}">
                                             <path d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
                                         </svg>
@@ -43,17 +43,14 @@
                             </div>
                         </div>
 
-                        @if($this->isExpanded($event['id']))
+                        @if($this->isExpanded($event->id))
                             <div class="event-details">
                                 <br>
-                                @foreach($event['details'] as $detail)
-                                    <p>{!! $detail !!}</p>
-                                @endforeach
-
+                                <p>{!! $event->description !!}</p>
                                 <h4 class="event-subtitle">Schedule</h4>
                                 <table class="event-schedule">
                                     <tbody>
-                                        @foreach($event['schedule'] as $item)
+                                        @foreach($event->schedule as $item)
                                             <tr>
                                                 <td>{{ $item['time'] }}</td>
                                                 <td>{{ $item['activity'] }}</td>
@@ -62,20 +59,15 @@
                                     </tbody>
                                 </table>
 
-                                @foreach($event['footer'] as $footer)
-                                    <p>{!! $footer !!}</p>
-                                    @if(!$loop->last)
-                                        <br>
-                                    @endif
-                                @endforeach
+                                {!! $event->footer !!}
 
-                                @if(isset($event['organizers']))
+                                @if($event->organisers->isNotEmpty())
                                     <h4 class="event-subtitle">Organizers</h4>
                                     <div class="event-organizers">
-                                        @foreach($event['organizers'] as $organizer)
+                                        @foreach($event->organisers as $organizer)
                                             <div class="organizer">
-                                                <h5>{{ $organizer['name'] }}</h5>
-                                                <p>{{ $organizer['description'] }}</p>
+                                                <h5>{{ $organizer->name }}</h5>
+                                                <p>{{ $organizer->description }}</p>
                                             </div>
                                         @endforeach
                                     </div>
