@@ -26,47 +26,31 @@
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
     @livewireStyles
+    @vite('resources/css/app.css')
 
     <style>
         :root {
-            --laravel-red: #FF2D20;
-            --laravel-red-dark: #dc2626;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --spacing-1: 0.25rem;
-            --spacing-2: 0.5rem;
-            --spacing-3: 0.75rem;
-            --spacing-4: 1rem;
-            --spacing-5: 1.25rem;
-            --spacing-6: 1.5rem;
-            --spacing-8: 2rem;
-            --spacing-12: 3rem;
-            --spacing-16: 4rem;
-            --spacing-20: 5rem;
-            --spacing-24: 6rem;
-            --border-radius-sm: 0.375rem;
-            --border-radius: 0.5rem;
-            --border-radius-lg: 0.75rem;
-            --border-radius-xl: 1rem;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: bold;
         }
 
         body {
