@@ -34,9 +34,9 @@ class Events extends Component
                 'schedule' => [
                     ['time' => '17:30', 'activity' => 'Welcome, snacks and drinks'],
                     ['time' => '18:00', 'activity' => 'Introduction'],
-                    ['time' => '18:05', 'activity' => 'There and back again: Our Journey with Repositories in Laravel (Isak Berglind)'],
+                    ['time' => '18:05', 'activity' => 'It\'s all about the action (Isak Berglind)'],
                     ['time' => '18:30', 'activity' => 'Dinner break'],
-                    ['time' => '19:00', 'activity' => 'Agentic Coding with Claude Code (Peter Elmered) (preliminary subject)'],
+                    ['time' => '19:00', 'activity' => 'Agentic Coding with Claude Code (Peter Elmered)'],
                     ['time' => '19:30', 'activity' => 'Networking, followed by after-work drinks nearby for those interested'],
                 ],
                 'footer' => [
