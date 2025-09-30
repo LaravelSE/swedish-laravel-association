@@ -95,6 +95,45 @@ class Events extends Component
                 ],
                 'closing' => 'Mark the date in your calendar and stay tuned for more information – we hope to see you on October 1 at Laravel Meetup Stockholm!',
             ],
+            [
+                'id' => 3,
+                'title' => 'Laravel Meetup Malmö',
+                'date' => 'Oct 1, 2025',
+                'datetime' => Carbon::parse('2025-10-01 17:00:00', 'Europe/Stockholm'),
+                'location' => 'Caesar Development, Lilla Nygatan 5, Malmö',
+                'link' => 'https://luma.com/42mpp7bc',
+                'description' => 'Welcome to the first Laravel Meetup of the year in Malmö! Whether you are an experienced Laravel or PHP developer, or just starting out, this evening brings together developers, enthusiasts, and the curious for inspiration, knowledge sharing, and networking.',
+                'details' => [
+                    'Join us to catch up on trends, hear engaging talks, and chat about code over snacks and drinks. The event is free, open to all, and whether you come alone or in a group, you are warmly welcome into the community.',
+                    'Location: Caesar Development, Lilla Nygatan 5, 211 38 Malmö',
+                    'Date: Wednesday, October 1, 2025',
+                    'Doors open at 17:00, first session starts at 17:30. The main event wraps up around 19:45, after which we\'ll continue at a nearby bar for those who wish.',
+                ],
+                'schedule' => [
+                    ['time' => '17:00', 'activity' => 'Doors open – mingle and get in the mood'],
+                    ['time' => '17:30', 'activity' => 'Session 1: Presentations and inspiration'],
+                    ['time' => '18:20', 'activity' => 'Message from Taylor'],
+                    ['time' => '18:25', 'activity' => 'Break: Snacks and drinks'],
+                    ['time' => '18:50', 'activity' => 'Session 2'],
+                    ['time' => '19:00', 'activity' => 'Session 2'],
+                    ['time' => '19:30', 'activity' => 'Afterparty at a nearby bar'],
+                ],
+                'footer' => [
+                    'The event is for anyone working with or interested in PHP and Laravel – no seniority required. We\'ll provide snacks and drinks throughout the evening, and there are always chances to network with fellow developers.',
+                    'The event is hosted by Caesar and is the first meetup supported by the newly launched Swedish Laravel Association. Many thanks also to Laravel for their collaboration and support for the community.',
+                ],
+                'organizers' => [
+                    [
+                        'name' => 'Caesar',
+                        'description' => 'Caesar works with strategy, design and programming and helps your company develop value-creating digital services, websites and applications.',
+                    ],
+                    [
+                        'name' => 'Swedish Laravel Association',
+                        'description' => 'Community hub for Laravel developers in Sweden',
+                    ],
+                ],
+                'closing' => 'Mark the date in your calendar and stay tuned for more information – we hope to see you on October 1 at Laravel Meetup Malmö!',
+            ],
         ];
 
         $this->sortEvents();

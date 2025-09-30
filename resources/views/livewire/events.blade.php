@@ -4,7 +4,6 @@
             <h2 class="section-title">Upcoming Events</h2>
             <p class="section-subtitle">Join us at our upcoming meetups and conferences across Sweden.</p>
         </div>
-
         @if(count($upcomingEvents) > 0)
             <div class="event-list">
                 @foreach($upcomingEvents as $event)
@@ -39,6 +38,9 @@
                                             <path d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
                                         </svg>
                                     </button>
+                                    @if(array_key_exists('link', $event))
+                                    <a href="{{ $event['link'] }}" class="btn btn-big btn-outline">Sign Up</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -273,6 +275,7 @@
             display: flex;
             justify-content: flex-start;
             margin-top: 0.5rem;
+            gap: 1rem;
         }
 
         .btn-outline {
@@ -286,6 +289,11 @@
 
         .btn-sm {
             padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-big{
+            padding: 0.5rem 1rem;
             font-size: 0.875rem;
         }
 
