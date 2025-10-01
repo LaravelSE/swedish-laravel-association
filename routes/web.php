@@ -20,6 +20,11 @@ Route::get('/{city}', function () {
 })->whereIn('city', ['stockholm', 'malmo', 'gothenburg', 'gbg', 'sthlm', 'norrkoping'])
     ->name('events');
 
+if (config('stripe.features.subscriptions')) {
+    Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook'])
+        ->name('cashier.webhook');
+}
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('member', Member::class)
         ->name('member');
@@ -37,10 +42,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('member/billing', function (Request $request) {
             return $request->user()->redirectToBillingPortal(route('member'));
         })->name('member.billing');
-
-        // Stripe Webhook
-        Route::post('stripe/webhook', [WebhookController::class, 'handleWebhook'])
-            ->name('cashier.webhook');
     }
 });
 
