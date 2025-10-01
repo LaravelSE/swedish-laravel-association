@@ -61,6 +61,7 @@ class Events extends Component
                 'date' => 'Oct 1, 2025',
                 'datetime' => Carbon::parse('2025-10-01 17:00:00', 'Europe/Stockholm'),
                 'location' => 'Kameo, Tegnérgatan 8, Stockholm',
+                'link' => 'https://luma.com/omskto61',
                 'description' => 'Welcome to the first Laravel Meetup of the year in Stockholm! Whether you are an experienced Laravel or PHP developer, or just starting out, this evening brings together developers, enthusiasts, and the curious for inspiration, knowledge sharing, and networking.',
                 'details' => [
                     'Join us to catch up on trends, hear engaging talks, and chat about code over snacks and drinks. The event is free, open to all, and whether you come alone or in a group, you are warmly welcome into the community.',

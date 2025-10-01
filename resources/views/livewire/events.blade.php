@@ -39,7 +39,7 @@
                                         </svg>
                                     </button>
                                     @if(array_key_exists('link', $event))
-                                    <a href="{{ $event['link'] }}" class="btn btn-big btn-outline">Sign Up</a>
+                                    <a href="{{ $event['link'] }}" class="btn btn-big btn-outline" wire:click.stop>Sign Up</a>
                                     @endif
                                 </div>
                             </div>
