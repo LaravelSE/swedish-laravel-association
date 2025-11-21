@@ -2,6 +2,7 @@
 
 use App\Livewire\EditProfile;
 use App\Livewire\Member;
+use App\Livewire\SubmitTalk;
 use App\Livewire\Subscription\Checkout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,9 @@ use Laravel\Cashier\Http\Controllers\WebhookController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/submit-talk', SubmitTalk::class)
+    ->name('submit-talk');
 
 Route::get('/welcome2', function () {
     return redirect()->route('home');
