@@ -1,10 +1,10 @@
 <div>
     <header class="header" role="banner">
         <div class="header-content">
-            <div class="logo">
+            <a href="{{ route('home') }}" class="logo logo-link">
                 <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden" class="logo-image">
                 <span class="logo-text">Laravel Sweden</span>
-            </div>
+            </a>
 
             <!-- Mobile menu button -->
             <button class="mobile-menu-button" wire:click="toggleMobileMenu" aria-label="Toggle menu">
@@ -103,6 +103,10 @@
         .logo {
             display: flex;
             align-items: center;
+        }
+
+        .logo-link {
+            text-decoration: none;
         }
 
         .logo-image {

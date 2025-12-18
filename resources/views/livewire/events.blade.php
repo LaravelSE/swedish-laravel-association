@@ -3,6 +3,7 @@
         <div class="section-header">
             <h2 class="section-title">Upcoming Events</h2>
             <p class="section-subtitle">Join us at our upcoming meetups and conferences across Sweden.</p>
+            <p class="section-subtitle">Want to speak at an upcoming meetup? <a href="{{ route('submit-talk') }}" class="btn btn-thin btn-primary">Submit a talk!</a></p>
         </div>
         @if(count($upcomingEvents) > 0)
             <div class="event-list">
@@ -288,13 +289,18 @@
         }
 
         .btn-sm {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
+            padding: .25rem .5rem;
+            font-size: .875rem;
+        }
+
+        .btn-thin {
+            padding: .5rem .75rem;
+            font-size: .875rem;
         }
 
         .btn-big{
             padding: 0.5rem 1rem;
-            font-size: 0.875rem;
+            font-size: .875rem;
         }
 
         .rotate-180 {
