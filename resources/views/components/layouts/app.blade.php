@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#FF2D20">
     <title>{{ $title }}</title>
     <meta name="description" content="Föreningens syfte är att sprida kännedom om PHP-ramverket Laravel genom möten, konferenser och andra aktiviteter.">
 
@@ -24,10 +25,11 @@
 
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
 
     @livewireStyles
 
-    <style>
+    <style media="print" onload="this.media='all'">
         :root {
             --laravel-red: #FF2D20;
             --laravel-red-dark: #dc2626;

@@ -2,7 +2,7 @@
     <header class="header" role="banner">
         <div class="header-content">
             <a href="{{ route('home') }}" class="logo logo-link">
-                <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden" class="logo-image">
+                <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden" class="logo-image" width="40" height="40" fetchpriority="high">
                 <span class="logo-text">Laravel Sweden</span>
             </a>
 

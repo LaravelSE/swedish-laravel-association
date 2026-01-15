@@ -1,7 +1,7 @@
 <div>
     <footer class="footer" role="contentinfo">
         <div class="footer-content">
-            <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden" class="footer-logo">
+            <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden" class="footer-logo" width="48" height="48" loading="lazy">
             <p>Swedish Laravel Association - Laravel Sweden</p>
             <p>Spreading knowledge about Laravel across Sweden</p>
             <p><a href="mailto:hello@laravelsweden.org">hello@laravelsweden.org</a></p>
