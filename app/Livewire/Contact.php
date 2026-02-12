@@ -10,7 +10,7 @@ class Contact extends Component
 {
     public string $name = '';
 
-    public string $email = '';
+    public string|array $email = '';
 
     public string $message = '';
 
@@ -30,6 +30,14 @@ class Contact extends Component
         'message.required' => 'Please enter your message.',
         'message.min' => 'Your message should be at least 10 characters.',
     ];
+
+    public function updatedEmail($value): void
+    {
+        // Defensive: ensure email is always a string, not an array
+        if (is_array($value)) {
+            $this->email = $value[0] ?? '';
+        }
+    }
 
     public function submitForm()
     {
