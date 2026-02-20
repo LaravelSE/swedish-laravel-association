@@ -67,4 +67,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Company::class);
     }
+
+    /**
+     * Get the talks submitted by the user.
+     */
+    public function talks(): HasMany
+    {
+        return $this->hasMany(Talk::class);
+    }
 }

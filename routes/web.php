@@ -9,6 +9,7 @@ use App\Livewire\Admin\EventForm;
 use App\Livewire\Admin\EventList;
 use App\Livewire\Admin\TalkList;
 use App\Livewire\Admin\TalkReview;
+use App\Livewire\Admin\UserDetail;
 use App\Livewire\Admin\UserList;
 use App\Livewire\CompaniesListing;
 use App\Livewire\EditProfile;
@@ -94,6 +95,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('users', UserList::class)
         ->name('admin.users');
+
+    Route::get('users/{user}', UserDetail::class)
+        ->name('admin.users.show');
 
     Route::get('board-members', BoardMemberList::class)
         ->name('admin.board-members');

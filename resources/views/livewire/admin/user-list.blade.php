@@ -48,7 +48,9 @@
                         <tbody>
                             @foreach($users as $user)
                                 <tr wire:key="user-{{ $user->id }}">
-                                    <td class="user-name">{{ $user->name }}</td>
+                                    <td class="user-name">
+                                        <a href="{{ route('admin.users.show', $user) }}" class="user-name-link">{{ $user->name }}</a>
+                                    </td>
                                     <td>{{ $user->email }}</td>
                                     <td>
                                         @if($user->isAdmin())
@@ -169,6 +171,13 @@
             font-weight: 600;
             color: var(--gray-900);
         }
+
+        .user-name-link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .user-name-link:hover { text-decoration: underline; color: #FF2D20; }
 
         .role-badge {
             display: inline-block;
