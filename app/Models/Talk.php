@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +11,8 @@ class Talk extends Model
 {
     /** @use HasFactory<\Database\Factories\TalkFactory> */
     use HasFactory;
+
+    public const STATUSES = ['pending', 'interested', 'scheduled', 'done', 'rejected'];
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +53,30 @@ class Talk extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopePending(Builder $query): Builder
+    {
+        return $query->where('status', 'pending');
+    }
+
+    public function scopeInterested(Builder $query): Builder
+    {
+        return $query->where('status', 'interested');
+    }
+
+    public function scopeScheduled(Builder $query): Builder
+    {
+        return $query->where('status', 'scheduled');
+    }
+
+    public function scopeDone(Builder $query): Builder
+    {
+        return $query->where('status', 'done');
+    }
+
+    public function scopeRejected(Builder $query): Builder
+    {
+        return $query->where('status', 'rejected');
     }
 }

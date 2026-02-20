@@ -15,16 +15,16 @@
 
         <div class="dashboard-grid" style="max-width: 1000px; margin: 0 auto;">
             <a href="{{ route('admin.companies') }}?status=pending" class="stat-card stat-card-pending">
-                <span class="stat-number">{{ $pendingCount }}</span>
-                <span class="stat-label">Pending</span>
+                <span class="stat-number">{{ $pendingCompaniesCount }}</span>
+                <span class="stat-label">Pending Companies</span>
             </a>
             <a href="{{ route('admin.companies') }}?status=approved" class="stat-card stat-card-approved">
                 <span class="stat-number">{{ $approvedCount }}</span>
                 <span class="stat-label">Approved Companies</span>
             </a>
-            <a href="{{ route('admin.companies') }}?status=rejected" class="stat-card stat-card-rejected">
-                <span class="stat-number">{{ $rejectedCount }}</span>
-                <span class="stat-label">Rejected</span>
+            <a href="{{ route('admin.talks') }}?status=pending" class="stat-card stat-card-talks">
+                <span class="stat-number">{{ $pendingTalksCount }}</span>
+                <span class="stat-label">Pending Talks</span>
             </a>
             <a href="{{ route('admin.users') }}" class="stat-card stat-card-users">
                 <span class="stat-number">{{ $totalUsers }}</span>
@@ -32,10 +32,10 @@
             </a>
         </div>
 
-        @if($recentPending->isNotEmpty())
+        @if($recentPendingCompanies->isNotEmpty())
             <div class="card" style="max-width: 1000px; margin: 1.5rem auto 0;">
                 <div class="pending-header">
-                    <h3 class="pending-title">Needs review</h3>
+                    <h3 class="pending-title">Companies: needs review</h3>
                     <a href="{{ route('admin.companies') }}" class="view-all-link">View all &rarr;</a>
                 </div>
                 <div class="companies-table-wrapper">
@@ -50,14 +50,49 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($recentPending as $company)
-                                <tr wire:key="pending-{{ $company->id }}">
+                            @foreach($recentPendingCompanies as $company)
+                                <tr wire:key="pending-company-{{ $company->id }}">
                                     <td class="company-name">{{ $company->name }}</td>
                                     <td>{{ $company->city }}</td>
                                     <td>{{ $company->user->name }}</td>
                                     <td>{{ $company->created_at->format('Y-m-d') }}</td>
                                     <td>
                                         <a href="{{ route('admin.companies.review', $company) }}" class="review-link">Review</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
+
+        @if($recentPendingTalks->isNotEmpty())
+            <div class="card" style="max-width: 1000px; margin: 1.5rem auto 0;">
+                <div class="pending-header">
+                    <h3 class="pending-title">Talks: needs review</h3>
+                    <a href="{{ route('admin.talks') }}" class="view-all-link">View all &rarr;</a>
+                </div>
+                <div class="companies-table-wrapper">
+                    <table class="companies-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Speaker</th>
+                                <th>Cities</th>
+                                <th>Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($recentPendingTalks as $talk)
+                                <tr wire:key="pending-talk-{{ $talk->id }}">
+                                    <td class="company-name">{{ $talk->title }}</td>
+                                    <td>{{ $talk->user->name }}</td>
+                                    <td>{{ implode(', ', $talk->cities) }}</td>
+                                    <td>{{ $talk->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.talks.review', $talk) }}" class="review-link">Review</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -130,6 +165,11 @@
         .stat-card-rejected {
             background-color: #f8d7da;
             color: #721c24;
+        }
+
+        .stat-card-talks {
+            background-color: #fce8ff;
+            color: #7c3aed;
         }
 
         .stat-card-users {

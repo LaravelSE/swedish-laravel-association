@@ -38,6 +38,33 @@ class TalkFactory extends Factory
             'facebook' => fake()->optional()->url(),
             'instagram' => fake()->optional()->url(),
             'notes' => fake()->optional()->paragraph(),
+            'status' => 'pending',
+            'admin_notes' => null,
         ];
+    }
+
+    public function pending(): static
+    {
+        return $this->state(fn (array $attributes) => ['status' => 'pending']);
+    }
+
+    public function interested(): static
+    {
+        return $this->state(fn (array $attributes) => ['status' => 'interested']);
+    }
+
+    public function scheduled(): static
+    {
+        return $this->state(fn (array $attributes) => ['status' => 'scheduled']);
+    }
+
+    public function done(): static
+    {
+        return $this->state(fn (array $attributes) => ['status' => 'done']);
+    }
+
+    public function rejected(): static
+    {
+        return $this->state(fn (array $attributes) => ['status' => 'rejected']);
     }
 }

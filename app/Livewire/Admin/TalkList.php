@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Livewire\Admin;
+
+use App\Models\Talk;
+use Livewire\Attributes\Url;
+use Livewire\Component;
+
+class TalkList extends Component
+{
+    #[Url(as: 'status')]
+    public string $statusFilter = '';
+
+    public function render()
+    {
+        $query = Talk::query()
+            ->with('user')
+            ->orderByRaw("CASE WHEN status = 'pending' THEN 0 WHEN status = 'interested' THEN 1 WHEN status = 'scheduled' THEN 2 WHEN status = 'done' THEN 3 ELSE 4 END")
+            ->latest();
+
+        if ($this->statusFilter) {
+            $query->where('status', $this->statusFilter);
+        }
+
+        return view('livewire.admin.talk-list', [
+            'talks' => $query->get(),
+        ])->layout('components.layouts.app', ['title' => 'Admin: Talks - Swedish Laravel Association']);
+    }
+}

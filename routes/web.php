@@ -3,6 +3,8 @@
 use App\Livewire\Admin\CompanyList;
 use App\Livewire\Admin\CompanyReview;
 use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\TalkList;
+use App\Livewire\Admin\TalkReview;
 use App\Livewire\Admin\UserList;
 use App\Livewire\CompaniesListing;
 use App\Livewire\EditProfile;
@@ -70,6 +72,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('companies/{company}', CompanyReview::class)
         ->name('admin.companies.review');
+
+    Route::get('talks', TalkList::class)
+        ->name('admin.talks');
+
+    Route::get('talks/{talk}', TalkReview::class)
+        ->name('admin.talks.review');
 
     Route::get('users', UserList::class)
         ->name('admin.users');
