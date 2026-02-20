@@ -1,31 +1,33 @@
 <div class="page-container">
     @livewire('header')
 
-    <section class="section main-content" style="padding-top: 2rem;">
+    <section class="section main-content" style="padding-top: var(--spacing-12);">
         <div class="section-header">
             <h2 class="section-title">Submit a Company</h2>
             <p class="section-subtitle">Know a company using Laravel in Sweden? Submit it to our directory!</p>
         </div>
 
         @if($submitted)
-            <div class="card success-card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <div class="success-card">
                 <div class="success-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
                     </svg>
                 </div>
                 <h3>Thank you for your submission!</h3>
                 <p>We'll review the company listing and publish it once approved.</p>
-                <a href="{{ route('companies') }}" class="btn btn-primary" style="margin-top: 1.5rem;">View Companies</a>
+                <a href="{{ route('companies') }}" class="btn btn-primary" style="margin-top: var(--spacing-6);">View Companies</a>
             </div>
         @else
-            <div class="card" style="max-width: 700px; margin: 0 auto;">
-                <form wire:submit.prevent="submit" class="submit-company-form">
+            <div class="form-card">
+                <form wire:submit.prevent="submit" class="submit-form">
                     @if(!$isLoggedIn)
                         <div class="form-section">
-                            <h3 class="form-section-title">Create Account</h3>
-                            <p class="form-section-description">Create an account to submit a company. Already have an account? <a href="{{ route('login') }}">Log in</a></p>
+                            <div class="form-section-header">
+                                <h3 class="form-section-title">Create Account</h3>
+                                <p class="form-section-description">Create an account to submit a company. Already have an account? <a href="{{ route('login') }}">Log in</a></p>
+                            </div>
 
                             <div class="form-group">
                                 <label for="name">Name <span class="required">*</span></label>
@@ -65,7 +67,9 @@
                     @endif
 
                     <div class="form-section">
-                        <h3 class="form-section-title">Company Details</h3>
+                        <div class="form-section-header">
+                            <h3 class="form-section-title">Company Details</h3>
+                        </div>
 
                         <div class="form-group">
                             <label for="companyName">Company Name <span class="required">*</span></label>
@@ -120,7 +124,9 @@
                     </div>
 
                     <div class="form-section">
-                        <h3 class="form-section-title">Contact Information (optional)</h3>
+                        <div class="form-section-header">
+                            <h3 class="form-section-title">Contact Information (optional)</h3>
+                        </div>
 
                         <div class="form-row">
                             <div class="form-group">
@@ -144,11 +150,13 @@
                     </div>
 
                     <div class="form-section">
-                        <h3 class="form-section-title">Logo & Social Links (optional)</h3>
+                        <div class="form-section-header">
+                            <h3 class="form-section-title">Logo & Social Links (optional)</h3>
+                        </div>
 
                         <div class="form-group">
                             <label for="logo">Company Logo</label>
-                            <input type="file" id="logo" wire:model="logo" class="form-control @error('logo') is-invalid @enderror" accept="image/*">
+                            <input type="file" id="logo" wire:model="logo" class="form-control form-control-file @error('logo') is-invalid @enderror" accept="image/*">
                             @error('logo') <div class="error-message">{{ $message }}</div> @enderror
                             <div wire:loading wire:target="logo" class="upload-loading">Uploading...</div>
                         </div>
@@ -175,7 +183,9 @@
                     </div>
 
                     <div class="form-section">
-                        <h3 class="form-section-title">How do you know about this company? <span class="required">*</span></h3>
+                        <div class="form-section-header">
+                            <h3 class="form-section-title">How do you know about this company? <span class="required">*</span></h3>
+                        </div>
 
                         <div class="form-group">
                             <label for="submitterRelationship">Relationship</label>
@@ -195,7 +205,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group" style="text-align: center; margin-top: 2rem;">
+                    <div class="form-submit-row">
                         <button type="submit" class="btn btn-primary btn-lg" wire:loading.attr="disabled">
                             <span wire:loading.remove>Submit Company</span>
                             <span wire:loading>Submitting...</span>
@@ -219,14 +229,24 @@
             flex: 1;
         }
 
-        .submit-company-form {
-            margin: 2rem 0;
+        .form-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius-2xl);
+            padding: var(--spacing-10);
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .submit-form {
+            display: flex;
+            flex-direction: column;
         }
 
         .form-section {
-            margin-bottom: 2.5rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: var(--spacing-8);
+            padding-bottom: var(--spacing-8);
+            border-bottom: 1px solid var(--gray-100);
         }
 
         .form-section:last-of-type {
@@ -235,53 +255,87 @@
             padding-bottom: 0;
         }
 
+        .form-section-header {
+            margin-bottom: var(--spacing-6);
+        }
+
         .form-section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-size: 1.0625rem;
+            font-weight: 700;
             color: var(--gray-900);
+            letter-spacing: -0.02em;
         }
 
         .form-section-description {
-            color: var(--gray-600);
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
+            color: var(--gray-500);
+            margin-top: var(--spacing-2);
+            font-size: 0.9375rem;
+        }
+
+        .form-section-description a {
+            color: var(--gray-900);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .form-section-description a:hover {
+            text-decoration: underline;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: var(--spacing-5);
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: var(--spacing-5);
         }
 
         @media (max-width: 600px) {
             .form-row {
                 grid-template-columns: 1fr;
             }
+
+            .form-card {
+                padding: var(--spacing-6);
+            }
+
+            .form-group[style*="max-width"] {
+                max-width: 100% !important;
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: var(--spacing-2);
+            font-weight: 600;
+            font-size: 0.8125rem;
+            color: var(--gray-700);
         }
 
         .form-control {
             display: block;
             width: 100%;
-            padding: 0.75rem;
-            font-size: 1rem;
+            padding: 0.625rem 0.875rem;
+            font-size: 0.9375rem;
+            font-family: inherit;
             line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            color: var(--gray-900);
+            background-color: white;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius-lg);
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .form-control::placeholder {
+            color: var(--gray-400);
         }
 
         .form-control:focus {
-            border-color: #FF2D20;
+            border-color: var(--gray-900);
             outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(255, 45, 32, 0.25);
+            box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.08);
         }
 
         select.form-control {
@@ -293,67 +347,86 @@
             min-height: 100px;
         }
 
+        .form-control-file {
+            padding: 0.5rem;
+            font-size: 0.875rem;
+        }
+
         .is-invalid {
-            border-color: #dc3545;
+            border-color: #ef4444;
+        }
+
+        .is-invalid:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
         }
 
         .error-message {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
+            color: #ef4444;
+            font-size: 0.8125rem;
+            margin-top: var(--spacing-1);
         }
 
         .required {
-            color: #dc3545;
+            color: #ef4444;
         }
 
         .logged-in-notice {
-            background-color: var(--gray-100);
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            margin-bottom: 2rem;
+            background-color: var(--gray-50);
+            padding: var(--spacing-4) var(--spacing-5);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-8);
+            border: 1px solid var(--gray-100);
         }
 
         .logged-in-notice p {
             margin: 0;
-            color: var(--gray-700);
+            color: var(--gray-600);
+            font-size: 0.9375rem;
         }
 
         .btn-lg {
-            padding: 0.875rem 2rem;
-            font-size: 1.1rem;
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+        }
+
+        .form-submit-row {
+            text-align: center;
+            margin-top: var(--spacing-8);
         }
 
         .success-card {
-            padding: 3rem 2rem;
+            max-width: 520px;
+            margin: 0 auto;
+            text-align: center;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius-2xl);
+            padding: var(--spacing-12) var(--spacing-8);
         }
 
         .success-icon {
-            color: #28a745;
-            margin-bottom: 1.5rem;
+            color: #16a34a;
+            margin-bottom: var(--spacing-6);
         }
 
         .success-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-3);
             color: var(--gray-900);
+            letter-spacing: -0.02em;
         }
 
         .success-card p {
-            color: var(--gray-600);
-            font-size: 1.1rem;
+            color: var(--gray-500);
+            font-size: 1.0625rem;
         }
 
         .upload-loading {
-            color: var(--gray-600);
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
+            color: var(--gray-500);
+            font-size: 0.8125rem;
+            margin-top: var(--spacing-2);
         }
     </style>
 </div>

@@ -1,16 +1,18 @@
 <div class="page-container">
     <livewire:header />
 
-    <section class="section main-content" style="padding-top: 2rem;">
+    <section class="section main-content" style="padding-top: var(--spacing-12);">
         <div class="section-header">
             <h2 class="section-title">Edit Profile</h2>
             <p class="section-subtitle">Update your profile information</p>
         </div>
 
-        <div class="card" style="max-width: 800px; margin: 0 auto;">
-            <div class="edit-profile">
-                <form wire:submit.prevent="save">
-                    <h3>Profile Information</h3>
+        <div class="form-card">
+            <form wire:submit.prevent="save" class="edit-form">
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <h3 class="form-section-title">Profile Information</h3>
+                    </div>
 
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -41,13 +43,13 @@
                         <input type="text" id="company" wire:model="company" class="form-control @error('company') is-invalid @enderror">
                         @error('company') <div class="error-message">{{ $message }}</div> @enderror
                     </div>
+                </div>
 
-                    <div class="section-divider"></div>
-
-                    <div class="password-section">
-                        <h3>Password</h3>
-                        <button type="button" class="btn btn-secondary" wire:click="toggleChangePassword">
-                            {{ $change_password ? 'Cancel Password Change' : 'Change Password' }}
+                <div class="form-section">
+                    <div class="password-section-header">
+                        <h3 class="form-section-title">Password</h3>
+                        <button type="button" class="btn btn-secondary btn-sm-toggle" wire:click="toggleChangePassword">
+                            {{ $change_password ? 'Cancel' : 'Change Password' }}
                         </button>
                     </div>
 
@@ -69,15 +71,13 @@
                             <input type="password" id="password_confirmation" wire:model="password_confirmation" class="form-control">
                         </div>
                     @endif
+                </div>
 
-                    <div class="section-divider"></div>
-
-                    <div class="form-actions">
-                        <a href="{{ route('member') }}" class="btn btn-secondary">Back</a>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
-            </div>
+                <div class="form-actions">
+                    <a href="{{ route('member') }}" class="btn btn-secondary">Back</a>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
         </div>
     </section>
 
@@ -94,125 +94,144 @@
             flex: 1;
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 2rem;
+        .form-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius-2xl);
+            padding: var(--spacing-10);
+            max-width: 640px;
+            margin: 0 auto;
         }
 
-        .section-title {
-            font-size: 2rem;
+        .edit-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-section {
+            margin-bottom: var(--spacing-8);
+            padding-bottom: var(--spacing-8);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .form-section-header {
+            margin-bottom: var(--spacing-6);
+        }
+
+        .form-section-title {
+            font-size: 1.0625rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            color: var(--gray-900);
+            letter-spacing: -0.02em;
         }
 
-        .section-subtitle {
-            font-size: 1.125rem;
-            color: var(--gray-600);
-        }
-
-        .card {
-            min-width: 600px;
-        }
-
-        .edit-profile {
-            padding: 2rem;
-        }
-
-        .edit-profile h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--laravel-red);
-            box-shadow: 0 0 0 3px rgba(255, 45, 32, 0.2);
-        }
-
-        .is-invalid {
-            border-color: #dc2626;
-        }
-
-        .error-message {
-            color: #dc2626;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-        }
-
-        .section-divider {
-            height: 1px;
-            background-color: var(--gray-200);
-            margin: 2rem 0;
-        }
-
-        .password-section {
+        .password-section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: var(--spacing-5);
+        }
+
+        .btn-sm-toggle {
+            padding: 0.375rem 0.875rem;
+            font-size: 0.8125rem;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-5);
+        }
+
+        label {
+            display: block;
+            margin-bottom: var(--spacing-2);
+            font-weight: 600;
+            font-size: 0.8125rem;
+            color: var(--gray-700);
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            font-size: 0.9375rem;
+            font-family: inherit;
+            line-height: 1.5;
+            color: var(--gray-900);
+            background-color: white;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius-lg);
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .form-control:focus {
+            border-color: var(--gray-900);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.08);
+        }
+
+        .is-invalid {
+            border-color: #ef4444;
+        }
+
+        .is-invalid:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.8125rem;
+            margin-top: var(--spacing-1);
         }
 
         .form-actions {
-            margin-top: 2rem;
             display: flex;
-            gap: 1rem;
+            gap: var(--spacing-3);
             justify-content: flex-end;
+            padding-top: var(--spacing-4);
         }
 
         .btn {
-            padding: 0.75rem 1.5rem;
+            padding: 0.625rem 1.25rem;
             border: none;
-            border-radius: 0.5rem;
-            font-weight: 500;
+            border-radius: var(--border-radius-lg);
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all var(--transition-fast);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.875rem;
         }
 
         .btn-primary {
-            background-color: var(--laravel-red);
+            background-color: var(--gray-900);
             color: white;
         }
 
         .btn-primary:hover {
-            background-color: var(--laravel-red-dark);
+            background-color: var(--gray-800);
         }
 
         .btn-secondary {
-            background-color: var(--gray-200);
+            background-color: white;
             color: var(--gray-700);
+            border: 1px solid var(--gray-300);
         }
 
         .btn-secondary:hover {
-            background-color: var(--gray-300);
+            background-color: var(--gray-50);
+            border-color: var(--gray-400);
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .card {
-                min-width: auto;
+            .form-card {
+                padding: var(--spacing-6);
             }
         }
     </style>

@@ -3,7 +3,9 @@
         <div class="section-header">
             <h2 class="section-title">Upcoming Events</h2>
             <p class="section-subtitle">Join us at our upcoming meetups and conferences across Sweden.</p>
-            <p class="section-subtitle">Want to speak at an upcoming meetup? <a href="{{ route('submit-talk') }}" class="btn btn-thin btn-primary">Submit a talk!</a></p>
+            <div class="section-cta">
+                <a href="{{ route('submit-talk') }}" class="btn btn-accent btn-sm-cta">Submit a talk</a>
+            </div>
         </div>
         @if($upcomingEvents->isNotEmpty())
             <div class="event-list">
@@ -18,29 +20,22 @@
                                 <h3 class="event-title">{{ $event->title }}</h3>
                                 <div class="event-meta-container">
                                     <div class="event-meta-item">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                                         <span>{{ $event->datetime->format('H:i') }}</span>
                                     </div>
                                     <div class="event-meta-item">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                                         <span>{{ $event->location }}</span>
                                     </div>
                                 </div>
                                 <p class="event-description">{{ $event->description }}</p>
-                                <div class="toggle-button">
-                                    <button class="btn btn-sm btn-outline">
+                                <div class="event-actions">
+                                    <button class="event-toggle-btn">
                                         {{ $this->isExpanded($event->id) ? 'Show less' : 'Show more' }}
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="{{ $this->isExpanded($event->id) ? 'rotate-180' : '' }}">
-                                            <path d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="{{ $this->isExpanded($event->id) ? 'rotate-180' : '' }}"><path d="m6 9 6 6 6-6"/></svg>
                                     </button>
                                     @if($event->link)
-                                    <a href="{{ $event->link }}" class="btn btn-big btn-outline" wire:click.stop>Sign Up</a>
+                                    <a href="{{ $event->link }}" class="btn btn-accent btn-event-signup" wire:click.stop>Sign Up</a>
                                     @endif
                                 </div>
                             </div>
@@ -48,7 +43,6 @@
 
                         @if($this->isExpanded($event->id))
                             <div class="event-details">
-                                <br>
                                 @foreach($event->details as $detail)
                                     <p>{!! $detail !!}</p>
                                 @endforeach
@@ -58,7 +52,7 @@
                                     <tbody>
                                         @foreach($event->schedule as $item)
                                             <tr>
-                                                <td>{{ $item['time'] }}</td>
+                                                <td class="schedule-time">{{ $item['time'] }}</td>
                                                 <td>{{ $item['activity'] }}</td>
                                             </tr>
                                         @endforeach
@@ -82,11 +76,10 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <br>
                                 @endif
 
                                 @if($event->closing)
-                                    <p>{{ $event->closing }}</p>
+                                    <p class="event-closing">{{ $event->closing }}</p>
                                 @endif
                             </div>
                         @endif
@@ -106,7 +99,7 @@
                 <h2 class="section-title">Past Events</h2>
                 <p class="section-subtitle">Catch up on our previous meetups and conferences.</p>
             </div>
-            <div class="event-list past-events">
+            <div class="event-list">
                 @foreach($pastEvents as $event)
                     <div class="event-card past-event">
                         <div class="event-header" wire:click="toggleEvent({{ $event->id }})">
@@ -118,26 +111,19 @@
                                 <h3 class="event-title">{{ $event->title }}</h3>
                                 <div class="event-meta-container">
                                     <div class="event-meta-item">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                                         <span>{{ $event->datetime->format('H:i') }}</span>
                                     </div>
                                     <div class="event-meta-item">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                                         <span>{{ $event->location }}</span>
                                     </div>
                                 </div>
                                 <p class="event-description">{{ $event->description }}</p>
-                                <div class="toggle-button">
-                                    <button class="btn btn-sm btn-outline">
+                                <div class="event-actions">
+                                    <button class="event-toggle-btn">
                                         {{ $this->isExpanded($event->id) ? 'Show less' : 'Show more' }}
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="{{ $this->isExpanded($event->id) ? 'rotate-180' : '' }}">
-                                            <path d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="{{ $this->isExpanded($event->id) ? 'rotate-180' : '' }}"><path d="m6 9 6 6 6-6"/></svg>
                                     </button>
                                 </div>
                             </div>
@@ -145,7 +131,6 @@
 
                         @if($this->isExpanded($event->id))
                             <div class="event-details">
-                                <br>
                                 @foreach($event->details as $detail)
                                     <p>{!! $detail !!}</p>
                                 @endforeach
@@ -155,7 +140,7 @@
                                     <tbody>
                                         @foreach($event->schedule as $item)
                                             <tr>
-                                                <td>{{ $item['time'] }}</td>
+                                                <td class="schedule-time">{{ $item['time'] }}</td>
                                                 <td>{{ $item['activity'] }}</td>
                                             </tr>
                                         @endforeach
@@ -179,11 +164,10 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <br>
                                 @endif
 
                                 @if($event->closing)
-                                    <p>{{ $event->closing }}</p>
+                                    <p class="event-closing">{{ $event->closing }}</p>
                                 @endif
                             </div>
                         @endif
@@ -194,17 +178,41 @@
     @endif
 
     <style>
+        .section-cta {
+            margin-top: var(--spacing-6);
+        }
+
+        .btn-sm-cta {
+            padding: 0.5rem 1.125rem;
+            font-size: 0.8125rem;
+        }
+
+        .event-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-4);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            transition: border-color var(--transition-base);
+        }
+
+        .event-card:hover {
+            border-color: var(--gray-300);
+        }
+
         .event-header {
             cursor: pointer;
             display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            border-radius: var(--border-radius);
+            gap: var(--spacing-5);
+            padding: var(--spacing-6);
             align-items: flex-start;
-        }
-
-        .event-header:hover {
-            background-color: rgba(255, 45, 32, 0.03);
         }
 
         .event-date-badge {
@@ -212,115 +220,217 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-width: 60px;
-            height: 60px;
-            background-color: var(--laravel-red);
+            min-width: 56px;
+            height: 56px;
+            background: var(--gray-950);
             color: white;
-            border-radius: 8px;
+            border-radius: 12px;
             text-align: center;
-            margin-top: 3px;
+            flex-shrink: 0;
         }
 
         .event-date-badge.past {
-            background-color: var(--gray-500);
+            background: var(--gray-400);
         }
 
         .event-month {
-            font-size: 0.8rem;
+            font-size: 0.6875rem;
             text-transform: uppercase;
             font-weight: 600;
+            letter-spacing: 0.05em;
+            opacity: 0.8;
         }
 
         .event-day {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.375rem;
+            font-weight: 800;
             line-height: 1;
+            letter-spacing: -0.02em;
         }
 
         .event-info {
             flex: 1;
-            display: flex;
-            flex-direction: column;
+            min-width: 0;
         }
 
         .event-title {
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-2);
+            letter-spacing: -0.02em;
+            line-height: 1.3;
         }
 
         .event-meta-container {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--gray-600);
-            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-3);
         }
 
         .event-meta-item {
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: var(--spacing-1);
+            color: var(--gray-500);
+            font-size: 0.8125rem;
         }
 
         .event-meta-item svg {
             flex-shrink: 0;
+            color: var(--gray-400);
         }
 
         .event-description {
-            margin-bottom: 0.5rem;
+            color: var(--gray-600);
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            margin-bottom: var(--spacing-3);
         }
 
-        .toggle-button {
-            display: flex;
-            justify-content: flex-start;
-            margin-top: 0.5rem;
-            gap: 1rem;
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--laravel-red);
-            color: var(--laravel-red);
+        .event-actions {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: var(--spacing-3);
+            margin-top: var(--spacing-2);
         }
 
-        .btn-sm {
-            padding: .25rem .5rem;
-            font-size: .875rem;
+        .event-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-1);
+            background: none;
+            border: none;
+            color: var(--gray-500);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0;
+            transition: color var(--transition-fast);
         }
 
-        .btn-thin {
-            padding: .5rem .75rem;
-            font-size: .875rem;
+        .event-toggle-btn:hover {
+            color: var(--gray-900);
         }
 
-        .btn-big{
-            padding: 0.5rem 1rem;
-            font-size: .875rem;
+        .btn-event-signup {
+            padding: 0.375rem 1rem;
+            font-size: 0.8125rem;
         }
 
         .rotate-180 {
             transform: rotate(180deg);
         }
 
-        .past-events {
-            opacity: 0.8;
+        .event-details {
+            padding: 0 var(--spacing-6) var(--spacing-6);
+            margin-left: calc(56px + var(--spacing-5));
+            border-top: 1px solid var(--gray-100);
+            padding-top: var(--spacing-5);
         }
 
-        .past-event .event-title {
+        .event-details p {
+            color: var(--gray-600);
+            line-height: 1.7;
+            font-size: 0.9375rem;
+            margin-bottom: var(--spacing-3);
+        }
+
+        .event-details a {
+            color: var(--laravel-red);
+            text-decoration: none;
+        }
+
+        .event-details a:hover {
+            text-decoration: underline;
+        }
+
+        .event-subtitle {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin: var(--spacing-6) 0 var(--spacing-3);
+            letter-spacing: -0.01em;
+        }
+
+        .event-schedule {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .event-schedule td {
+            padding: var(--spacing-2) var(--spacing-3);
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .schedule-time {
+            font-weight: 600;
             color: var(--gray-700);
+            white-space: nowrap;
+            width: 80px;
+        }
+
+        .event-organizers {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .organizer h5 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-1);
+        }
+
+        .organizer p {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .event-closing {
+            font-style: italic;
+            margin-top: var(--spacing-4);
+        }
+
+        .past-event {
+            opacity: 0.7;
+        }
+
+        .past-event:hover {
+            opacity: 1;
         }
 
         .no-events {
             text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-sm);
+            padding: var(--spacing-12) var(--spacing-6);
+            background: var(--gray-50);
+            border-radius: var(--border-radius-xl);
+            border: 1px solid var(--gray-100);
+            color: var(--gray-500);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 640px) {
+            .event-header {
+                flex-direction: column;
+                gap: var(--spacing-4);
+            }
+
+            .event-details {
+                margin-left: 0;
+            }
+
+            .event-meta-container {
+                flex-direction: column;
+                gap: var(--spacing-2);
+            }
         }
     </style>
     <script id="luma-checkout" src="https://embed.lu.ma/checkout-button.js"></script>
