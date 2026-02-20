@@ -1,7 +1,13 @@
 <?php
 
+use App\Livewire\Admin\CompanyList;
+use App\Livewire\Admin\CompanyReview;
+use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\UserList;
+use App\Livewire\CompaniesListing;
 use App\Livewire\EditProfile;
 use App\Livewire\Member;
+use App\Livewire\SubmitCompany;
 use App\Livewire\SubmitTalk;
 use App\Livewire\Subscription\Checkout;
 use Illuminate\Http\Request;
@@ -14,6 +20,12 @@ Route::get('/', function () {
 
 Route::get('/submit-talk', SubmitTalk::class)
     ->name('submit-talk');
+
+Route::get('/companies', CompaniesListing::class)
+    ->name('companies');
+
+Route::get('/submit-company', SubmitCompany::class)
+    ->name('submit-company');
 
 Route::get('/welcome2', function () {
     return redirect()->route('home');
@@ -47,6 +59,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
             return $request->user()->redirectToBillingPortal(route('member'));
         })->name('member.billing');
     }
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('dashboard', Dashboard::class)
+        ->name('admin.dashboard');
+
+    Route::get('companies', CompanyList::class)
+        ->name('admin.companies');
+
+    Route::get('companies/{company}', CompanyReview::class)
+        ->name('admin.companies.review');
+
+    Route::get('users', UserList::class)
+        ->name('admin.users');
 });
 
 // require __DIR__.'/settings.php';

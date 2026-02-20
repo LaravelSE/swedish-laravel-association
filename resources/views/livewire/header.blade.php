@@ -19,10 +19,14 @@
             <nav class="nav-links desktop-nav">
                 <a href="{{ route('home') }}#community">Community</a>
                 <a href="{{ route('home') }}#events">Events</a>
+                <a href="{{ route('companies') }}">Companies</a>
                 <a href="{{ route('home') }}#board">Board</a>
                 <a href="{{ route('home') }}#contact">Contact</a>
                 @auth
                     <a href="{{ route('member') }}">Member</a>
+                    @if(auth()->user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}">Admin</a>
+                    @endif
                 @else
                     <a href="{{ route('register') }}">Register</a>
                 @endauth
@@ -34,10 +38,14 @@
             <div class="mobile-nav-container">
                 <a href="{{ route('home') }}#community" wire:click="toggleMobileMenu">Community</a>
                 <a href="{{ route('home') }}#events" wire:click="toggleMobileMenu">Events</a>
+                <a href="{{ route('companies') }}" wire:click="toggleMobileMenu">Companies</a>
                 <a href="{{ route('home') }}#board" wire:click="toggleMobileMenu">Board</a>
                 <a href="{{ route('home') }}#contact" wire:click="toggleMobileMenu">Contact</a>
                 @auth
                     <a href="{{ route('member') }}" wire:click="toggleMobileMenu">Member</a>
+                    @if(auth()->user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" wire:click="toggleMobileMenu">Admin</a>
+                    @endif
                 @else
                     <a href="{{ route('register') }}" wire:click="toggleMobileMenu">Register</a>
                 @endauth
