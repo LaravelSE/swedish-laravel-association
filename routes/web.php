@@ -3,6 +3,8 @@
 use App\Livewire\Admin\CompanyList;
 use App\Livewire\Admin\CompanyReview;
 use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\EventForm;
+use App\Livewire\Admin\EventList;
 use App\Livewire\Admin\TalkList;
 use App\Livewire\Admin\TalkReview;
 use App\Livewire\Admin\UserList;
@@ -72,6 +74,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('companies/{company}', CompanyReview::class)
         ->name('admin.companies.review');
+
+    Route::get('events', EventList::class)
+        ->name('admin.events');
+
+    Route::get('events/create', EventForm::class)
+        ->name('admin.events.create');
+
+    Route::get('events/{event}/edit', EventForm::class)
+        ->name('admin.events.edit');
 
     Route::get('talks', TalkList::class)
         ->name('admin.talks');
