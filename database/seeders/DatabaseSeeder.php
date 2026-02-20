@@ -20,6 +20,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
+        User::factory()->admin()->create([
+            'name' => 'Test Admin',
+            'email' => 'admin@example.com',
+        ]);
+
         $this->call([
             EventSeeder::class,
             BoardMemberSeeder::class,
