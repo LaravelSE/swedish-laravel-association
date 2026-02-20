@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Admin\BoardMemberForm;
+use App\Livewire\Admin\BoardMemberList;
 use App\Livewire\Admin\CompanyList;
 use App\Livewire\Admin\CompanyReview;
 use App\Livewire\Admin\Dashboard;
@@ -92,6 +94,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('users', UserList::class)
         ->name('admin.users');
+
+    Route::get('board-members', BoardMemberList::class)
+        ->name('admin.board-members');
+
+    Route::get('board-members/create', BoardMemberForm::class)
+        ->name('admin.board-members.create');
+
+    Route::get('board-members/{boardMember}/edit', BoardMemberForm::class)
+        ->name('admin.board-members.edit');
 });
 
 // require __DIR__.'/settings.php';

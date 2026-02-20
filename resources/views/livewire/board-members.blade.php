@@ -7,10 +7,10 @@
         <div class="board-grid">
             @foreach($boardMembers as $member)
                 <div class="board-card">
-                    <div class="board-avatar"><img src="{{ asset($member['image']) }}" alt="{{ $member['name'] }}" width="120" height="120" loading="lazy"></div>
-                    <div class="board-name">{{ $member['name'] }}</div>
-                    <div class="board-role">{{ $member['role'] }}</div>
-                    <div class="board-company">{{ $member['company'] }}</div>
+                    <div class="board-avatar"><img src="{{ $member->imageUrl() }}" alt="{{ $member->name }}" width="120" height="120" loading="lazy"></div>
+                    <div class="board-name">{{ $member->name }}</div>
+                    <div class="board-role">{{ $member->role }}</div>
+                    <div class="board-company">{{ $member->company }}</div>
                 </div>
             @endforeach
         </div>

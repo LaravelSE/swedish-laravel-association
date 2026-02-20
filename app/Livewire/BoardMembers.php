@@ -2,61 +2,20 @@
 
 namespace App\Livewire;
 
+use App\Models\BoardMember;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class BoardMembers extends Component
 {
-    public array $boardMembers = [];
+    public Collection $boardMembers;
 
-    public function mount()
+    public function mount(): void
     {
-        $this->boardMembers = [
-            [
-                'name' => 'Mikko Lauhakari',
-                'role' => 'Ordförande',
-                'company' => 'Glesys AB',
-                'image' => 'mikko.jpeg',
-            ],
-            [
-                'name' => 'Isak Berglind',
-                'role' => 'Sekreterare',
-                'company' => 'CampusBokhandel',
-                'image' => 'isak.jpeg',
-            ],
-            [
-                'name' => 'Martin Danielsson',
-                'role' => 'Kassör',
-                'company' => 'ePark',
-                'image' => 'martin.jpeg',
-            ],
-            [
-                'name' => 'Tommie Lagerroos',
-                'role' => 'Styrelseledamot',
-                'company' => 'Techlove',
-                'image' => 'tommie.jpeg',
-            ],
-            [
-                'name' => 'Ola Ebbesson',
-                'role' => 'Styrelseledamot',
-                'company' => 'Caesar Dev',
-                'image' => 'ola.jpeg',
-            ],
-            [
-                'name' => 'Jonatan Alvarsson',
-                'role' => 'Revisor',
-                'company' => 'JA Webb',
-                'image' => 'jonatan.jpeg',
-            ],
-            [
-                'name' => 'Oliver Scase',
-                'role' => 'Suppleant',
-                'company' => 'Techlove',
-                'image' => 'oliver.jpeg',
-            ],
-        ];
+        $this->boardMembers = BoardMember::orderBy('sort_order')->get();
     }
 
-    public function render()
+    public function render(): \Illuminate\View\View
     {
         return view('livewire.board-members');
     }
