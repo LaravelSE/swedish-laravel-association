@@ -1,6 +1,8 @@
 <div class="page-container">
     @livewire('header')
 
+    <x-admin-nav />
+
     <section class="section main-content" style="padding-top: 2rem;">
         <div class="section-header">
             <h2 class="section-title">Review: {{ $talk->title }}</h2>
