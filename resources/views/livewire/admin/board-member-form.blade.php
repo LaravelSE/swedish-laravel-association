@@ -3,90 +3,75 @@
 
     <x-admin-nav />
 
-    <section class="admin-content">
-        <div class="admin-content-inner">
-            <div class="admin-page-header">
-                <div>
-                    <a href="{{ route('admin.board-members') }}" class="admin-back-link">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7-7l-7 7 7 7"/></svg>
-                        Back to board members
-                    </a>
-                    <h1 class="admin-page-title">{{ $boardMember?->exists ? 'Edit: '.$boardMember->name : 'New Board Member' }}</h1>
+    <section class="section main-content" style="padding-top: 2rem;">
+        <div class="section-header">
+            <h2 class="section-title">{{ $boardMember?->exists ? 'Edit: '.$boardMember->name : 'New Board Member' }}</h2>
+            <p class="section-subtitle">
+                <a href="{{ route('admin.board-members') }}">&larr; Back to list</a>
+            </p>
+        </div>
+
+        @if(session('message'))
+            <div class="flash-message" style="max-width: 600px; margin: 0 auto 1rem;">
+                {{ session('message') }}
+            </div>
+        @endif
+
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Name <span class="required">*</span></label>
+                    <input type="text" wire:model="name" class="form-control @error('name') is-invalid @enderror" placeholder="Full name">
+                    @error('name') <div class="error-message">{{ $message }}</div> @enderror
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Role <span class="required">*</span></label>
+                    <input type="text" wire:model="role" class="form-control @error('role') is-invalid @enderror" placeholder="Ordförande">
+                    @error('role') <div class="error-message">{{ $message }}</div> @enderror
                 </div>
             </div>
 
-            @if(session('message'))
-                <div class="admin-flash admin-flash-success">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    {{ session('message') }}
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Company</label>
+                    <input type="text" wire:model="company" class="form-control @error('company') is-invalid @enderror" placeholder="Company name">
+                    @error('company') <div class="error-message">{{ $message }}</div> @enderror
                 </div>
-            @endif
-
-            <div class="form-layout">
-                <div class="admin-card">
-                    <div class="admin-card-section">
-                        <h3 class="admin-card-section-title">Member Details</h3>
-
-                        <div class="admin-form-row">
-                            <div class="admin-form-group">
-                                <label class="admin-form-label">Name <span class="admin-required">*</span></label>
-                                <input type="text" wire:model="name" class="admin-input @error('name') admin-input-error @enderror" placeholder="Full name">
-                                @error('name') <div class="admin-error">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="admin-form-group">
-                                <label class="admin-form-label">Role <span class="admin-required">*</span></label>
-                                <input type="text" wire:model="role" class="admin-input @error('role') admin-input-error @enderror" placeholder="Ordforande">
-                                @error('role') <div class="admin-error">{{ $message }}</div> @enderror
-                            </div>
-                        </div>
-
-                        <div class="admin-form-row">
-                            <div class="admin-form-group">
-                                <label class="admin-form-label">Company</label>
-                                <input type="text" wire:model="company" class="admin-input @error('company') admin-input-error @enderror" placeholder="Company name">
-                                @error('company') <div class="admin-error">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="admin-form-group">
-                                <label class="admin-form-label">Sort Order <span class="admin-required">*</span></label>
-                                <input type="number" wire:model="sortOrder" class="admin-input @error('sortOrder') admin-input-error @enderror" min="0">
-                                @error('sortOrder') <div class="admin-error">{{ $message }}</div> @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="admin-card-section" style="border-bottom: none;">
-                        <h3 class="admin-card-section-title">Photo</h3>
-
-                        @if($boardMember?->exists && $boardMember->imageUrl() && !$photo)
-                            <div class="current-photo">
-                                <img src="{{ $boardMember->imageUrl() }}" alt="{{ $boardMember->name }}" width="72" height="72" class="photo-preview">
-                                <span class="current-photo-label">Current photo</span>
-                            </div>
-                        @endif
-
-                        @if($photo)
-                            <div class="current-photo">
-                                <img src="{{ $photo->temporaryUrl() }}" alt="Preview" width="72" height="72" class="photo-preview">
-                                <span class="current-photo-label">New photo preview</span>
-                            </div>
-                        @endif
-
-                        <div class="admin-form-group">
-                            <input type="file" wire:model="photo" accept="image/jpeg,image/png,image/webp" class="admin-input admin-input-file @error('photo') admin-input-error @enderror">
-                            @error('photo') <div class="admin-error">{{ $message }}</div> @enderror
-                            <p class="admin-form-hint">JPEG, PNG or WebP. Max 2 MB.</p>
-                        </div>
-
-                        <div class="admin-form-actions">
-                            <button wire:click="save" wire:loading.attr="disabled" class="admin-btn admin-btn-save">
-                                <span wire:loading.remove wire:target="save">{{ $boardMember?->exists ? 'Save Changes' : 'Add Member' }}</span>
-                                <span wire:loading wire:target="save">Saving...</span>
-                            </button>
-                            <a href="{{ route('admin.board-members') }}" class="admin-btn admin-btn-cancel">Cancel</a>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">Sort Order <span class="required">*</span></label>
+                    <input type="number" wire:model="sortOrder" class="form-control @error('sortOrder') is-invalid @enderror" min="0">
+                    @error('sortOrder') <div class="error-message">{{ $message }}</div> @enderror
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="form-label">Photo</label>
+
+                @if($boardMember?->exists && $boardMember->imageUrl() && !$photo)
+                    <div class="current-photo">
+                        <img src="{{ $boardMember->imageUrl() }}" alt="{{ $boardMember->name }}" width="80" height="80" class="photo-preview">
+                        <span class="current-photo-label">Current photo</span>
+                    </div>
+                @endif
+
+                @if($photo)
+                    <img src="{{ $photo->temporaryUrl() }}" alt="Preview" width="80" height="80" class="photo-preview">
+                @endif
+
+                <input type="file" wire:model="photo" accept="image/jpeg,image/png,image/webp" class="form-control @error('photo') is-invalid @enderror">
+                @error('photo') <div class="error-message">{{ $message }}</div> @enderror
+                <p class="field-hint">JPEG, PNG or WebP. Max 2 MB.</p>
+            </div>
+
+            <div class="action-buttons">
+                <button wire:click="save" wire:loading.attr="disabled" class="btn btn-save">
+                    <span wire:loading.remove wire:target="save">{{ $boardMember?->exists ? 'Save Changes' : 'Add Member' }}</span>
+                    <span wire:loading wire:target="save">Saving...</span>
+                </button>
+                <a href="{{ route('admin.board-members') }}" class="btn btn-cancel">Cancel</a>
+            </div>
+
         </div>
     </section>
 
@@ -94,190 +79,107 @@
 
     <style>
         .page-container { display: flex; flex-direction: column; min-height: 100vh; }
+        .main-content { flex: 1; }
 
-        .admin-content {
-            flex: 1;
-            background: var(--gray-50);
-            padding: 2rem 1.5rem 4rem;
-        }
+        .form-group { margin-bottom: 1rem; }
 
-        .admin-content-inner { max-width: 1400px; margin: 0 auto; }
-
-        .admin-page-header { margin-bottom: 2rem; }
-
-        .admin-back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--gray-500);
-            text-decoration: none;
-            margin-bottom: 0.75rem;
-            transition: color 0.15s;
-        }
-
-        .admin-back-link:hover { color: var(--laravel-red); }
-
-        .admin-page-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--gray-900);
-            margin: 0;
-            letter-spacing: -0.025em;
-        }
-
-        .admin-flash {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.875rem 1.25rem;
-            border-radius: var(--border-radius-lg);
-            font-weight: 500;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .admin-flash-success { background-color: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
-
-        .form-layout { max-width: 700px; }
-
-        .admin-card {
-            background: white;
-            border-radius: var(--border-radius-xl);
-            border: 1px solid var(--gray-200);
-            overflow: hidden;
-        }
-
-        .admin-card-section {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--gray-100);
-        }
-
-        .admin-card-section-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--gray-400);
-            margin: 0 0 1.25rem;
-        }
-
-        .admin-form-group { margin-bottom: 1.25rem; }
-
-        .admin-form-row {
+        .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
+            gap: 1rem;
         }
 
         @media (max-width: 600px) {
-            .admin-form-row { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
         }
 
-        .admin-form-label {
+        .form-label {
             display: block;
-            font-weight: 600;
-            margin-bottom: 0.375rem;
-            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
             color: var(--gray-700);
         }
 
-        .admin-required { color: var(--laravel-red); }
+        .required { color: #FF2D20; }
 
-        .admin-input {
+        .form-control {
             display: block;
             width: 100%;
-            padding: 0.625rem 0.875rem;
-            font-size: 0.9rem;
-            font-family: inherit;
+            padding: 0.5rem 0.75rem;
+            font-size: 1rem;
             line-height: 1.5;
-            color: var(--gray-700);
-            background: white;
-            border: 1px solid var(--gray-200);
-            border-radius: var(--border-radius);
+            color: #495057;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
             box-sizing: border-box;
-            transition: border-color 0.15s, box-shadow 0.15s;
         }
 
-        .admin-input:focus {
-            border-color: var(--laravel-red);
+        .form-control:focus {
+            border-color: #FF2D20;
             outline: 0;
-            box-shadow: 0 0 0 3px rgba(255, 45, 32, 0.1);
+            box-shadow: 0 0 0 0.2rem rgba(255, 45, 32, 0.25);
         }
 
-        .admin-input-file {
-            padding: 0.5rem;
-            font-size: 0.85rem;
-        }
-
-        .admin-input-error { border-color: #dc2626; }
-        .admin-error { color: #dc2626; font-size: 0.8rem; margin-top: 0.35rem; }
-
-        .admin-form-hint {
-            font-size: 0.8rem;
-            color: var(--gray-400);
-            margin: 0.35rem 0 0;
-        }
+        .form-control.is-invalid { border-color: #dc3545; }
+        .error-message { color: #dc3545; font-size: 0.85rem; margin-top: 0.25rem; }
 
         .current-photo {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            margin-bottom: 1.25rem;
+            margin-bottom: 0.75rem;
         }
 
         .current-photo-label {
             font-size: 0.85rem;
-            color: var(--gray-400);
+            color: var(--gray-500);
         }
 
         .photo-preview {
             border-radius: 50%;
             object-fit: cover;
             display: block;
-            border: 2px solid var(--gray-100);
+            margin-bottom: 0.75rem;
         }
 
-        .admin-form-actions {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-            align-items: center;
+        .field-hint {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            margin-top: 0.25rem;
+            margin-bottom: 0;
         }
 
-        .admin-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.75rem;
-            border-radius: var(--border-radius);
+        .action-buttons { display: flex; gap: 1rem; margin-top: 1.5rem; align-items: center; }
+
+        .btn {
+            padding: 0.625rem 1.5rem;
+            border-radius: 0.25rem;
             font-size: 0.9rem;
             font-weight: 600;
             border: none;
             cursor: pointer;
             text-decoration: none;
-            transition: opacity 0.15s, transform 0.1s;
         }
 
-        .admin-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        .admin-btn-save {
-            background: var(--laravel-red);
-            color: white;
+        .btn-save { background-color: #FF2D20; color: white; }
+        .btn-save:hover:not(:disabled) { background-color: #e0261b; }
+
+        .btn-cancel { background-color: var(--gray-100, #f3f4f6); color: var(--gray-700); }
+        .btn-cancel:hover { background-color: var(--gray-200, #e5e7eb); }
+
+        .flash-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
         }
 
-        .admin-btn-save:hover:not(:disabled) {
-            background: var(--laravel-red-dark);
-            transform: translateY(-1px);
-        }
-
-        .admin-btn-cancel {
-            background: white;
-            color: var(--gray-600);
-            border: 1px solid var(--gray-200);
-        }
-
-        .admin-btn-cancel:hover { background: var(--gray-50); }
+        .section-subtitle a { color: #FF2D20; text-decoration: none; }
+        .section-subtitle a:hover { text-decoration: underline; }
     </style>
 </div>

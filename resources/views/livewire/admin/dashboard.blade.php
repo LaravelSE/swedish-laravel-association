@@ -3,131 +3,106 @@
 
     <x-admin-nav />
 
-    <section class="admin-content">
-        <div class="admin-content-inner">
-            <div class="admin-page-header">
-                <div>
-                    <h1 class="admin-page-title">Dashboard</h1>
-                    <p class="admin-page-desc">Overview of the site.</p>
-                </div>
-            </div>
-
-            @if(session('message'))
-                <div class="admin-flash admin-flash-success">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    {{ session('message') }}
-                </div>
-            @endif
-
-            <div class="stats-grid">
-                <a href="{{ route('admin.companies') }}?status=pending" class="stat-card stat-card-warning">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <div class="stat-info">
-                        <span class="stat-number">{{ $pendingCompaniesCount }}</span>
-                        <span class="stat-label">Pending Companies</span>
-                    </div>
-                </a>
-                <a href="{{ route('admin.companies') }}?status=approved" class="stat-card stat-card-success">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <div class="stat-info">
-                        <span class="stat-number">{{ $approvedCount }}</span>
-                        <span class="stat-label">Approved Companies</span>
-                    </div>
-                </a>
-                <a href="{{ route('admin.talks') }}?status=pending" class="stat-card stat-card-purple">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                    </div>
-                    <div class="stat-info">
-                        <span class="stat-number">{{ $pendingTalksCount }}</span>
-                        <span class="stat-label">Pending Talks</span>
-                    </div>
-                </a>
-                <a href="{{ route('admin.users') }}" class="stat-card stat-card-blue">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                    </div>
-                    <div class="stat-info">
-                        <span class="stat-number">{{ $totalUsers }}</span>
-                        <span class="stat-label">Users</span>
-                    </div>
-                </a>
-            </div>
-
-            @if($recentPendingCompanies->isNotEmpty())
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <h3 class="admin-card-title">Companies: needs review</h3>
-                        <a href="{{ route('admin.companies') }}" class="admin-card-action">View all &rarr;</a>
-                    </div>
-                    <div class="admin-table-wrap">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Company</th>
-                                    <th>City</th>
-                                    <th>Submitted By</th>
-                                    <th>Date</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($recentPendingCompanies as $company)
-                                    <tr wire:key="pending-company-{{ $company->id }}">
-                                        <td class="cell-primary">{{ $company->name }}</td>
-                                        <td>{{ $company->city }}</td>
-                                        <td>{{ $company->user->name }}</td>
-                                        <td class="cell-muted">{{ $company->created_at->format('Y-m-d') }}</td>
-                                        <td class="cell-action">
-                                            <a href="{{ route('admin.companies.review', $company) }}" class="admin-link-btn">Review</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            @endif
-
-            @if($recentPendingTalks->isNotEmpty())
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <h3 class="admin-card-title">Talks: needs review</h3>
-                        <a href="{{ route('admin.talks') }}" class="admin-card-action">View all &rarr;</a>
-                    </div>
-                    <div class="admin-table-wrap">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Speaker</th>
-                                    <th>Cities</th>
-                                    <th>Date</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($recentPendingTalks as $talk)
-                                    <tr wire:key="pending-talk-{{ $talk->id }}">
-                                        <td class="cell-primary">{{ $talk->title }}</td>
-                                        <td>{{ $talk->user->name }}</td>
-                                        <td>{{ implode(', ', $talk->cities) }}</td>
-                                        <td class="cell-muted">{{ $talk->created_at->format('Y-m-d') }}</td>
-                                        <td class="cell-action">
-                                            <a href="{{ route('admin.talks.review', $talk) }}" class="admin-link-btn">Review</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            @endif
+    <section class="section main-content" style="padding-top: 2rem;">
+        <div class="section-header">
+            <h2 class="section-title">Admin: Dashboard</h2>
+            <p class="section-subtitle">Overview of the site.</p>
         </div>
+
+        @if(session('message'))
+            <div class="flash-message" style="max-width: 1000px; margin: 0 auto 1rem;">
+                {{ session('message') }}
+            </div>
+        @endif
+
+        <div class="dashboard-grid" style="max-width: 1000px; margin: 0 auto;">
+            <a href="{{ route('admin.companies') }}?status=pending" class="stat-card stat-card-pending">
+                <span class="stat-number">{{ $pendingCompaniesCount }}</span>
+                <span class="stat-label">Pending Companies</span>
+            </a>
+            <a href="{{ route('admin.companies') }}?status=approved" class="stat-card stat-card-approved">
+                <span class="stat-number">{{ $approvedCount }}</span>
+                <span class="stat-label">Approved Companies</span>
+            </a>
+            <a href="{{ route('admin.talks') }}?status=pending" class="stat-card stat-card-talks">
+                <span class="stat-number">{{ $pendingTalksCount }}</span>
+                <span class="stat-label">Pending Talks</span>
+            </a>
+            <a href="{{ route('admin.users') }}" class="stat-card stat-card-users">
+                <span class="stat-number">{{ $totalUsers }}</span>
+                <span class="stat-label">Users</span>
+            </a>
+        </div>
+
+        @if($recentPendingCompanies->isNotEmpty())
+            <div class="card" style="max-width: 1000px; margin: 1.5rem auto 0;">
+                <div class="pending-header">
+                    <h3 class="pending-title">Companies: needs review</h3>
+                    <a href="{{ route('admin.companies') }}" class="view-all-link">View all &rarr;</a>
+                </div>
+                <div class="companies-table-wrapper">
+                    <table class="companies-table">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>City</th>
+                                <th>Submitted By</th>
+                                <th>Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($recentPendingCompanies as $company)
+                                <tr wire:key="pending-company-{{ $company->id }}">
+                                    <td class="company-name">{{ $company->name }}</td>
+                                    <td>{{ $company->city }}</td>
+                                    <td>{{ $company->user->name }}</td>
+                                    <td>{{ $company->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.companies.review', $company) }}" class="review-link">Review</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
+
+        @if($recentPendingTalks->isNotEmpty())
+            <div class="card" style="max-width: 1000px; margin: 1.5rem auto 0;">
+                <div class="pending-header">
+                    <h3 class="pending-title">Talks: needs review</h3>
+                    <a href="{{ route('admin.talks') }}" class="view-all-link">View all &rarr;</a>
+                </div>
+                <div class="companies-table-wrapper">
+                    <table class="companies-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Speaker</th>
+                                <th>Cities</th>
+                                <th>Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($recentPendingTalks as $talk)
+                                <tr wire:key="pending-talk-{{ $talk->id }}">
+                                    <td class="company-name">{{ $talk->title }}</td>
+                                    <td>{{ $talk->user->name }}</td>
+                                    <td>{{ implode(', ', $talk->cities) }}</td>
+                                    <td>{{ $talk->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.talks.review', $talk) }}" class="review-link">Review</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
     </section>
 
     @livewire('footer')
@@ -139,240 +114,163 @@
             min-height: 100vh;
         }
 
-        .admin-content {
+        .main-content {
             flex: 1;
-            background: var(--gray-50);
-            padding: 2rem 1.5rem 4rem;
         }
 
-        .admin-content-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .admin-page-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-        }
-
-        .admin-page-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--gray-900);
-            margin: 0 0 0.25rem;
-            letter-spacing: -0.025em;
-        }
-
-        .admin-page-desc {
-            font-size: 0.95rem;
-            color: var(--gray-500);
-            margin: 0;
-        }
-
-        .admin-flash {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.875rem 1.25rem;
-            border-radius: var(--border-radius-lg);
-            font-weight: 500;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .admin-flash-success {
-            background-color: #ecfdf5;
-            color: #065f46;
-            border: 1px solid #a7f3d0;
-        }
-
-        .stats-grid {
+        .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1.25rem;
-            margin-bottom: 2rem;
+            gap: 1rem;
         }
 
-        @media (max-width: 900px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 480px) {
-            .stats-grid { grid-template-columns: 1fr; }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .stat-card {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            justify-content: center;
             padding: 1.5rem;
-            border-radius: var(--border-radius-xl);
+            border-radius: var(--border-radius-xl, 0.75rem);
             text-decoration: none;
+            gap: 0.25rem;
             transition: transform 0.15s, box-shadow 0.15s;
-            border: 1px solid transparent;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
 
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
 
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--border-radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+        .stat-card-pending {
+            background-color: #fef3cd;
+            color: #856404;
         }
 
-        .stat-card-warning { background: #fffbeb; border-color: #fde68a; }
-        .stat-card-warning .stat-icon { background: #fef3c7; color: #d97706; }
-        .stat-card-warning .stat-number { color: #92400e; }
-        .stat-card-warning .stat-label { color: #a16207; }
+        .stat-card-approved {
+            background-color: #d4edda;
+            color: #155724;
+        }
 
-        .stat-card-success { background: #ecfdf5; border-color: #a7f3d0; }
-        .stat-card-success .stat-icon { background: #d1fae5; color: #059669; }
-        .stat-card-success .stat-number { color: #065f46; }
-        .stat-card-success .stat-label { color: #047857; }
+        .stat-card-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
 
-        .stat-card-purple { background: #faf5ff; border-color: #e9d5ff; }
-        .stat-card-purple .stat-icon { background: #f3e8ff; color: #7c3aed; }
-        .stat-card-purple .stat-number { color: #5b21b6; }
-        .stat-card-purple .stat-label { color: #6d28d9; }
+        .stat-card-talks {
+            background-color: #fce8ff;
+            color: #7c3aed;
+        }
 
-        .stat-card-blue { background: #eff6ff; border-color: #bfdbfe; }
-        .stat-card-blue .stat-icon { background: #dbeafe; color: #2563eb; }
-        .stat-card-blue .stat-number { color: #1e40af; }
-        .stat-card-blue .stat-label { color: #1d4ed8; }
-
-        .stat-info {
-            display: flex;
-            flex-direction: column;
+        .stat-card-users {
+            background-color: #e8f0fe;
+            color: #1a56db;
         }
 
         .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
+            font-size: 2.5rem;
+            font-weight: 700;
             line-height: 1;
-            letter-spacing: -0.025em;
         }
 
         .stat-label {
             font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
-            margin-top: 0.25rem;
+            letter-spacing: 0.05em;
+            opacity: 0.85;
         }
 
-        .admin-card {
-            background: white;
-            border-radius: var(--border-radius-xl);
-            border: 1px solid var(--gray-200);
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-        }
-
-        .admin-card-header {
+        .pending-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid var(--gray-100);
+            margin-bottom: 1rem;
         }
 
-        .admin-card-title {
-            font-size: 1rem;
-            font-weight: 700;
+        .pending-title {
+            font-size: 1.1rem;
+            font-weight: 600;
             color: var(--gray-900);
             margin: 0;
         }
 
-        .admin-card-action {
-            color: var(--laravel-red);
+        .view-all-link {
+            color: #FF2D20;
             text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: opacity 0.15s;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
 
-        .admin-card-action:hover {
-            opacity: 0.8;
+        .view-all-link:hover {
+            text-decoration: underline;
         }
 
-        .admin-table-wrap {
+        .companies-table-wrapper {
             overflow-x: auto;
         }
 
-        .admin-table {
+        .companies-table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .admin-table th {
-            padding: 0.75rem 1.5rem;
+        .companies-table th,
+        .companies-table td {
+            padding: 0.75rem 1rem;
             text-align: left;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--gray-500);
-            background: var(--gray-50);
             border-bottom: 1px solid var(--gray-200);
         }
 
-        .admin-table td {
-            padding: 0.875rem 1.5rem;
-            text-align: left;
-            font-size: 0.9rem;
-            color: var(--gray-600);
-            border-bottom: 1px solid var(--gray-100);
+        .companies-table th {
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .admin-table tbody tr:last-child td {
+        .companies-table tbody tr:last-child td {
             border-bottom: none;
         }
 
-        .admin-table tbody tr {
-            transition: background-color 0.1s;
+        .companies-table tbody tr:hover {
+            background-color: var(--gray-50, #f9fafb);
         }
 
-        .admin-table tbody tr:hover {
-            background-color: var(--gray-50);
-        }
-
-        .cell-primary {
+        .company-name {
             font-weight: 600;
             color: var(--gray-900);
         }
 
-        .cell-muted {
-            color: var(--gray-400);
-        }
-
-        .cell-action {
-            text-align: right;
-        }
-
-        .admin-link-btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.375rem 0.875rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--laravel-red);
-            background: rgba(255, 45, 32, 0.06);
-            border-radius: var(--border-radius-sm);
+        .review-link {
+            color: #FF2D20;
             text-decoration: none;
-            transition: background-color 0.15s;
+            font-weight: 500;
         }
 
-        .admin-link-btn:hover {
-            background: rgba(255, 45, 32, 0.12);
+        .review-link:hover {
+            text-decoration: underline;
+        }
+
+        .flash-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
         }
     </style>
 </div>

@@ -3,78 +3,68 @@
 
     <x-admin-nav />
 
-    <section class="admin-content">
-        <div class="admin-content-inner">
-            <div class="admin-page-header">
-                <div>
-                    <h1 class="admin-page-title">Board Members</h1>
-                    <p class="admin-page-desc">Manage the board members displayed on the site.</p>
-                </div>
-                <a href="{{ route('admin.board-members.create') }}" class="admin-btn-primary">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14m-7-7h14"/></svg>
-                    New Member
-                </a>
+    <section class="section main-content" style="padding-top: 2rem;">
+        <div class="section-header">
+            <h2 class="section-title">Admin: Board Members</h2>
+            <p class="section-subtitle">Manage the board members displayed on the site.</p>
+        </div>
+
+        @if(session('message'))
+            <div class="flash-message" style="max-width: 1000px; margin: 0 auto 1rem;">
+                {{ session('message') }}
+            </div>
+        @endif
+
+        <div class="card" style="max-width: 1000px; margin: 0 auto;">
+            <div class="toolbar">
+                <a href="{{ route('admin.board-members.create') }}" class="btn-create">+ New Member</a>
             </div>
 
-            @if(session('message'))
-                <div class="admin-flash admin-flash-success">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    {{ session('message') }}
+            @if($boardMembers->isEmpty())
+                <div class="empty-state">
+                    <p>No board members yet.</p>
+                </div>
+            @else
+                <div class="members-table-wrapper">
+                    <table class="members-table">
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Company</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($boardMembers as $member)
+                                <tr wire:key="member-{{ $member->id }}">
+                                    <td class="order-cell">{{ $member->sort_order }}</td>
+                                    <td class="photo-cell">
+                                        @if($member->imageUrl())
+                                            <img src="{{ $member->imageUrl() }}" alt="{{ $member->name }}" width="40" height="40" class="member-thumb">
+                                        @else
+                                            <div class="member-thumb-placeholder"></div>
+                                        @endif
+                                    </td>
+                                    <td class="member-name">{{ $member->name }}</td>
+                                    <td>{{ $member->role }}</td>
+                                    <td>{{ $member->company }}</td>
+                                    <td class="action-cell">
+                                        <a href="{{ route('admin.board-members.edit', $member) }}" class="review-link">Edit</a>
+                                        <button wire:click="delete({{ $member->id }})"
+                                            wire:confirm="Remove {{ $member->name }} from the board?"
+                                            wire:loading.attr="disabled"
+                                            wire:target="delete({{ $member->id }})"
+                                            class="delete-btn">Delete</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             @endif
-
-            <div class="admin-card">
-                @if($boardMembers->isEmpty())
-                    <div class="admin-empty">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <p>No board members yet.</p>
-                    </div>
-                @else
-                    <div class="admin-table-wrap">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th class="col-order">Order</th>
-                                    <th class="col-photo">Photo</th>
-                                    <th>Name</th>
-                                    <th>Role</th>
-                                    <th>Company</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($boardMembers as $member)
-                                    <tr wire:key="member-{{ $member->id }}">
-                                        <td class="cell-muted">{{ $member->sort_order }}</td>
-                                        <td class="col-photo">
-                                            @if($member->imageUrl())
-                                                <img src="{{ $member->imageUrl() }}" alt="{{ $member->name }}" width="36" height="36" class="member-thumb">
-                                            @else
-                                                <div class="member-thumb-placeholder">
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                                                </div>
-                                            @endif
-                                        </td>
-                                        <td class="cell-primary">{{ $member->name }}</td>
-                                        <td>{{ $member->role }}</td>
-                                        <td>{{ $member->company }}</td>
-                                        <td class="cell-action">
-                                            <div class="action-group">
-                                                <a href="{{ route('admin.board-members.edit', $member) }}" class="admin-link-btn">Edit</a>
-                                                <button wire:click="delete({{ $member->id }})"
-                                                    wire:confirm="Remove {{ $member->name }} from the board?"
-                                                    wire:loading.attr="disabled"
-                                                    wire:target="delete({{ $member->id }})"
-                                                    class="admin-delete-btn">Delete</button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @endif
-            </div>
         </div>
     </section>
 
@@ -82,175 +72,99 @@
 
     <style>
         .page-container { display: flex; flex-direction: column; min-height: 100vh; }
+        .main-content { flex: 1; }
 
-        .admin-content {
-            flex: 1;
-            background: var(--gray-50);
-            padding: 2rem 1.5rem 4rem;
-        }
-
-        .admin-content-inner { max-width: 1400px; margin: 0 auto; }
-
-        .admin-page-header {
+        .toolbar {
             display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            gap: 1rem;
-        }
-
-        .admin-page-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--gray-900);
-            margin: 0 0 0.25rem;
-            letter-spacing: -0.025em;
-        }
-
-        .admin-page-desc {
-            font-size: 0.95rem;
-            color: var(--gray-500);
-            margin: 0;
-        }
-
-        .admin-btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.625rem 1.25rem;
-            background: var(--laravel-red);
-            color: white;
-            font-size: 0.875rem;
-            font-weight: 600;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            transition: background-color 0.15s, transform 0.1s;
-            flex-shrink: 0;
-        }
-
-        .admin-btn-primary:hover {
-            background: var(--laravel-red-dark);
-            transform: translateY(-1px);
-        }
-
-        .admin-flash {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.875rem 1.25rem;
-            border-radius: var(--border-radius-lg);
-            font-weight: 500;
-            font-size: 0.9rem;
+            justify-content: flex-end;
             margin-bottom: 1.5rem;
         }
 
-        .admin-flash-success { background-color: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
-
-        .admin-card {
-            background: white;
-            border-radius: var(--border-radius-xl);
-            border: 1px solid var(--gray-200);
-            overflow: hidden;
+        .btn-create {
+            padding: 0.5rem 1rem;
+            background-color: #FF2D20;
+            color: white;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
-        .admin-table-wrap { overflow-x: auto; }
+        .btn-create:hover { background-color: #e0261b; }
 
-        .admin-table { width: 100%; border-collapse: collapse; }
+        .members-table-wrapper { overflow-x: auto; }
 
-        .admin-table th {
-            padding: 0.75rem 1.5rem;
+        .members-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .members-table th,
+        .members-table td {
+            padding: 0.75rem 1rem;
             text-align: left;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--gray-500);
-            background: var(--gray-50);
             border-bottom: 1px solid var(--gray-200);
         }
 
-        .admin-table td {
-            padding: 0.875rem 1.5rem;
-            text-align: left;
-            font-size: 0.9rem;
-            color: var(--gray-600);
-            border-bottom: 1px solid var(--gray-100);
-            vertical-align: middle;
+        .members-table th {
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .admin-table tbody tr:last-child td { border-bottom: none; }
-        .admin-table tbody tr { transition: background-color 0.1s; }
-        .admin-table tbody tr:hover { background-color: var(--gray-50); }
-
-        .col-order { width: 60px; }
-        .col-photo { width: 60px; }
-        .cell-primary { font-weight: 600; color: var(--gray-900); }
-        .cell-muted { color: var(--gray-400); font-size: 0.875rem; }
-        .cell-action { text-align: right; }
+        .members-table tbody tr:hover { background-color: var(--gray-50, #f9fafb); }
+        .member-name { font-weight: 600; color: var(--gray-900); }
+        .order-cell { color: var(--gray-500); font-size: 0.875rem; width: 60px; }
+        .photo-cell { width: 60px; }
+        .action-cell { white-space: nowrap; display: flex; gap: 0.75rem; align-items: center; }
 
         .member-thumb {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
-            display: block;
         }
 
         .member-thumb-placeholder {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: var(--gray-100);
-            color: var(--gray-400);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-color: var(--gray-200);
         }
 
-        .action-group {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            justify-content: flex-end;
-        }
-
-        .admin-link-btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.375rem 0.875rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--laravel-red);
-            background: rgba(255, 45, 32, 0.06);
-            border-radius: var(--border-radius-sm);
+        .review-link {
+            color: #FF2D20;
             text-decoration: none;
-            transition: background-color 0.15s;
+            font-weight: 500;
         }
 
-        .admin-link-btn:hover { background: rgba(255, 45, 32, 0.12); }
+        .review-link:hover { text-decoration: underline; }
 
-        .admin-delete-btn {
+        .delete-btn {
             background: none;
             border: none;
             color: var(--gray-400);
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.875rem;
+            padding: 0;
+        }
+
+        .delete-btn:hover { color: #dc3545; }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--gray-600);
+        }
+
+        .flash-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
             font-weight: 500;
-            padding: 0.375rem 0.5rem;
-            transition: color 0.15s;
         }
-
-        .admin-delete-btn:hover { color: #dc2626; }
-
-        .admin-empty {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 4rem 1rem;
-            color: var(--gray-400);
-        }
-
-        .admin-empty p { margin: 0; font-size: 0.95rem; }
     </style>
 </div>
