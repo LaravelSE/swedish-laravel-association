@@ -1,0 +1,355 @@
+/* =============================================================
+   Terminal Midnight — Design System
+   Laravel Sweden — design/public-overhaul
+   ============================================================= */
+
+:root {
+    /* --- Legacy palette (preserved for backward-compat) --- */
+    --red: #FF2D20;
+    --red-dark: #E5231A;
+    --red-light: rgba(255, 45, 32, 0.06);
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #e5e5e5;
+    --gray-300: #d4d4d4;
+    --gray-400: #a3a3a3;
+    --gray-500: #737373;
+    --gray-600: #525252;
+    --gray-700: #404040;
+    --gray-800: #262626;
+    --gray-900: #171717;
+    --gray-950: #0a0a0a;
+    --laravel-red: #FF2D20;
+    --laravel-red-dark: #E5231A;
+    --laravel-red-light: rgba(255, 45, 32, 0.08);
+
+    /* --- Terminal Midnight colour palette --- */
+    --tm-bg: #0d1b2a;
+    --tm-surface: #162233;
+    --tm-surface-2: #1a2c40;
+    --tm-text: #c9d8e8;
+    --tm-muted: #7fa0bb;        /* WCAG AA on --tm-bg (≥ 4.5:1) */
+    --tm-muted-dim: #4a6580;    /* Decorative / non-text use only */
+    --tm-border: #1e3a4a;
+    --tm-yellow: #f5d563;
+    --tm-blue: #4d9fd4;         /* WCAG AA on --tm-bg (≥ 4.5:1) */
+    --tm-blue-bg: #005293;      /* Surface / background accents only */
+    --tm-green: #4ade80;
+    --tm-red: #ff6b6b;
+
+    /* --- Typography --- */
+    --font: 'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+
+    /* --- Layout --- */
+    --max-w: 1120px;
+    --px: 2rem;
+
+    /* --- Spacing scale --- */
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-5: 1.25rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+    --spacing-10: 2.5rem;
+    --spacing-12: 3rem;
+    --spacing-16: 4rem;
+    --spacing-20: 5rem;
+    --spacing-24: 6rem;
+    --spacing-32: 8rem;
+
+    /* --- Border radius --- */
+    --border-radius-sm: 0.375rem;
+    --border-radius: 0.5rem;
+    --border-radius-lg: 0.75rem;
+    --border-radius-xl: 1rem;
+    --border-radius-2xl: 1.25rem;
+
+    /* --- Shadows --- */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+
+    /* --- Transitions --- */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =============================================================
+   Global resets & base
+   ============================================================= */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font);
+    line-height: 1.6;
+    color: var(--gray-600);
+    background: var(--white);
+    font-size: 16px;
+    letter-spacing: -0.011em;
+}
+
+/* =============================================================
+   Skip navigation
+   ============================================================= */
+
+.skip-nav {
+    position: absolute;
+    top: -50px;
+    left: 1rem;
+    background: var(--black);
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    z-index: 1000;
+    font-weight: 600;
+    transition: top 0.2s;
+}
+
+.skip-nav:focus { top: 1rem; }
+
+/* =============================================================
+   Header / Navigation
+   ============================================================= */
+
+.header {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+.logo img {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+}
+
+.logo-text {
+    font-family: var(--font);
+    font-size: 0.9375rem;
+    font-weight: 800;
+    color: var(--black);
+    letter-spacing: -0.03em;
+}
+
+.nav-links {
+    display: flex;
+    gap: 0;
+}
+
+.nav-links a {
+    color: var(--gray-500);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.8125rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: color 0.15s;
+    letter-spacing: -0.01em;
+}
+
+.nav-links a:hover {
+    color: var(--black);
+}
+
+/* =============================================================
+   Main content wrappers
+   ============================================================= */
+
+.main-content {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: var(--spacing-20) var(--px);
+}
+
+.section {
+    margin-bottom: 7rem;
+}
+
+.section-header {
+    margin-bottom: 3.5rem;
+}
+
+.section-title {
+    font-family: var(--font);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 900;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.045em;
+    line-height: 1.1;
+}
+
+.section-subtitle {
+    font-size: 1.0625rem;
+    color: var(--gray-500);
+    max-width: 480px;
+    line-height: 1.65;
+}
+
+/* =============================================================
+   Cards
+   ============================================================= */
+
+.card {
+    background: var(--white);
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid var(--gray-200);
+    transition: border-color 0.2s;
+}
+
+.card:hover {
+    border-color: var(--gray-300);
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.card h3 {
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.card p {
+    color: var(--gray-500);
+    line-height: 1.65;
+    font-size: 0.9375rem;
+}
+
+/* =============================================================
+   Buttons
+   ============================================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s;
+    cursor: pointer;
+    border: none;
+    font-size: 0.875rem;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+    font-family: var(--font);
+}
+
+.btn-primary {
+    background: var(--black);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--gray-800);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+}
+
+.btn-secondary:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-400);
+}
+
+.btn-accent {
+    background: var(--red);
+    color: white;
+}
+
+.btn-accent:hover {
+    background: var(--red-dark);
+}
+
+/* =============================================================
+   Terminal Midnight — form inputs
+   ============================================================= */
+
+.tm-input {
+    width: 100%;
+    background: var(--tm-surface);
+    border: 1px solid var(--tm-border);
+    border-radius: var(--border-radius-sm);
+    color: var(--tm-text);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.tm-input:focus {
+    border-color: var(--tm-yellow);
+    box-shadow: 0 0 0 2px rgb(245 213 99 / 0.15);
+}
+
+.tm-input::placeholder {
+    color: var(--tm-muted-dim);
+}
+
+/* =============================================================
+   Reduced motion
+   ============================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
+}
+
+/* =============================================================
+   Responsive
+   ============================================================= */
+
+@media (max-width: 768px) {
+    :root { --px: 1.25rem; }
+    .card-grid { grid-template-columns: 1fr; }
+}
