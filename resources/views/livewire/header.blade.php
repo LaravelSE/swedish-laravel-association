@@ -3,7 +3,7 @@
         <div class="header-content">
             <a href="{{ route('home') }}" class="logo logo-link">
                 <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden" class="logo-image" width="36" height="36" fetchpriority="high">
-                <span class="logo-text">Laravel Sweden</span>
+                <span class="logo-text">laravel<span class="logo-accent">_sweden</span></span>
             </a>
 
             <!-- Mobile menu button -->
@@ -23,18 +23,18 @@
 
             <!-- Desktop navigation -->
             <nav class="nav-links desktop-nav">
-                <a href="{{ route('home') }}#community">Community</a>
-                <a href="{{ route('home') }}#events">Events</a>
-                <a href="{{ route('companies') }}">Companies</a>
-                <a href="{{ route('home') }}#board">Board</a>
-                <a href="{{ route('home') }}#contact">Contact</a>
+                <a href="{{ route('home') }}#community" class="nav-item">./community<span class="nav-cursor">|</span></a>
+                <a href="{{ route('home') }}#events" class="nav-item">./events<span class="nav-cursor">|</span></a>
+                <a href="{{ route('companies') }}" class="nav-item">./companies<span class="nav-cursor">|</span></a>
+                <a href="{{ route('home') }}#board" class="nav-item">./board<span class="nav-cursor">|</span></a>
+                <a href="{{ route('home') }}#contact" class="nav-item">./contact<span class="nav-cursor">|</span></a>
                 @auth
-                    <a href="{{ route('member') }}">Member</a>
+                    <a href="{{ route('member') }}" class="nav-item">./member<span class="nav-cursor">|</span></a>
                     @if(auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}">Admin</a>
+                        <a href="{{ route('admin.dashboard') }}" class="nav-item">./admin<span class="nav-cursor">|</span></a>
                     @endif
                 @else
-                    <a href="{{ route('register') }}" class="nav-register">Register</a>
+                    <a href="{{ route('register') }}" class="nav-register">$ register --now</a>
                 @endauth
             </nav>
         </div>
@@ -42,18 +42,18 @@
         <!-- Mobile navigation -->
         <nav class="mobile-nav" style="display: {{ $mobileMenuOpen ? 'block' : 'none' }}">
             <div class="mobile-nav-container">
-                <a href="{{ route('home') }}#community" wire:click="toggleMobileMenu">Community</a>
-                <a href="{{ route('home') }}#events" wire:click="toggleMobileMenu">Events</a>
-                <a href="{{ route('companies') }}" wire:click="toggleMobileMenu">Companies</a>
-                <a href="{{ route('home') }}#board" wire:click="toggleMobileMenu">Board</a>
-                <a href="{{ route('home') }}#contact" wire:click="toggleMobileMenu">Contact</a>
+                <a href="{{ route('home') }}#community" wire:click="toggleMobileMenu">./community</a>
+                <a href="{{ route('home') }}#events" wire:click="toggleMobileMenu">./events</a>
+                <a href="{{ route('companies') }}" wire:click="toggleMobileMenu">./companies</a>
+                <a href="{{ route('home') }}#board" wire:click="toggleMobileMenu">./board</a>
+                <a href="{{ route('home') }}#contact" wire:click="toggleMobileMenu">./contact</a>
                 @auth
-                    <a href="{{ route('member') }}" wire:click="toggleMobileMenu">Member</a>
+                    <a href="{{ route('member') }}" wire:click="toggleMobileMenu">./member</a>
                     @if(auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}" wire:click="toggleMobileMenu">Admin</a>
+                        <a href="{{ route('admin.dashboard') }}" wire:click="toggleMobileMenu">./admin</a>
                     @endif
                 @else
-                    <a href="{{ route('register') }}" wire:click="toggleMobileMenu">Register</a>
+                    <a href="{{ route('register') }}" wire:click="toggleMobileMenu" class="mobile-nav-register">$ register --now</a>
                 @endauth
             </div>
         </nav>
@@ -64,24 +64,44 @@
             position: relative;
         }
 
+        .logo-accent {
+            color: var(--tm-yellow);
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-cursor {
+            display: none;
+            animation: blink 1s step-end infinite;
+            color: var(--tm-yellow);
+            font-weight: 700;
+            margin-left: 1px;
+        }
+
+        .nav-item:hover .nav-cursor,
+        .nav-item:focus .nav-cursor {
+            display: inline;
+        }
+
         .mobile-menu-button {
             display: none;
             background: none;
-            border: none;
-            color: var(--gray-600);
+            border: 1px solid var(--tm-border);
+            color: var(--tm-muted);
             cursor: pointer;
             padding: 0.5rem;
             width: 40px;
             height: 40px;
             align-items: center;
             justify-content: center;
-            border-radius: var(--border-radius);
-            transition: color var(--transition-fast), background var(--transition-fast);
+            transition: color var(--transition-fast), border-color var(--transition-fast);
         }
 
         .mobile-menu-button:hover {
-            color: var(--gray-900);
-            background: var(--gray-100);
+            color: var(--tm-text);
+            border-color: var(--tm-muted);
         }
 
         .mobile-nav {
@@ -90,10 +110,10 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(13, 27, 42, 0.98);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--tm-border);
             z-index: 50;
         }
 
@@ -104,17 +124,16 @@
         }
 
         .mobile-nav a {
-            color: var(--gray-700);
+            color: var(--tm-muted);
             text-decoration: none;
             padding: 0.75rem 0.75rem;
-            font-size: 0.9375rem;
-            font-weight: 500;
-            border-radius: var(--border-radius);
-            transition: background var(--transition-fast);
+            font-size: 0.875rem;
+            font-family: 'JetBrains Mono', monospace;
+            transition: color var(--transition-fast);
         }
 
         .mobile-nav a:hover {
-            background: var(--gray-100);
+            color: var(--tm-text);
         }
 
         .logo-link {
@@ -124,19 +143,40 @@
         .logo-image {
             width: 36px;
             height: 36px;
-            border-radius: 8px;
+            border-radius: 4px;
         }
 
         .nav-register {
-            background: var(--gray-900) !important;
-            color: white !important;
+            background: transparent !important;
+            color: var(--tm-yellow) !important;
+            border: 1px solid var(--tm-yellow) !important;
             padding: 0.375rem 0.875rem !important;
-            border-radius: var(--border-radius) !important;
-            font-size: 0.8125rem !important;
+            font-size: 0.75rem !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-register::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--tm-yellow);
+            transform: translateX(-100%);
+            transition: transform var(--transition-base);
+        }
+
+        .nav-register:hover::before {
+            transform: translateX(0);
         }
 
         .nav-register:hover {
-            background: var(--gray-800) !important;
+            color: var(--tm-bg) !important;
+        }
+
+        .mobile-nav-register {
+            color: var(--tm-yellow) !important;
+            font-weight: 500 !important;
         }
 
         @media (max-width: 768px) {

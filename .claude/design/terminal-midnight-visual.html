@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal Midnight — Design Guide · Laravel Sweden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   TERMINAL MIDNIGHT — DESIGN SYSTEM
+   ========================================================= */
+:root {
+  --tm-bg:            #0d1b2a;
+  --tm-surface:       #142638;
+  --tm-surface-2:     #1a2c40;
+  --tm-surface-hover: #1a3050;
+  --tm-border:        #1e3a4a;
+  --tm-yellow:        #f5d563;
+  --tm-blue:          #4d9fd4;
+  --tm-blue-bg:       #005293;
+  --tm-text:          #c9d8e8;
+  --tm-body:          #f0ede6;
+  --tm-muted:         #7fa0bb;
+  --tm-muted-dim:     #4a6580;
+  --tm-green:         #4ade80;
+  --tm-red:           #ff6b6b;
+
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-8:  2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+  --sp-32: 8rem;
+
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: var(--tm-yellow) var(--tm-bg);
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--tm-bg); }
+::-webkit-scrollbar-thumb { background: var(--tm-yellow); }
+
+body {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--tm-body);
+  background-color: var(--tm-bg);
+  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   STICKY NAV
+   ========================================================= */
+.guide-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13, 27, 42, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--tm-border);
+}
+.guide-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--sp-8);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  height: 52px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.guide-nav-inner::-webkit-scrollbar { display: none; }
+.guide-nav-logo {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--tm-text);
+  white-space: nowrap;
+  margin-right: var(--sp-6);
+  text-decoration: none;
+}
+.guide-nav-logo span { color: var(--tm-yellow); }
+.guide-nav-sep {
+  color: var(--tm-border);
+  margin-right: var(--sp-4);
+  font-size: 0.75rem;
+}
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: var(--tm-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+  border: 1px solid transparent;
+}
+.nav-pill:hover {
+  color: var(--tm-text);
+  border-color: var(--tm-border);
+}
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+.guide-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--sp-16) var(--sp-8);
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+.page-header {
+  padding: var(--sp-16) 0 var(--sp-12);
+  border-bottom: 1px solid var(--tm-border);
+  margin-bottom: var(--sp-16);
+  animation: slideIn 0.5s ease both;
+}
+.page-header-cmd {
+  font-size: 0.75rem;
+  color: var(--tm-yellow);
+  margin-bottom: var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.cursor { animation: blink 1s step-end infinite; color: var(--tm-yellow); }
+.page-header h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  color: var(--tm-text);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: var(--sp-4);
+}
+.page-header h1 .prompt { color: var(--tm-yellow); margin-right: 0.5rem; }
+.page-header-sub {
+  font-size: 0.875rem;
+  color: var(--tm-muted);
+  font-weight: 300;
+  max-width: 560px;
+}
+.version-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-6);
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--tm-border);
+  font-size: 0.6875rem;
+  color: var(--tm-muted);
+}
+.version-badge span { color: var(--tm-blue); }
+
+/* =========================================================
+   SECTION WRAPPER
+   ========================================================= */
+.section {
+  margin-bottom: var(--sp-20);
+  scroll-margin-top: 70px;
+}
+.section-cmd {
+  font-size: 0.6875rem;
+  color: var(--tm-yellow);
+  margin-bottom: var(--sp-3);
+  font-weight: 400;
+}
+.section > h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--tm-text);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--sp-2);
+}
+.section-desc {
+  font-size: 0.8125rem;
+  color: var(--tm-muted);
+  margin-bottom: var(--sp-8);
+  font-weight: 300;
+  max-width: 600px;
+}
+.divider {
+  height: 1px;
+  background: var(--tm-border);
+  margin: var(--sp-16) 0;
+}
+
+/* =========================================================
+   DEMO HEADER (SECTION 1)
+   ========================================================= */
+.demo-header-wrap {
+  border: 1px solid var(--tm-border);
+  overflow: hidden;
+}
+.demo-header-label {
+  background: var(--tm-bg);
+  border-bottom: 1px solid var(--tm-border);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: 0.625rem;
+  color: var(--tm-muted-dim);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.demo-header-label::before {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--tm-yellow);
+  border-radius: 50%;
+}
+.demo-header {
+  background: rgba(13,27,42,0.92);
+  border-bottom: 1px solid var(--tm-border);
+}
+.demo-header-inner {
+  padding: 0 var(--sp-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.demo-logo {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--tm-text);
+  text-decoration: none;
+}
+.demo-logo-accent { color: var(--tm-yellow); }
+.demo-nav {
+  display: flex;
+  gap: var(--sp-1);
+  align-items: center;
+}
+.demo-nav-item {
+  font-size: 0.8125rem;
+  color: var(--tm-muted);
+  text-decoration: none;
+  padding: 0.375rem 0.75rem;
+  transition: color var(--transition-fast);
+  position: relative;
+}
+.demo-nav-item:hover { color: var(--tm-text); }
+.demo-nav-cursor {
+  display: none;
+  animation: blink 1s step-end infinite;
+  color: var(--tm-yellow);
+  font-weight: 700;
+}
+.demo-nav-item:hover .demo-nav-cursor { display: inline; }
+.demo-register {
+  background: transparent;
+  color: var(--tm-yellow);
+  border: 1px solid var(--tm-yellow);
+  padding: 0.375rem 0.875rem;
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.demo-register::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--tm-yellow);
+  transform: translateX(-100%);
+  transition: transform var(--transition);
+}
+.demo-register:hover::before { transform: translateX(0); }
+.demo-register span { position: relative; z-index: 1; }
+.demo-register:hover span { color: var(--tm-bg); }
+
+/* =========================================================
+   COLOUR PALETTE
+   ========================================================= */
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--sp-3);
+}
+.swatch {
+  border: 1px solid var(--tm-border);
+  overflow: hidden;
+}
+.swatch-color {
+  height: 64px;
+  position: relative;
+}
+.swatch-check {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  background: rgba(0,0,0,0.4);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.swatch-info {
+  background: var(--tm-surface);
+  padding: var(--sp-3) var(--sp-4);
+}
+.swatch-var {
+  font-size: 0.6875rem;
+  color: var(--tm-blue);
+  margin-bottom: 2px;
+  word-break: break-all;
+}
+.swatch-hex {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tm-text);
+  margin-bottom: 2px;
+}
+.swatch-label {
+  font-size: 0.625rem;
+  color: var(--tm-muted-dim);
+  line-height: 1.4;
+}
+.wcag-aa {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 4px;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  color: var(--tm-green);
+  background: rgba(74,222,128,0.1);
+  padding: 1px 5px;
+}
+.wcag-deco {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 4px;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  color: var(--tm-muted-dim);
+  background: rgba(74,101,128,0.1);
+  padding: 1px 5px;
+}
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+.type-row {
+  padding: var(--sp-6) 0;
+  border-bottom: 1px solid var(--tm-border);
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--sp-6);
+  align-items: start;
+}
+.type-row:last-child { border-bottom: none; }
+.type-meta { padding-top: 4px; }
+.type-meta-label {
+  font-size: 0.625rem;
+  color: var(--tm-muted-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--sp-1);
+}
+.type-meta-spec {
+  font-size: 0.6875rem;
+  color: var(--tm-blue);
+  line-height: 1.6;
+}
+.t-h1 {
+  font-size: clamp(2rem,5vw,3rem);
+  font-weight: 700;
+  color: var(--tm-text);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+.t-prompt { color: var(--tm-yellow); margin-right: 0.5rem; }
+.t-h2 { font-size: 1.5rem; font-weight: 700; color: var(--tm-text); letter-spacing: -0.03em; }
+.t-h3 { font-size: 1.125rem; font-weight: 700; color: var(--tm-text); letter-spacing: -0.025em; }
+.t-body { font-size: 0.9375rem; color: var(--tm-body); font-weight: 300; line-height: 1.75; max-width: 500px; }
+.t-muted { font-size: 0.875rem; color: var(--tm-muted); font-weight: 300; line-height: 1.7; max-width: 500px; }
+.t-small { font-size: 0.75rem; color: var(--tm-muted); font-weight: 400; }
+.t-comment { font-size: 0.875rem; color: var(--tm-muted-dim); }
+.t-cmd { font-size: 0.8125rem; color: var(--tm-yellow); }
+.section-cmd-demo {
+  font-size: 0.75rem;
+  color: var(--tm-yellow);
+  margin-bottom: var(--sp-2);
+}
+
+/* =========================================================
+   TERMINAL VOCABULARY
+   ========================================================= */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--sp-4);
+}
+.vocab-card {
+  background: var(--tm-surface);
+  border: 1px solid var(--tm-border);
+  padding: var(--sp-6);
+}
+.vocab-card-label {
+  font-size: 0.5625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--tm-muted-dim);
+  margin-bottom: var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.vocab-card-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--tm-border);
+}
+.vocab-item {
+  font-size: 0.875rem;
+  margin-bottom: var(--sp-3);
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+}
+.vocab-example { flex: 1; }
+.vocab-note {
+  font-size: 0.625rem;
+  color: var(--tm-muted-dim);
+  white-space: nowrap;
+}
+
+/* Badge styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.badge-info   { color: var(--tm-yellow); background: rgba(245,213,99,0.08); border: 1px solid rgba(245,213,99,0.2); }
+.badge-ok     { color: var(--tm-green);  background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); }
+.badge-error  { color: var(--tm-red);    background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.2); }
+.badge-done   { color: var(--tm-muted);  background: rgba(127,160,187,0.08); border: 1px solid rgba(127,160,187,0.2); }
+.badge-active { color: var(--tm-green);  background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.2); }
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--sp-4);
+}
+.btn-demo-card {
+  background: var(--tm-surface);
+  border: 1px solid var(--tm-border);
+  padding: var(--sp-8);
+}
+.btn-demo-card-label {
+  font-size: 0.5625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--tm-muted-dim);
+  margin-bottom: var(--sp-6);
+}
+.btn-demo-row {
+  display: flex;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-4);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+.btn > * { position: relative; z-index: 1; }
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  transition: transform var(--transition);
+  z-index: 0;
+}
+.btn-hover { pointer-events: none; }
+
+.btn-primary {
+  background: transparent;
+  color: var(--tm-yellow);
+  border: 1px solid var(--tm-yellow);
+}
+.btn-primary::before { background: var(--tm-yellow); }
+.btn-primary:hover { color: var(--tm-bg); }
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary.btn-hover::before { transform: translateX(0); }
+.btn-primary.btn-hover { color: var(--tm-bg); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--tm-muted);
+  border: 1px solid var(--tm-border);
+}
+.btn-secondary::before { background: var(--tm-surface-hover); }
+.btn-secondary:hover { color: var(--tm-text); border-color: var(--tm-muted); }
+.btn-secondary:hover::before { transform: translateX(0); }
+.btn-secondary.btn-hover::before { transform: translateX(0); }
+.btn-secondary.btn-hover { color: var(--tm-text); border-color: var(--tm-muted); }
+
+.btn-accent {
+  background: transparent;
+  color: var(--tm-yellow);
+  border: 1px solid var(--tm-yellow);
+}
+.btn-accent::before { background: var(--tm-yellow); }
+.btn-accent:hover { color: var(--tm-bg); }
+.btn-accent:hover::before { transform: translateX(0); }
+
+.btn-sm { padding: 0.25rem 0.625rem; font-size: 0.6875rem; }
+
+.btn-spec {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--tm-border);
+  font-size: 0.625rem;
+  color: var(--tm-muted-dim);
+  line-height: 1.8;
+}
+.btn-spec span { color: var(--tm-blue); }
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--sp-6);
+}
+.card-demo {
+  background: var(--tm-surface);
+  border: 1px solid var(--tm-border);
+}
+.card-demo-label {
+  background: var(--tm-bg);
+  border-bottom: 1px solid var(--tm-border);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: 0.5625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tm-muted-dim);
+}
+.card-body { padding: var(--sp-8); }
+.card-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--tm-border);
+  background: var(--tm-bg);
+  color: var(--tm-yellow);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  margin-bottom: var(--sp-5);
+}
+.card-h3 {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--tm-text);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--sp-2);
+}
+.card-p {
+  font-size: 0.8125rem;
+  color: var(--tm-muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Left accent card */
+.card-accent-yellow { border-left: 3px solid var(--tm-yellow); }
+.card-accent-blue   { border-left: 3px solid var(--tm-blue); }
+
+/* Board card */
+.board-card-body {
+  padding: var(--sp-8) var(--sp-6);
+  text-align: center;
+  position: relative;
+}
+.board-card-body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--tm-blue);
+}
+.board-avatar-demo {
+  width: 72px; height: 72px;
+  border: 1px solid var(--tm-border);
+  background: var(--tm-bg);
+  margin: 0 auto var(--sp-5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  color: var(--tm-muted-dim);
+}
+.board-name-demo {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--tm-text);
+  margin-bottom: 2px;
+}
+.board-role-demo {
+  font-size: 0.6875rem;
+  color: var(--tm-blue);
+  margin-bottom: 2px;
+}
+.board-company-demo {
+  font-size: 0.6875rem;
+  color: var(--tm-muted);
+  font-weight: 300;
+}
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+.form-demo {
+  max-width: 640px;
+  background: var(--tm-surface);
+  border: 1px solid var(--tm-border);
+}
+.form-demo-header {
+  background: var(--tm-bg);
+  border-bottom: 1px solid var(--tm-border);
+  padding: var(--sp-3) var(--sp-6);
+  font-size: 0.75rem;
+  color: var(--tm-yellow);
+}
+.form-demo-body { padding: var(--sp-8); }
+.form-row { margin-bottom: var(--sp-6); }
+.form-row:last-child { margin-bottom: 0; }
+.form-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--tm-text);
+  margin-bottom: var(--sp-2);
+}
+.form-hint {
+  font-size: 0.6875rem;
+  color: var(--tm-muted);
+  margin-top: var(--sp-1);
+}
+.tm-input, .tm-select, .tm-textarea {
+  width: 100%;
+  background: var(--tm-bg);
+  border: 1px solid var(--tm-border);
+  border-radius: 0;
+  color: var(--tm-text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 300;
+  padding: 0.5rem 0.75rem;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.tm-input:focus, .tm-select:focus, .tm-textarea:focus {
+  border-color: var(--tm-yellow);
+  box-shadow: 0 0 0 2px rgb(245 213 99 / 0.15);
+}
+.tm-input::placeholder, .tm-textarea::placeholder { color: var(--tm-muted-dim); }
+.tm-select { cursor: pointer; }
+.tm-textarea { min-height: 100px; resize: vertical; }
+/* Simulate focused state */
+.tm-input-focus {
+  border-color: var(--tm-yellow);
+  box-shadow: 0 0 0 2px rgb(245 213 99 / 0.15);
+}
+.form-error {
+  font-size: 0.6875rem;
+  color: var(--tm-red);
+  margin-top: var(--sp-1);
+}
+.form-success {
+  font-size: 0.6875rem;
+  color: var(--tm-green);
+  margin-top: var(--sp-1);
+}
+.form-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+
+/* =========================================================
+   EVENT CARD
+   ========================================================= */
+.event-card {
+  background: var(--tm-surface);
+  border: 1px solid var(--tm-border);
+  border-left: 3px solid var(--tm-yellow);
+  max-width: 760px;
+}
+.event-log-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.375rem var(--sp-5);
+  background: var(--tm-bg);
+  border-bottom: 1px solid var(--tm-border);
+  font-size: 0.6875rem;
+}
+.log-level    { color: var(--tm-yellow); font-weight: 700; }
+.log-level-done { color: var(--tm-muted); font-weight: 700; }
+.log-date     { color: var(--tm-blue); }
+.log-sep      { color: var(--tm-border); }
+.log-loc      { color: var(--tm-muted); }
+.event-body {
+  display: flex;
+  gap: var(--sp-5);
+  padding: var(--sp-6);
+  align-items: flex-start;
+}
+.event-date-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px; height: 52px;
+  background: var(--tm-bg);
+  border: 1px solid var(--tm-border);
+  flex-shrink: 0;
+}
+.ev-month {
+  font-size: 0.5625rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--tm-muted);
+}
+.ev-day {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--tm-text);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.event-info { flex: 1; }
+.event-title-demo {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--tm-text);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--sp-2);
+}
+.event-meta-row {
+  display: flex;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-3);
+}
+.event-meta-item {
+  display: flex; align-items: center; gap: 4px;
+  color: var(--tm-muted);
+  font-size: 0.75rem;
+}
+.event-desc-demo {
+  color: var(--tm-muted);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  margin-bottom: var(--sp-3);
+  font-weight: 300;
+}
+.event-toggle {
+  background: none;
+  border: none;
+  color: var(--tm-muted);
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color var(--transition-fast);
+}
+.event-toggle:hover { color: var(--tm-text); }
+.event-details-panel {
+  padding: 0 var(--sp-5) var(--sp-5);
+  margin-left: calc(52px + var(--sp-5));
+  border-top: 1px solid var(--tm-border);
+  padding-top: var(--sp-5);
+  display: none;
+}
+.event-details-panel.open { display: block; }
+.event-detail-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tm-muted);
+  margin: var(--sp-4) 0 var(--sp-2);
+}
+.event-schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--sp-3);
+}
+.event-schedule-table td {
+  padding: var(--sp-2) var(--sp-3);
+  font-size: 0.75rem;
+  border-bottom: 1px solid var(--tm-border);
+  color: var(--tm-muted);
+  font-weight: 300;
+}
+.schedule-time-cell {
+  font-weight: 700;
+  color: var(--tm-blue);
+  width: 80px;
+  white-space: nowrap;
+}
+.event-closing-demo {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--tm-muted);
+  margin-top: var(--sp-3);
+}
+
+/* =========================================================
+   SPACING SCALE
+   ========================================================= */
+.spacing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.spacing-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.spacing-var {
+  width: 140px;
+  font-size: 0.6875rem;
+  color: var(--tm-blue);
+  flex-shrink: 0;
+}
+.spacing-bar-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.spacing-bar {
+  background: var(--tm-yellow);
+  height: 8px;
+  opacity: 0.6;
+}
+.spacing-val {
+  font-size: 0.625rem;
+  color: var(--tm-muted-dim);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   NAVIGATION STATES
+   ========================================================= */
+.nav-states-demo {
+  background: rgba(13,27,42,0.92);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--tm-border);
+  padding: var(--sp-4) var(--sp-6);
+}
+.nav-states-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-4);
+}
+.nav-state-item {
+  font-size: 0.8125rem;
+  color: var(--tm-muted);
+  padding: 0.375rem 0.75rem;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  position: relative;
+}
+.nav-state-item:hover { color: var(--tm-text); }
+.nav-state-active { color: var(--tm-text); }
+.nav-cursor-demo {
+  animation: blink 1s step-end infinite;
+  color: var(--tm-yellow);
+  font-weight: 700;
+}
+.nav-state-desc {
+  font-size: 0.6875rem;
+  color: var(--tm-muted-dim);
+  padding: var(--sp-3) 0 0;
+  border-top: 1px solid var(--tm-border);
+  line-height: 1.8;
+}
+.nav-state-desc span { color: var(--tm-blue); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.guide-footer {
+  border-top: 1px solid var(--tm-border);
+  padding: var(--sp-8) 0;
+  margin-top: var(--sp-16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+.footer-cmd {
+  font-size: 0.75rem;
+  color: var(--tm-muted-dim);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.footer-cmd .prompt { color: var(--tm-muted); }
+.footer-version {
+  font-size: 0.625rem;
+  color: var(--tm-muted-dim);
+}
+.footer-version span { color: var(--tm-blue); }
+
+/* =========================================================
+   UTILS
+   ========================================================= */
+.mono { font-family: 'JetBrains Mono', monospace; }
+.text-yellow { color: var(--tm-yellow); }
+.text-blue   { color: var(--tm-blue); }
+.text-muted  { color: var(--tm-muted); }
+.text-green  { color: var(--tm-green); }
+.text-red    { color: var(--tm-red); }
+.text-dim    { color: var(--tm-muted-dim); }
+
+.code-inline {
+  background: var(--tm-surface);
+  border: 1px solid var(--tm-border);
+  padding: 1px 6px;
+  font-size: 0.75rem;
+  color: var(--tm-blue);
+}
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     STICKY NAV
+     ========================================================= -->
+<nav class="guide-nav">
+  <div class="guide-nav-inner">
+    <a href="#top" class="guide-nav-logo">laravel<span>_sweden</span></a>
+    <span class="guide-nav-sep">//</span>
+    <a href="#s-header"     class="nav-pill">header</a>
+    <a href="#s-palette"    class="nav-pill">palette</a>
+    <a href="#s-typography" class="nav-pill">typography</a>
+    <a href="#s-vocab"      class="nav-pill">vocabulary</a>
+    <a href="#s-buttons"    class="nav-pill">buttons</a>
+    <a href="#s-cards"      class="nav-pill">cards</a>
+    <a href="#s-forms"      class="nav-pill">forms</a>
+    <a href="#s-event"      class="nav-pill">event card</a>
+    <a href="#s-spacing"    class="nav-pill">spacing</a>
+    <a href="#s-nav"        class="nav-pill">nav states</a>
+  </div>
+</nav>
+
+<!-- =========================================================
+     CONTENT
+     ========================================================= -->
+<div class="guide-wrap" id="top">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-cmd">
+      <span>$</span>
+      <span>design-guide --theme=terminal-midnight --format=visual</span>
+      <span class="cursor">|</span>
+    </div>
+    <h1>
+      <span class="prompt">&gt;</span>Terminal Midnight<br>Design Guide
+    </h1>
+    <p class="page-header-sub">
+      // Reference for all UI decisions on the Laravel Sweden public site.
+      Palette, typography, components, terminal vocabulary — everything in one place.
+    </p>
+    <div class="version-badge">
+      [VERSION] <span>1.0.0</span> &nbsp;·&nbsp; [BRANCH] <span>design/concept-d-terminal-midnight</span> &nbsp;·&nbsp; [STATUS] <span class="text-green">ACTIVE</span>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       SECTION 1 · HEADER
+       ===================================================== -->
+  <div class="section" id="s-header">
+    <div class="section-cmd">$ render --component=header --state=default</div>
+    <h2>Header / Navigation</h2>
+    <p class="section-desc">The sticky top bar. Dark navy glass background, logo with yellow underscore accent, path-style nav links, and a fill-slide register CTA.</p>
+
+    <div class="demo-header-wrap">
+      <div class="demo-header-label">RENDERED COMPONENT · header.blade.php</div>
+      <div class="demo-header">
+        <div class="demo-header-inner">
+          <a href="#" class="demo-logo">laravel<span class="demo-logo-accent">_sweden</span></a>
+          <div class="demo-nav">
+            <a href="#" class="demo-nav-item">./community<span class="demo-nav-cursor">|</span></a>
+            <a href="#" class="demo-nav-item">./events<span class="demo-nav-cursor">|</span></a>
+            <a href="#" class="demo-nav-item">./companies<span class="demo-nav-cursor">|</span></a>
+            <a href="#" class="demo-nav-item">./board<span class="demo-nav-cursor">|</span></a>
+            <a href="#" class="demo-register"><span>$ register --now</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: var(--sp-4); background: var(--tm-surface); border: 1px solid var(--tm-border); padding: var(--sp-5) var(--sp-6);">
+      <div class="type-meta-label" style="margin-bottom: var(--sp-3);">IMPLEMENTATION NOTES</div>
+      <div style="font-size: 0.75rem; color: var(--tm-muted); line-height: 2;">
+        Background: <code class="code-inline">rgba(13,27,42,0.92)</code> + <code class="code-inline">backdrop-filter: blur(16px)</code>&nbsp;&nbsp;
+        Height: <code class="code-inline">64px</code>&nbsp;&nbsp;
+        Border: <code class="code-inline">1px solid var(--tm-border)</code>&nbsp;&nbsp;
+        Position: <code class="code-inline">sticky top: 0</code>&nbsp;&nbsp;
+        z-index: <code class="code-inline">100</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- =====================================================
+       SECTION 2 · COLOUR PALETTE
+       ===================================================== -->
+  <div class="section" id="s-palette">
+    <div class="section-cmd">$ palette --list --show-wcag</div>
+    <h2>Colour Palette</h2>
+    <p class="section-desc">All CSS custom properties. WCAG AA (4.5:1) verified against <code class="code-inline">--tm-bg</code>. Decorative-only swatches must not be used for body text.</p>
+
+    <div class="palette-grid">
+      <!-- tm-bg -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#0d1b2a; border-bottom: 1px solid #1e3a4a;">
+          <span class="swatch-check" style="color:#7fa0bb">page bg</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-bg</div>
+          <div class="swatch-hex">#0d1b2a</div>
+          <div class="swatch-label">Page background · Dark navy</div>
+        </div>
+      </div>
+      <!-- tm-surface -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#142638; border-bottom: 1px solid #1e3a4a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-surface</div>
+          <div class="swatch-hex">#142638</div>
+          <div class="swatch-label">Card / panel background</div>
+        </div>
+      </div>
+      <!-- tm-surface-2 -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1a2c40; border-bottom: 1px solid #1e3a4a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-surface-2</div>
+          <div class="swatch-hex">#1a2c40</div>
+          <div class="swatch-label">Elevated surface</div>
+        </div>
+      </div>
+      <!-- tm-surface-hover -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1a3050; border-bottom: 1px solid #1e3a4a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-surface-hover</div>
+          <div class="swatch-hex">#1a3050</div>
+          <div class="swatch-label">Hover state for surfaces</div>
+        </div>
+      </div>
+      <!-- tm-border -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1e3a4a; border-bottom: 1px solid #2a4a5a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-border</div>
+          <div class="swatch-hex">#1e3a4a</div>
+          <div class="swatch-label">Border colour</div>
+        </div>
+      </div>
+      <!-- tm-yellow -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#f5d563;">
+          <span class="swatch-check" style="color:#0d1b2a; background: rgba(13,27,42,0.4)">PRIMARY</span>
+        </div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-yellow</div>
+          <div class="swatch-hex">#f5d563</div>
+          <div class="swatch-label">Primary accent — buttons, prompts, highlights</div>
+          <span class="wcag-aa">✓ WCAG AA</span>
+        </div>
+      </div>
+      <!-- tm-blue -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#4d9fd4;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-blue</div>
+          <div class="swatch-hex">#4d9fd4</div>
+          <div class="swatch-label">Secondary accent — links, labels, roles</div>
+          <span class="wcag-aa">✓ WCAG AA</span>
+        </div>
+      </div>
+      <!-- tm-blue-bg -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#005293;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-blue-bg</div>
+          <div class="swatch-hex">#005293</div>
+          <div class="swatch-label">Blue for surfaces/backgrounds only</div>
+          <span class="wcag-deco">✗ DECO ONLY</span>
+        </div>
+      </div>
+      <!-- tm-text -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#c9d8e8; border-bottom: 1px solid #1e3a4a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-text</div>
+          <div class="swatch-hex">#c9d8e8</div>
+          <div class="swatch-label">Primary body text</div>
+          <span class="wcag-aa">✓ WCAG AA</span>
+        </div>
+      </div>
+      <!-- tm-body -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#f0ede6; border-bottom: 1px solid #1e3a4a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-body</div>
+          <div class="swatch-hex">#f0ede6</div>
+          <div class="swatch-label">High-contrast body copy</div>
+          <span class="wcag-aa">✓ WCAG AA</span>
+        </div>
+      </div>
+      <!-- tm-muted -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#7fa0bb; border-bottom: 1px solid #1e3a4a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-muted</div>
+          <div class="swatch-hex">#7fa0bb</div>
+          <div class="swatch-label">Muted / secondary text</div>
+          <span class="wcag-aa">✓ WCAG AA</span>
+        </div>
+      </div>
+      <!-- tm-muted-dim -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#4a6580; border-bottom: 1px solid #1e3a4a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-muted-dim</div>
+          <div class="swatch-hex">#4a6580</div>
+          <div class="swatch-label">Decorative accents only — not for text</div>
+          <span class="wcag-deco">✗ DECO ONLY</span>
+        </div>
+      </div>
+      <!-- tm-green -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#4ade80; border-bottom: 1px solid #1e3a4a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-green</div>
+          <div class="swatch-hex">#4ade80</div>
+          <div class="swatch-label">Success states [OK] [ACTIVE]</div>
+          <span class="wcag-aa">✓ WCAG AA</span>
+        </div>
+      </div>
+      <!-- tm-red -->
+      <div class="swatch">
+        <div class="swatch-color" style="background:#ff6b6b; border-bottom: 1px solid #1e3a4a;"></div>
+        <div class="swatch-info">
+          <div class="swatch-var">--tm-red</div>
+          <div class="swatch-hex">#ff6b6b</div>
+          <div class="swatch-label">Error states [ERROR]</div>
+          <span class="wcag-aa">✓ WCAG AA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- =====================================================
+       SECTION 3 · TYPOGRAPHY
+       ===================================================== -->
+  <div class="section" id="s-typography">
+    <div class="section-cmd">$ typography --font=jetbrains-mono --show-scale</div>
+    <h2>Typography</h2>
+    <p class="section-desc">Single typeface throughout: JetBrains Mono. No exceptions. Weight and size create hierarchy.</p>
+
+    <div style="border: 1px solid var(--tm-border);">
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-label">H1 / HERO</div>
+          <div class="type-meta-spec">clamp(2rem, 5vw, 3rem)<br>weight 700<br>ls -0.04em<br>lh 1.05</div>
+        </div>
+        <div>
+          <div style="font-size:0.6875rem; color: var(--tm-muted-dim); margin-bottom: 8px;">// with terminal prompt</div>
+          <div class="t-h1"><span class="t-prompt">&gt;</span> Build with Laravel.<br>Grow with Sweden.</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-label">H2 / SECTION</div>
+          <div class="type-meta-spec">clamp(1.75rem, 4vw, 2.5rem)<br>weight 700<br>ls -0.03em</div>
+        </div>
+        <div>
+          <div class="section-cmd-demo">$ events --filter=upcoming --sort=date</div>
+          <div class="t-h2">Upcoming Events</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-label">H3 / CARD</div>
+          <div class="type-meta-spec">1rem<br>weight 700<br>ls -0.02em</div>
+        </div>
+        <div class="t-h3">Education &amp; Learning</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-label">BODY</div>
+          <div class="type-meta-spec">0.9375rem<br>weight 300<br>lh 1.75</div>
+        </div>
+        <div class="t-body">We spread knowledge about the Laravel PHP framework through meetings, conferences, websites and other online activities.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-label">MUTED</div>
+          <div class="type-meta-spec">0.875rem<br>weight 300<br>color --tm-muted</div>
+        </div>
+        <div class="t-muted">Join us at our upcoming meetups and conferences across Sweden. Real-time discussions, help, and networking.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-label">SMALL / META</div>
+          <div class="type-meta-spec">0.75rem<br>weight 400<br>color --tm-muted</div>
+        </div>
+        <div class="t-small">2025-03-15 · Stockholm · 18:00 CET</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-label">// COMMENT</div>
+          <div class="type-meta-spec">0.8125rem<br>weight 400<br>color --tm-muted-dim</div>
+        </div>
+        <div class="t-comment">// swedish_laravel_association</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-meta-label">$ COMMAND</div>
+          <div class="type-meta-spec">0.75rem<br>weight 400<br>color --tm-yellow</div>
+        </div>
+        <div class="t-cmd">$ events --filter=upcoming --sort=date</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- =====================================================
+       SECTION 4 · TERMINAL VOCABULARY
+       ===================================================== -->
+  <div class="section" id="s-vocab">
+    <div class="section-cmd">$ vocabulary --list --show-examples</div>
+    <h2>Terminal Vocabulary</h2>
+    <p class="section-desc">Every UI element speaks CLI. These patterns must be used consistently across all pages.</p>
+
+    <div class="vocab-grid">
+      <!-- Commands -->
+      <div class="vocab-card">
+        <div class="vocab-card-label">COMMANDS <code style="font-size:0.5rem; color: var(--tm-blue);">$ ...</code></div>
+        <div class="vocab-item">
+          <div class="vocab-example t-cmd">$ events --filter=upcoming</div>
+          <div class="vocab-note text-dim">section header</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-example t-cmd">$ submit --talk</div>
+          <div class="vocab-note text-dim">CTA button</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-example t-cmd">$ register --now</div>
+          <div class="vocab-note text-dim">nav register</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-example t-cmd">$ login --user</div>
+          <div class="vocab-note text-dim">auth button</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-example t-cmd">$ save --changes</div>
+          <div class="vocab-note text-dim">form submit</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-example t-cmd">$ send --message</div>
+          <div class="vocab-note text-dim">contact form</div>
+        </div>
+      </div>
+
+      <!-- Status badges -->
+      <div class="vocab-card">
+        <div class="vocab-card-label">STATUS BADGES <code style="font-size:0.5rem; color: var(--tm-blue);">[...]</code></div>
+        <div class="vocab-item"><div class="vocab-example"><span class="badge badge-info">[INFO]</span></div><div class="vocab-note text-dim">upcoming event</div></div>
+        <div class="vocab-item"><div class="vocab-example"><span class="badge badge-ok">[OK]</span></div><div class="vocab-note text-dim">success state</div></div>
+        <div class="vocab-item"><div class="vocab-example"><span class="badge badge-error">[ERROR]</span></div><div class="vocab-note text-dim">validation error</div></div>
+        <div class="vocab-item"><div class="vocab-example"><span class="badge badge-done">[DONE]</span></div><div class="vocab-note text-dim">past event</div></div>
+        <div class="vocab-item"><div class="vocab-example"><span class="badge badge-active">[ACTIVE]</span></div><div class="vocab-note text-dim">member status</div></div>
+        <div class="vocab-item"><div class="vocab-example"><span class="badge badge-done">[PENDING]</span></div><div class="vocab-note text-dim">review queue</div></div>
+        <div class="vocab-item"><div class="vocab-example" style="display:flex; gap: 8px;"><span class="badge badge-info">[ORG]</span><span class="badge badge-done">[SMALL]</span></div><div class="vocab-note text-dim">company listing</div></div>
+      </div>
+
+      <!-- Comments and arrows -->
+      <div class="vocab-card">
+        <div class="vocab-card-label">COMMENTS &amp; MARKERS</div>
+        <div class="vocab-item">
+          <div class="vocab-example" style="color: var(--tm-muted-dim); font-size: 0.875rem;">// swedish_laravel_association</div>
+          <div class="vocab-note text-dim">hero label</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-example" style="color: var(--tm-muted); font-size: 0.875rem;">// Acme AB</div>
+          <div class="vocab-note text-dim">company prefix</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-example" style="color: var(--tm-muted); font-size: 0.875rem;">// no results found</div>
+          <div class="vocab-note text-dim">empty state</div>
+        </div>
+        <div style="margin-top: var(--sp-4); padding-top: var(--sp-4); border-top: 1px solid var(--tm-border);">
+          <div class="type-meta-label" style="margin-bottom: var(--sp-3);">ARROWS &amp; INDICATORS</div>
+          <div class="vocab-item">
+            <div class="vocab-example" style="color: var(--tm-yellow); font-size: 1.125rem; font-weight: 700;">→ 42</div>
+            <div class="vocab-note text-dim">stat arrow</div>
+          </div>
+          <div class="vocab-item">
+            <div class="vocab-example" style="color: var(--tm-yellow); font-size: 0.875rem;">&gt; Build with Laravel.</div>
+            <div class="vocab-note text-dim">hero prompt</div>
+          </div>
+          <div class="vocab-item">
+            <div class="vocab-example" style="color: var(--tm-muted); font-size: 0.875rem;">// closing remark here</div>
+            <div class="vocab-note text-dim">event closing</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toggles and terminal lines -->
+      <div class="vocab-card">
+        <div class="vocab-card-label">EXPAND / COLLAPSE</div>
+        <div class="vocab-item">
+          <div class="vocab-example" style="color: var(--tm-muted); font-size: 0.75rem;">++ show more ↓</div>
+          <div class="vocab-note text-dim">collapsed</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vocab-example" style="color: var(--tm-muted); font-size: 0.75rem;">-- show less ↑</div>
+          <div class="vocab-note text-dim">expanded</div>
+        </div>
+        <div style="margin-top: var(--sp-4); padding-top: var(--sp-4); border-top: 1px solid var(--tm-border);">
+          <div class="type-meta-label" style="margin-bottom: var(--sp-3);">TERMINAL DECORATIONS</div>
+          <div style="font-size: 0.75rem; color: var(--tm-muted-dim); margin-bottom: var(--sp-3);">
+            <span style="color: var(--tm-blue);">~</span>
+            <span style="color: var(--tm-muted);"> php artisan serve --host=stockholm</span>
+            <span style="animation: blink 1s step-end infinite; color: var(--tm-muted);">|</span>
+          </div>
+          <div style="font-size: 0.625rem; color: var(--tm-muted-dim);">
+            Bottom-right of hero section. Decorative only. aria-hidden="true".
+          </div>
+        </div>
+        <div style="margin-top: var(--sp-4); padding-top: var(--sp-4); border-top: 1px solid var(--tm-border);">
+          <div class="type-meta-label" style="margin-bottom: var(--sp-3);">HASH HEADINGS (DETAIL PANELS)</div>
+          <div style="color: var(--tm-muted); font-size: 0.875rem; font-weight: 700; margin-bottom: 4px;"># Schedule</div>
+          <div style="color: var(--tm-muted); font-size: 0.875rem; font-weight: 700;"># Organizers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- =====================================================
+       SECTION 5 · BUTTONS
+       ===================================================== -->
+  <div class="section" id="s-buttons">
+    <div class="section-cmd">$ buttons --show-all --show-hover-state</div>
+    <h2>Buttons</h2>
+    <p class="section-desc">All buttons use a yellow fill-slide animation on hover. <code class="code-inline">::before</code> pseudo-element slides from left. All variants: <code class="code-inline">border-radius: 0</code>.</p>
+
+    <div class="btn-grid">
+      <!-- Primary -->
+      <div class="btn-demo-card">
+        <div class="btn-demo-card-label">.btn-primary — DEFAULT STATE</div>
+        <div class="btn-demo-row">
+          <button class="btn btn-primary">$ submit --talk</button>
+          <button class="btn btn-primary btn-sm">$ small</button>
+        </div>
+        <div class="btn-spec">
+          border: <span>1px solid var(--tm-yellow)</span><br>
+          color: <span>var(--tm-yellow)</span><br>
+          background: <span>transparent</span>
+        </div>
+      </div>
+
+      <!-- Primary hover -->
+      <div class="btn-demo-card">
+        <div class="btn-demo-card-label">.btn-primary — HOVER STATE</div>
+        <div class="btn-demo-row">
+          <button class="btn btn-primary btn-hover">$ submit --talk</button>
+        </div>
+        <div class="btn-spec">
+          ::before slides in from left<br>
+          background: <span>var(--tm-yellow)</span><br>
+          color: <span>var(--tm-bg)</span>
+        </div>
+      </div>
+
+      <!-- Secondary -->
+      <div class="btn-demo-card">
+        <div class="btn-demo-card-label">.btn-secondary — DEFAULT STATE</div>
+        <div class="btn-demo-row">
+          <button class="btn btn-secondary">Upcoming Events</button>
+          <button class="btn btn-secondary btn-sm">Cancel</button>
+        </div>
+        <div class="btn-spec">
+          border: <span>1px solid var(--tm-border)</span><br>
+          color: <span>var(--tm-muted)</span><br>
+          background: <span>transparent</span>
+        </div>
+      </div>
+
+      <!-- Secondary hover -->
+      <div class="btn-demo-card">
+        <div class="btn-demo-card-label">.btn-secondary — HOVER STATE</div>
+        <div class="btn-demo-row">
+          <button class="btn btn-secondary btn-hover">Upcoming Events</button>
+        </div>
+        <div class="btn-spec">
+          ::before fills with <span>var(--tm-surface-hover)</span><br>
+          border-color: <span>var(--tm-muted)</span><br>
+          color: <span>var(--tm-text)</span>
+        </div>
+      </div>
+
+      <!-- Accent -->
+      <div class="btn-demo-card">
+        <div class="btn-demo-card-label">.btn-accent — SAME AS PRIMARY</div>
+        <div class="btn-demo-row">
+          <button class="btn btn-accent">$ register</button>
+          <button class="btn btn-accent btn-sm">$ open slack</button>
+        </div>
+        <div class="btn-spec">
+          Identical to btn-primary.<br>
+          Used for secondary CTAs within content (event sign-up, community links).
+        </div>
+      </div>
+
+      <!-- Sizes -->
+      <div class="btn-demo-card">
+        <div class="btn-demo-card-label">SIZE VARIANTS</div>
+        <div style="display: flex; flex-direction: column; gap: var(--sp-3); align-items: flex-start;">
+          <button class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-size: 0.9375rem;">$ hero --cta</button>
+          <button class="btn btn-primary">$ default --size</button>
+          <button class="btn btn-primary btn-sm">$ small</button>
+          <button class="btn btn-primary" style="padding: 0.25rem 0.625rem; font-size: 0.6875rem;">$ xs</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- =====================================================
+       SECTION 6 · CARDS
+       ===================================================== -->
+  <div class="section" id="s-cards">
+    <div class="section-cmd">$ cards --show-variants</div>
+    <h2>Cards</h2>
+    <p class="section-desc">All cards: <code class="code-inline">border-radius: 0</code>. Dark surface background. 1px border. Some variants use a left accent border.</p>
+
+    <div class="cards-grid">
+      <!-- Basic card -->
+      <div class="card-demo">
+        <div class="card-demo-label">.card — BASIC</div>
+        <div class="card-body">
+          <div class="card-icon">01</div>
+          <div class="card-h3">Education &amp; Learning</div>
+          <div class="card-p">We organize workshops, talks, and educational events to help developers master Laravel and modern PHP.</div>
+        </div>
+      </div>
+
+      <!-- Yellow left accent -->
+      <div class="card-demo card-accent-yellow">
+        <div class="card-demo-label">.card — LEFT ACCENT YELLOW (events)</div>
+        <div class="card-body">
+          <div style="font-size: 0.625rem; color: var(--tm-yellow); font-weight: 700; margin-bottom: var(--sp-3);">[INFO] 2025-03-15 · Stockholm</div>
+          <div class="card-h3">Laravel Sweden Spring Meetup</div>
+          <div class="card-p">An evening of talks, networking, and community building. Dinner provided by our generous sponsors.</div>
+        </div>
+      </div>
+
+      <!-- Blue left accent -->
+      <div class="card-demo card-accent-blue">
+        <div class="card-demo-label">.card — LEFT ACCENT BLUE (testimonial)</div>
+        <div class="card-body">
+          <div style="color: var(--tm-muted); font-size: 0.875rem; font-weight: 300; line-height: 1.8; margin-bottom: var(--sp-4);">
+            <span style="color: var(--tm-muted-dim);">// </span>The Laravel Sweden community has been invaluable for growing my career and connecting with peers.
+          </div>
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--tm-text);">Erik Lindström</div>
+          <div style="font-size: 0.6875rem; color: var(--tm-muted);">Senior Developer · Acme AB</div>
+        </div>
+      </div>
+
+      <!-- Board member card -->
+      <div class="card-demo">
+        <div class="card-demo-label">.board-card — TOP BLUE ACCENT ON HOVER</div>
+        <div class="board-card-body">
+          <div class="board-avatar-demo">◎</div>
+          <div class="board-name-demo">Anna Karlsson</div>
+          <div class="board-role-demo">Chairman</div>
+          <div class="board-company-demo">// Acme AB</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- =====================================================
+       SECTION 7 · FORMS
+       ===================================================== -->
+  <div class="section" id="s-forms">
+    <div class="section-cmd">$ forms --show-states</div>
+    <h2>Forms</h2>
+    <p class="section-desc">Dark surface inputs with terminal focus rings. Yellow border + subtle glow on focus. No border-radius anywhere.</p>
+
+    <div class="form-demo">
+      <div class="form-demo-header">$ contact --send</div>
+      <div class="form-demo-body">
+        <div class="form-cols" style="margin-bottom: var(--sp-6);">
+          <div class="form-row" style="margin-bottom: 0;">
+            <label class="form-label">// name</label>
+            <input type="text" class="tm-input" placeholder="Anna Karlsson" value="">
+          </div>
+          <div class="form-row" style="margin-bottom: 0;">
+            <label class="form-label">// email</label>
+            <input type="email" class="tm-input tm-input-focus" placeholder="anna@example.se" value="anna@laravel.se">
+            <div class="form-hint">Focus state: yellow border + glow ring</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">// subject</label>
+          <select class="tm-select">
+            <option>General inquiry</option>
+            <option>Sponsorship</option>
+            <option>Speaking</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">// message</label>
+          <textarea class="tm-textarea" placeholder="Your message here..."></textarea>
+          <div class="form-hint">// Minimum 20 characters</div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">// company website</label>
+          <input type="url" class="tm-input" placeholder="https://example.se" style="border-color: var(--tm-red); box-shadow: 0 0 0 2px rgba(255,107,107,0.1);">
+          <div class="form-error">[ERROR] Must be a valid URL starting with https://</div>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-4); padding-top: var(--sp-4); border-top: 1px solid var(--tm-border);">
+          <div class="form-success">[OK] Message delivered — we'll respond within 2 business days</div>
+          <button class="btn btn-primary">$ send --message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- =====================================================
+       SECTION 8 · EVENT CARD
+       ===================================================== -->
+  <div class="section" id="s-event">
+    <div class="section-cmd">$ events --render-card --state=expanded</div>
+    <h2>Event Card</h2>
+    <p class="section-desc">Log bar header. Yellow left accent. Date badge. Expandable detail panel with schedule table.</p>
+
+    <div class="event-card">
+      <!-- Log bar -->
+      <div class="event-log-bar">
+        <span class="log-level">[INFO]</span>
+        <span class="log-date">2025-03-15</span>
+        <span class="log-sep">·</span>
+        <span class="log-loc">Stockholm</span>
+      </div>
+      <!-- Event body -->
+      <div class="event-body">
+        <div class="event-date-badge">
+          <span class="ev-month">MAR</span>
+          <span class="ev-day">15</span>
+        </div>
+        <div class="event-info">
+          <div class="event-title-demo">Laravel Sweden Spring Meetup 2025</div>
+          <div class="event-meta-row">
+            <div class="event-meta-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              18:00
+            </div>
+            <div class="event-meta-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              Sthlm, Södermalm
+            </div>
+          </div>
+          <div class="event-desc-demo">An evening of talks, networking, and community. Dinner and drinks provided. Presentations from community members on real-world Laravel projects.</div>
+          <div style="display: flex; align-items: center; gap: var(--sp-3);">
+            <button class="event-toggle" onclick="this.closest('.event-card').querySelector('.event-details-panel').classList.toggle('open'); this.textContent = this.closest('.event-card').querySelector('.event-details-panel').classList.contains('open') ? '-- show less ↑' : '++ show more ↓'">++ show more ↓</button>
+            <button class="btn btn-accent" style="padding: 0.25rem 0.625rem; font-size: 0.6875rem;"><span>$ register</span></button>
+          </div>
+        </div>
+      </div>
+      <!-- Expandable detail panel -->
+      <div class="event-details-panel">
+        <p style="color: var(--tm-muted); font-size: 0.875rem; font-weight: 300; margin-bottom: var(--sp-3); line-height: 1.7;">Join us for our Spring 2025 meetup at the Epicenter Stockholm. This quarter we're focusing on performance optimisation and real-world deployment patterns.</p>
+        <div class="event-detail-heading"># Schedule</div>
+        <table class="event-schedule-table">
+          <tbody>
+            <tr><td class="schedule-time-cell">18:00</td><td>Doors open, mingle &amp; food</td></tr>
+            <tr><td class="schedule-time-cell">18:30</td><td>Keynote: Laravel 12 in Production</td></tr>
+            <tr><td class="schedule-time-cell">19:15</td><td>Talk: Zero-downtime deployments</td></tr>
+            <tr><td class="schedule-time-cell">20:00</td><td>Networking</td></tr>
+          </tbody>
+        </table>
+        <div class="event-closing">// See you there — laravel.se/events</div>
+      </div>
+    </div>
+
+    <!-- Past event variant -->
+    <div style="margin-top: var(--sp-4);">
+      <div class="event-card" style="border-left-color: var(--tm-border); opacity: 0.65;">
+        <div class="event-log-bar" style="background: var(--tm-bg);">
+          <span class="log-level-done">[DONE]</span>
+          <span class="log-date">2024-11-20</span>
+          <span class="log-sep">·</span>
+          <span class="log-loc">Gothenburg</span>
+        </div>
+        <div class="event-body">
+          <div class="event-date-badge" style="opacity: 0.5;">
+            <span class="ev-month">NOV</span>
+            <span class="ev-day">20</span>
+          </div>
+          <div class="event-info">
+            <div class="event-title-demo">Laravel Sweden Autumn Meetup 2024</div>
+            <div class="event-meta-row">
+              <div class="event-meta-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 18:00</div>
+              <div class="event-meta-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Gothenburg</div>
+            </div>
+            <div class="event-desc-demo">Past event variant: opacity 0.65, left border uses --tm-border, log level [DONE] in --tm-muted.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- =====================================================
+       SECTION 9 · SPACING SCALE
+       ===================================================== -->
+  <div class="section" id="s-spacing">
+    <div class="section-cmd">$ spacing --list --format=visual</div>
+    <h2>Spacing Scale</h2>
+    <p class="section-desc">All spacing uses the <code class="code-inline">--spacing-*</code> / <code class="code-inline">--sp-*</code> CSS custom properties. Never hardcode pixel values.</p>
+
+    <div style="background: var(--tm-surface); border: 1px solid var(--tm-border); padding: var(--sp-8);">
+      <div class="spacing-grid">
+        <div class="spacing-row"><div class="spacing-var">--spacing-1</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 4px;"></div><div class="spacing-val">0.25rem / 4px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-2</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 8px;"></div><div class="spacing-val">0.5rem / 8px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-3</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 12px;"></div><div class="spacing-val">0.75rem / 12px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-4</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 16px;"></div><div class="spacing-val">1rem / 16px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-5</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 20px;"></div><div class="spacing-val">1.25rem / 20px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-6</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 24px;"></div><div class="spacing-val">1.5rem / 24px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-8</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 32px;"></div><div class="spacing-val">2rem / 32px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-10</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 40px;"></div><div class="spacing-val">2.5rem / 40px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-12</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 48px;"></div><div class="spacing-val">3rem / 48px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-16</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 64px;"></div><div class="spacing-val">4rem / 64px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-20</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 80px;"></div><div class="spacing-val">5rem / 80px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-24</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 96px;"></div><div class="spacing-val">6rem / 96px</div></div></div>
+        <div class="spacing-row"><div class="spacing-var">--spacing-32</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width: 128px;"></div><div class="spacing-val">8rem / 128px · Section gaps</div></div></div>
+      </div>
+
+      <div style="margin-top: var(--sp-8); padding-top: var(--sp-6); border-top: 1px solid var(--tm-border); font-size: 0.6875rem; color: var(--tm-muted-dim); line-height: 2;">
+        Horizontal padding: <span style="color: var(--tm-blue);">--px: 2rem</span> desktop · <span style="color: var(--tm-blue);">1.25rem</span> mobile (&lt;768px)&nbsp;&nbsp;
+        Max width: <span style="color: var(--tm-blue);">--max-w: 1120px</span>&nbsp;&nbsp;
+        Section gap: <span style="color: var(--tm-blue);">--spacing-32</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- =====================================================
+       SECTION 10 · NAVIGATION STATES
+       ===================================================== -->
+  <div class="section" id="s-nav">
+    <div class="section-cmd">$ nav --show-states --interactive</div>
+    <h2>Navigation States</h2>
+    <p class="section-desc">Hover the links below to see the blinking cursor appear. Path-style links (<code class="code-inline">./section</code>) with a <code class="code-inline">|</code> cursor animated via CSS on <code class="code-inline">:hover</code>.</p>
+
+    <div class="nav-states-demo">
+      <div style="font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--tm-muted-dim); margin-bottom: var(--sp-4);">DESKTOP NAV · hover the links</div>
+      <div class="nav-states-row">
+        <a href="#" class="nav-state-item">./community<span class="demo-nav-cursor">|</span></a>
+        <a href="#" class="nav-state-item">./events<span class="demo-nav-cursor">|</span></a>
+        <a href="#" class="nav-state-item nav-state-active">./companies<span class="nav-cursor-demo">|</span></a>
+        <a href="#" class="nav-state-item">./board<span class="demo-nav-cursor">|</span></a>
+        <a href="#" class="nav-state-item">./contact<span class="demo-nav-cursor">|</span></a>
+        <a href="#" class="demo-register" style="font-size: 0.75rem; font-family: 'JetBrains Mono',monospace; display: inline-flex; align-items: center;"><span>$ register --now</span></a>
+      </div>
+      <div class="nav-state-desc">
+        Default: <span>color: var(--tm-muted)</span>&nbsp;&nbsp;
+        Hover: <span>color: var(--tm-text)</span> + blinking <span>|</span> cursor (animation: blink 1s step-end infinite)&nbsp;&nbsp;
+        Register: fill-slide yellow on hover&nbsp;&nbsp;
+        Logo: <span>laravel + _sweden (--tm-yellow)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <div class="guide-footer">
+    <div class="footer-cmd">
+      <span class="prompt">~</span>
+      <span style="color: var(--tm-muted);">php artisan schedule:run</span>
+      <span style="color: var(--tm-green); font-size: 0.6875rem; margin-left: 8px;">✓ running</span>
+    </div>
+    <div class="footer-version">
+      [GUIDE] <span>terminal-midnight-visual.html</span> &nbsp;·&nbsp;
+      [PROJECT] <span>laravel_sweden</span> &nbsp;·&nbsp;
+      [BRANCH] <span>design/public-overhaul</span>
+    </div>
+  </div>
+
+</div><!-- /guide-wrap -->
+
+<script>
+// Simple toggle for event card detail panel (already handled inline)
+// Animate section entry on scroll
+if ('IntersectionObserver' in window) {
+  const sections = document.querySelectorAll('.section');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.05 });
+  sections.forEach(s => {
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(16px)';
+    s.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    obs.observe(s);
+  });
+}
+</script>
+</body>
+</html>
