@@ -96,10 +96,10 @@
                         <div class="ep-section-label">// password</div>
                         <button
                             type="button"
-                            class="ep-toggle-btn"
+                            class="btn btn-secondary ep-toggle-btn"
                             wire:click="toggleChangePassword"
                         >
-                            {{ $change_password ? '// cancel' : '$ change --password' }}
+                            <span>{{ $change_password ? '// cancel' : '$ change --password' }}</span>
                         </button>
                     </div>
 
@@ -150,7 +150,7 @@
                     <a href="{{ route('member') }}" class="ep-back-link">$ back --to-profile</a>
                     <button
                         type="submit"
-                        class="ep-submit-btn"
+                        class="btn btn-primary ep-submit-btn"
                         wire:loading.attr="disabled"
                         wire:loading.class="ep-btn-loading"
                     >
@@ -188,7 +188,7 @@
         }
 
         .ep-title {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: var(--font);
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--tm-yellow);
@@ -196,7 +196,7 @@
         }
 
         .ep-subtitle {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: var(--font);
             font-size: 0.875rem;
             color: var(--tm-muted);
             margin-top: 0.25rem;
@@ -221,9 +221,12 @@
         }
 
         .ep-section-label {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.8125rem;
-            color: var(--tm-muted);
+            font-family: var(--font);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--tm-yellow);
+            border-left: 2px solid var(--tm-yellow);
+            padding-left: 0.625rem;
             margin-bottom: 1.25rem;
         }
 
@@ -240,20 +243,8 @@
         }
 
         .ep-toggle-btn {
-            font-family: 'Courier New', Courier, monospace;
             font-size: 0.75rem;
-            color: var(--tm-blue);
-            background: transparent;
-            border: 1px solid var(--tm-border);
             padding: 0.3rem 0.75rem;
-            border-radius: 2px;
-            cursor: pointer;
-            transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .ep-toggle-btn:hover {
-            color: var(--tm-yellow);
-            border-color: var(--tm-yellow);
         }
 
         /* Fields */
@@ -267,14 +258,14 @@
 
         .ep-label {
             display: block;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: var(--font);
             font-size: 0.8125rem;
             color: var(--tm-text);
             margin-bottom: 0.5rem;
         }
 
         .ep-optional {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: var(--font);
             font-size: 0.75rem;
             color: var(--tm-muted);
         }
@@ -284,7 +275,7 @@
         }
 
         .ep-error {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: var(--font);
             font-size: 0.75rem;
             color: #ff6b6b;
             margin-top: 0.375rem;
@@ -302,7 +293,7 @@
         }
 
         .ep-back-link {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: var(--font);
             font-size: 0.875rem;
             color: var(--tm-blue);
             text-decoration: none;
@@ -311,23 +302,6 @@
 
         .ep-back-link:hover {
             color: var(--tm-yellow);
-        }
-
-        .ep-submit-btn {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.875rem;
-            font-weight: 700;
-            color: var(--tm-bg);
-            background: var(--tm-yellow);
-            border: none;
-            padding: 0.625rem 1.5rem;
-            border-radius: 2px;
-            cursor: pointer;
-            transition: opacity 0.15s ease;
-        }
-
-        .ep-submit-btn:hover {
-            opacity: 0.88;
         }
 
         .ep-submit-btn:disabled,
@@ -353,8 +327,8 @@
             }
 
             .ep-submit-btn {
-                text-align: center;
                 width: 100%;
+                justify-content: center;
             }
 
             .ep-back-link {

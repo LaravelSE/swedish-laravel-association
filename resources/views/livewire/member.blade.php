@@ -52,8 +52,8 @@
                 </div>
 
                 <div class="mp-actions">
-                    <a href="{{ route('member.edit') }}" class="mp-btn mp-btn-primary">$ edit --profile</a>
-                    <button wire:click="logout" class="mp-btn mp-btn-danger">$ logout --user</button>
+                    <a href="{{ route('member.edit') }}" class="btn btn-primary mp-btn"><span>$ edit --profile</span></a>
+                    <button wire:click="logout" class="mp-btn mp-btn-danger"><span>$ logout --user</span></button>
                 </div>
             </div>
 
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="mp-actions">
-                            <a href="{{ route('member.billing') }}" class="mp-btn mp-btn-secondary">$ manage --subscription</a>
+                            <a href="{{ route('member.billing') }}" class="btn btn-secondary mp-btn"><span>$ manage --subscription</span></a>
                         </div>
                     @else
                         <div class="mp-status-row">
@@ -103,7 +103,7 @@
                         </div>
 
                         <div class="mp-actions">
-                            <a href="{{ route('subscription.checkout') }}" class="mp-btn mp-btn-primary">$ join --membership</a>
+                            <a href="{{ route('subscription.checkout') }}" class="btn btn-primary mp-btn"><span>$ join --membership</span></a>
                         </div>
                     @endif
                 @else
@@ -143,20 +143,20 @@
         }
 
         .mp-command {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 1.125rem;
             color: var(--tm-yellow);
             margin-bottom: var(--spacing-1);
         }
 
         .mp-subtitle {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 0.8125rem;
             color: var(--tm-muted);
         }
 
         .mp-alert {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 0.875rem;
             color: #4ade80;
             background: rgba(74, 222, 128, 0.08);
@@ -186,7 +186,7 @@
         }
 
         .mp-card-title {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 0.8125rem;
             color: var(--tm-muted);
             margin-bottom: var(--spacing-6);
@@ -207,7 +207,7 @@
         }
 
         .mp-key {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 0.75rem;
             color: var(--tm-muted);
             min-width: 110px;
@@ -215,7 +215,7 @@
         }
 
         .mp-val {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 0.875rem;
             color: var(--tm-text);
         }
@@ -242,48 +242,46 @@
         }
 
         .mp-btn {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
             font-size: 0.8125rem;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.15s, color 0.15s, border-color 0.15s;
-            border: 1px solid transparent;
-        }
-
-        .mp-btn-primary {
-            background: var(--tm-yellow);
-            color: var(--tm-bg);
-            border-color: var(--tm-yellow);
-        }
-
-        .mp-btn-primary:hover {
-            background: #f0c020;
-            border-color: #f0c020;
-        }
-
-        .mp-btn-secondary {
-            background: transparent;
-            color: var(--tm-blue);
-            border-color: var(--tm-blue);
-        }
-
-        .mp-btn-secondary:hover {
-            background: rgba(77, 159, 212, 0.1);
         }
 
         .mp-btn-danger {
+            font-family: var(--font);
+            font-size: 0.8125rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: transparent;
-            color: var(--tm-red, #ff6b6b);
-            border-color: var(--tm-red, #ff6b6b);
+            color: var(--tm-red);
+            border: 1px solid var(--tm-red);
+            position: relative;
+            overflow: hidden;
+            transition: color var(--transition-fast);
+        }
+
+        .mp-btn-danger::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--tm-red);
+            transform: translateX(-100%);
+            transition: transform var(--transition-base);
+            z-index: 0;
+        }
+
+        .mp-btn-danger:hover::before {
+            transform: translateX(0);
         }
 
         .mp-btn-danger:hover {
-            background: rgba(255, 107, 107, 0.1);
+            color: var(--tm-bg);
+        }
+
+        .mp-btn-danger span {
+            position: relative;
+            z-index: 1;
         }
 
         .mp-status-row {
@@ -295,21 +293,21 @@
         }
 
         .mp-status-active {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 0.8125rem;
             font-weight: 700;
             color: #4ade80;
         }
 
         .mp-status-inactive {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 0.8125rem;
             font-weight: 700;
             color: var(--tm-muted);
         }
 
         .mp-status-desc {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 0.75rem;
             color: var(--tm-muted);
         }
@@ -319,7 +317,7 @@
         }
 
         .mp-pitch {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 0.8125rem;
             color: var(--tm-muted);
             margin-bottom: var(--spacing-4);
@@ -334,7 +332,7 @@
         }
 
         .mp-benefits li {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: var(--font);
             font-size: 0.8125rem;
             color: var(--tm-text);
             display: flex;
