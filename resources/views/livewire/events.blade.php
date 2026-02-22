@@ -525,6 +525,11 @@
                 flex-direction: column;
                 gap: var(--spacing-2);
             }
+
+            .event-log-loc,
+            .event-log-sep {
+                display: none;
+            }
         }
     </style>
     <script id="luma-checkout" src="https://embed.lu.ma/checkout-button.js"></script>
