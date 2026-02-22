@@ -1,43 +1,58 @@
 <div class="page-container">
     @livewire('header')
 
-    <section class="section main-content" style="padding-top: 4rem;">
-        <div class="section-header">
-            <h2 class="section-title">Reset Password</h2>
-            <p class="section-subtitle">Create a new password for your account</p>
-        </div>
-        <div class="card" style="max-width: 600px; margin: 0 auto;">
-            <form wire:submit.prevent="resetPassword" class="reset-password-form">
+    <section class="rp-section main-content">
+        <div class="rp-card">
+            <div class="rp-header">
+                <p class="rp-comment">// auth --new-password</p>
+                <p class="rp-subtitle">enter a new password for your account</p>
+            </div>
+
+            <form wire:submit.prevent="resetPassword" class="rp-form">
                 <input type="hidden" wire:model="token">
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" wire:model="email" class="form-control @error('email') is-invalid @enderror" autofocus>
-                    @error('email') <div class="error-message">{{ $message }}</div> @enderror
+                <div class="rp-form-group">
+                    <label class="rp-label" for="email">email</label>
+                    <input type="email" id="email" wire:model="email"
+                        class="tm-input rp-input @error('email') rp-input-error @enderror"
+                        autofocus autocomplete="username">
+                    @error('email')
+                        <div class="rp-field-error"><span class="rp-error-badge">[ERROR]</span> {{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="password">New Password</label>
-                    <input type="password" id="password" wire:model="password" class="form-control @error('password') is-invalid @enderror">
-                    @error('password') <div class="error-message">{{ $message }}</div> @enderror
+                <div class="rp-form-group">
+                    <label class="rp-label" for="password">new password</label>
+                    <input type="password" id="password" wire:model="password"
+                        class="tm-input rp-input @error('password') rp-input-error @enderror"
+                        autocomplete="new-password">
+                    @error('password')
+                        <div class="rp-field-error"><span class="rp-error-badge">[ERROR]</span> {{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="password_confirmation">Confirm New Password</label>
-                    <input type="password" id="password_confirmation" wire:model="password_confirmation" class="form-control">
+                <div class="rp-form-group">
+                    <label class="rp-label" for="password_confirmation">confirm new password</label>
+                    <input type="password" id="password_confirmation" wire:model="password_confirmation"
+                        class="tm-input rp-input"
+                        autocomplete="new-password">
                 </div>
 
-                <div class="form-group" style="text-align: center;">
-                    <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
-                        <span wire:loading.remove>Reset Password</span>
-                        <span wire:loading>Processing...</span>
+                <div class="rp-form-group">
+                    <button type="submit" class="rp-btn" wire:loading.attr="disabled">
+                        <span wire:loading.remove>$ reset --password</span>
+                        <span wire:loading>// resetting...</span>
                     </button>
                 </div>
             </form>
+
+            <div class="rp-divider"></div>
+
+            <div class="rp-links">
+                <a href="{{ route('login') }}" class="rp-link">$ back --to-login</a>
+            </div>
         </div>
     </section>
-
-    <div style="margin-top: 4rem;"></div>
 
     @livewire('footer')
 
@@ -47,47 +62,137 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        
+
         .main-content {
             flex: 1;
         }
-        
-        .reset-password-form {
-            margin: 2rem 0;
+
+        .rp-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-12) var(--spacing-4);
         }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-control {
-            display: block;
+
+        .rp-card {
+            background: var(--tm-surface);
+            border: 1px solid var(--tm-border);
+            border-radius: 4px;
+            padding: var(--spacing-8);
             width: 100%;
-            padding: 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            max-width: 480px;
         }
-        
-        .form-control:focus {
-            border-color: #FF2D20;
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(255, 45, 32, 0.25);
+
+        .rp-header {
+            margin-bottom: var(--spacing-8);
         }
-        
-        .is-invalid {
-            border-color: #dc3545;
+
+        .rp-comment {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 1.1rem;
+            color: var(--tm-muted);
+            margin: 0 0 var(--spacing-2);
         }
-        
-        .error-message {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
+
+        .rp-subtitle {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--tm-muted);
+            margin: 0;
+            opacity: 0.7;
+        }
+
+        .rp-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-5);
+        }
+
+        .rp-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-1);
+        }
+
+        .rp-label {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--tm-text);
+            text-transform: lowercase;
+        }
+
+        .rp-input {
+            width: 100%;
+        }
+
+        .rp-input-error {
+            border-color: #ff6b6b !important;
+        }
+
+        .rp-field-error {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.78rem;
+            color: #ff6b6b;
+            margin-top: var(--spacing-1);
+        }
+
+        .rp-error-badge {
+            font-weight: 700;
+        }
+
+        .rp-btn {
+            width: 100%;
+            padding: var(--spacing-3) var(--spacing-4);
+            background: transparent;
+            border: 1px solid var(--tm-yellow);
+            color: var(--tm-yellow);
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.15s ease, color 0.15s ease;
+            text-align: center;
+        }
+
+        .rp-btn:hover:not(:disabled) {
+            background: var(--tm-yellow);
+            color: var(--tm-bg);
+        }
+
+        .rp-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .rp-divider {
+            border: none;
+            border-top: 1px solid var(--tm-border);
+            margin: var(--spacing-6) 0;
+        }
+
+        .rp-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-3);
+            align-items: flex-start;
+        }
+
+        .rp-link {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.82rem;
+            color: var(--tm-blue);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .rp-link:hover {
+            color: var(--tm-yellow);
+        }
+
+        @media (max-width: 480px) {
+            .rp-card {
+                padding: var(--spacing-6) var(--spacing-4);
+            }
         }
     </style>
 </div>
