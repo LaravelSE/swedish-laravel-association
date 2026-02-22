@@ -1,30 +1,30 @@
 <div class="page-container">
     @livewire('header')
 
-    <section class="section main-content" style="padding-top: var(--spacing-12);">
-        <div class="section-header">
-            <h2 class="section-title">Companies Using Laravel</h2>
-            <p class="section-subtitle">Discover companies building with Laravel across Sweden.</p>
+    <section class="cl-section main-content">
+        <div class="cl-page-header">
+            <p class="cl-command">$ companies --filter=approved --sort=name</p>
+            <p class="cl-subtitle">Discover companies building with Laravel across Sweden.</p>
         </div>
 
-        <div class="companies-card">
-            <div class="filter-bar">
-                <label for="cityFilter">Filter by city</label>
-                <select id="cityFilter" wire:model.live="cityFilter" class="filter-select">
-                    <option value="">All cities</option>
+        <div class="cl-card">
+            <div class="cl-filter-bar">
+                <span class="cl-filter-label">// filter</span>
+                <select id="cityFilter" wire:model.live="cityFilter" class="cl-select">
+                    <option value="">--city=all</option>
                     @foreach($cities as $city)
-                        <option value="{{ $city }}">{{ $city }}</option>
+                        <option value="{{ $city }}">--city={{ $city }}</option>
                     @endforeach
                 </select>
             </div>
 
             @if($companies->isEmpty())
-                <div class="empty-state">
-                    <p>No companies found{{ $cityFilter ? ' in '.$cityFilter : '' }}.</p>
+                <div class="cl-empty-state">
+                    <p>// no results found &mdash; try adjusting your filters</p>
                 </div>
             @else
-                <div class="companies-table-wrapper">
-                    <table class="companies-table">
+                <div class="cl-table-wrap">
+                    <table class="cl-table">
                         <thead>
                             <tr>
                                 <th>Company</th>
@@ -36,14 +36,17 @@
                         <tbody>
                             @foreach($companies as $company)
                                 <tr wire:key="company-{{ $company->id }}">
-                                    <td class="company-name">{{ $company->name }}</td>
+                                    <td class="cl-company-name">
+                                        <span class="cl-org-badge">[ORG]</span>
+                                        {{ $company->name }}
+                                    </td>
                                     <td>{{ $company->city }}</td>
                                     <td>{{ $company->industry ?? '—' }}</td>
                                     <td>
                                         @if($company->website)
-                                            <a href="{{ $company->website }}" target="_blank" rel="noopener noreferrer">{{ parse_url($company->website, PHP_URL_HOST) }}</a>
+                                            <a href="{{ $company->website }}" target="_blank" rel="noopener noreferrer" class="cl-link">{{ parse_url($company->website, PHP_URL_HOST) }}</a>
                                         @else
-                                            —
+                                            <span class="cl-dash">—</span>
                                         @endif
                                     </td>
                                 </tr>
@@ -53,8 +56,8 @@
                 </div>
             @endif
 
-            <div class="cta-bar">
-                <p>Know a company using Laravel? <a href="{{ route('submit-company') }}">Submit it</a></p>
+            <div class="cl-cta-bar">
+                <p>Know a company using Laravel? <a href="{{ route('submit-company') }}" class="cl-cta-link">Submit it</a></p>
             </div>
         </div>
     </section>
@@ -70,136 +73,201 @@
 
         .main-content {
             flex: 1;
-        }
-
-        .companies-card {
-            background: white;
-            border: 1px solid var(--gray-200);
-            border-radius: var(--border-radius-2xl);
-            padding: var(--spacing-8);
-            max-width: 900px;
+            max-width: var(--max-w, 1120px);
             margin: 0 auto;
+            padding: 3rem var(--px, 2rem) 5rem;
+            width: 100%;
         }
 
-        .filter-bar {
+        .cl-page-header {
+            margin-bottom: 2rem;
+        }
+
+        .cl-command {
+            font-family: var(--font-mono, 'Fira Code', 'Cascadia Code', monospace);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--tm-yellow);
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+        }
+
+        .cl-subtitle {
+            font-size: 0.875rem;
+            color: var(--tm-muted);
+        }
+
+        .cl-card {
+            background: var(--tm-surface);
+            border: 1px solid var(--tm-border);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            max-width: 860px;
+        }
+
+        .cl-filter-bar {
             display: flex;
             align-items: center;
-            gap: var(--spacing-3);
-            margin-bottom: var(--spacing-6);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
 
-        .filter-bar label {
-            font-weight: 600;
+        .cl-filter-label {
+            font-family: var(--font-mono, 'Fira Code', 'Cascadia Code', monospace);
             font-size: 0.8125rem;
+            color: var(--tm-muted);
             white-space: nowrap;
-            color: var(--gray-700);
         }
 
-        .filter-select {
-            padding: 0.5rem 0.75rem;
-            font-size: 0.875rem;
-            font-family: inherit;
-            border: 1px solid var(--gray-300);
-            border-radius: var(--border-radius-lg);
-            background-color: white;
-            color: var(--gray-700);
+        .cl-select {
+            padding: 0.4375rem 0.75rem;
+            font-size: 0.8125rem;
+            font-family: var(--font-mono, 'Fira Code', 'Cascadia Code', monospace);
+            background: var(--tm-bg);
+            color: var(--tm-text);
+            border: 1px solid var(--tm-border);
+            border-radius: 0.25rem;
             appearance: auto;
-            transition: border-color var(--transition-fast);
+            transition: border-color 0.15s, box-shadow 0.15s;
+            cursor: pointer;
         }
 
-        .filter-select:focus {
-            border-color: var(--gray-900);
-            outline: 0;
-            box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.08);
+        .cl-select:focus {
+            outline: none;
+            border-color: var(--tm-yellow);
+            box-shadow: 0 0 0 3px rgba(230, 192, 82, 0.15);
         }
 
-        .companies-table-wrapper {
+        .cl-table-wrap {
             overflow-x: auto;
         }
 
-        .companies-table {
+        .cl-table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .companies-table th,
-        .companies-table td {
-            padding: 0.75rem 1rem;
+        .cl-table th {
+            padding: 0.625rem 0.75rem 0.75rem;
             text-align: left;
-            border-bottom: 1px solid var(--gray-100);
-        }
-
-        .companies-table th {
-            font-weight: 600;
-            color: var(--gray-500);
-            font-size: 0.75rem;
+            font-size: 0.6875rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            padding-bottom: 0.875rem;
-            border-bottom: 1px solid var(--gray-200);
+            letter-spacing: 0.08em;
+            color: var(--tm-muted);
+            border-bottom: 1px solid var(--tm-border);
         }
 
-        .companies-table tbody tr {
-            transition: background var(--transition-fast);
+        .cl-table td {
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            color: var(--tm-muted);
+            border-bottom: 1px solid var(--tm-border);
         }
 
-        .companies-table tbody tr:hover {
-            background-color: var(--gray-50);
+        .cl-table tbody tr {
+            transition: background 0.15s;
         }
 
-        .company-name {
+        .cl-table tbody tr:hover {
+            background: rgba(230, 192, 82, 0.04);
+        }
+
+        .cl-table tbody tr:hover .cl-company-name {
+            color: var(--tm-yellow);
+        }
+
+        .cl-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .cl-company-name {
+            color: var(--tm-text);
             font-weight: 600;
-            color: var(--gray-900);
+            transition: color 0.15s;
+            white-space: nowrap;
         }
 
-        .companies-table td {
-            color: var(--gray-600);
-            font-size: 0.9375rem;
+        .cl-org-badge {
+            display: inline-block;
+            font-family: var(--font-mono, 'Fira Code', 'Cascadia Code', monospace);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            color: var(--tm-yellow);
+            margin-right: 0.5rem;
+            letter-spacing: 0.02em;
         }
 
-        .companies-table a {
-            color: var(--gray-900);
+        .cl-link {
+            color: var(--tm-blue);
             text-decoration: none;
-            font-weight: 500;
+            transition: color 0.15s;
         }
 
-        .companies-table a:hover {
+        .cl-link:hover {
+            color: var(--tm-yellow);
             text-decoration: underline;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: var(--spacing-12) var(--spacing-4);
-            color: var(--gray-500);
+        .cl-dash {
+            color: var(--tm-muted);
+            opacity: 0.5;
         }
 
-        .cta-bar {
+        .cl-empty-state {
+            padding: 3rem 1rem;
             text-align: center;
-            margin-top: var(--spacing-6);
-            padding-top: var(--spacing-6);
-            border-top: 1px solid var(--gray-100);
-            color: var(--gray-500);
-            font-size: 0.9375rem;
         }
 
-        .cta-bar a {
-            color: var(--gray-900);
+        .cl-empty-state p {
+            font-family: var(--font-mono, 'Fira Code', 'Cascadia Code', monospace);
+            font-size: 0.875rem;
+            color: var(--tm-muted);
+        }
+
+        .cl-cta-bar {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--tm-border);
+            text-align: center;
+        }
+
+        .cl-cta-bar p {
+            font-size: 0.875rem;
+            color: var(--tm-muted);
+        }
+
+        .cl-cta-link {
+            color: var(--tm-yellow);
             font-weight: 600;
             text-decoration: none;
+            transition: opacity 0.15s;
         }
 
-        .cta-bar a:hover {
+        .cl-cta-link:hover {
+            opacity: 0.8;
             text-decoration: underline;
         }
 
         @media (max-width: 600px) {
-            .companies-table th:nth-child(3),
-            .companies-table td:nth-child(3) {
+            .cl-table th:nth-child(3),
+            .cl-table td:nth-child(3) {
                 display: none;
             }
 
-            .companies-card {
-                padding: var(--spacing-5);
+            .cl-card {
+                padding: 1.25rem;
+            }
+
+            .cl-command {
+                font-size: 0.9375rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .cl-table th:nth-child(4),
+            .cl-table td:nth-child(4) {
+                display: none;
             }
         }
     </style>

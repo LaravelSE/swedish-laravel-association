@@ -39,10 +39,10 @@ test('empty state is shown when no companies match filter', function () {
 
     Livewire::test(CompaniesListing::class)
         ->set('cityFilter', 'Gothenburg')
-        ->assertSee('No companies found');
+        ->assertSee('no results found');
 });
 
 test('submit company link is shown on listing page', function () {
     Livewire::test(CompaniesListing::class)
-        ->assertSee('Submit it!');
+        ->assertSee('Submit it');
 });
