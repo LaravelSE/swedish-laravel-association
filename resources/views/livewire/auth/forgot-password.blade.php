@@ -4,7 +4,7 @@
     <section class="fp-section main-content">
         <div class="fp-card">
             <div class="fp-header">
-                <p class="fp-comment">// auth --reset-password</p>
+                <p class="fp-comment">$ reset --password</p>
                 <p class="fp-subtitle">enter your email to receive a password reset link</p>
             </div>
 
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="fp-form-group">
-                        <button type="submit" class="fp-btn" wire:loading.attr="disabled">
+                        <button type="submit" class="btn btn-primary fp-btn" wire:loading.attr="disabled">
                             <span wire:loading.remove>$ send --reset-link</span>
                             <span wire:loading>// sending...</span>
                         </button>
@@ -59,6 +59,7 @@
             align-items: center;
             justify-content: center;
             padding: var(--spacing-12) var(--spacing-4);
+            width: 100%;
         }
 
         .fp-card {
@@ -76,8 +77,9 @@
 
         .fp-comment {
             font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            font-size: 1.1rem;
-            color: var(--tm-muted);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--tm-yellow);
             margin: 0 0 var(--spacing-2);
         }
 
@@ -86,7 +88,6 @@
             font-size: 0.8rem;
             color: var(--tm-muted);
             margin: 0;
-            opacity: 0.7;
         }
 
         .fp-success {
@@ -144,21 +145,7 @@
 
         .fp-btn {
             width: 100%;
-            padding: var(--spacing-3) var(--spacing-4);
-            background: transparent;
-            border: 1px solid var(--tm-yellow);
-            color: var(--tm-yellow);
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border-radius: 2px;
-            transition: background 0.15s ease, color 0.15s ease;
-            text-align: center;
-        }
-
-        .fp-btn:hover:not(:disabled) {
-            background: var(--tm-yellow);
-            color: var(--tm-bg);
+            justify-content: center;
         }
 
         .fp-btn:disabled {
