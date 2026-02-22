@@ -12,7 +12,7 @@
                 <span class="st-success-badge">[OK]</span> talk submitted — pending review
             </div>
             <div style="margin-top: 1.5rem;">
-                <a href="{{ route('home') }}" class="st-btn">$ go --home</a>
+                <a href="{{ route('home') }}" class="btn btn-primary st-btn"><span>$ go --home</span></a>
             </div>
         @else
             <div class="st-form-card">
@@ -230,7 +230,7 @@
                     </div>
 
                     <div class="st-submit-row">
-                        <button type="submit" class="st-btn" wire:loading.attr="disabled">
+                        <button type="submit" class="btn btn-primary st-btn" wire:loading.attr="disabled">
                             <span wire:loading.remove>$ submit --talk</span>
                             <span wire:loading>// submitting...</span>
                         </button>
@@ -259,11 +259,15 @@
 
         .st-page-header {
             margin-bottom: 2.5rem;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .st-command {
             font-family: var(--font-mono);
             font-size: 1.5rem;
+            font-weight: 600;
             color: var(--tm-yellow);
             margin-bottom: 0.5rem;
         }
@@ -294,6 +298,7 @@
             border-radius: var(--border-radius-lg);
             padding: 2.5rem;
             max-width: 720px;
+            margin: 0 auto;
             background: var(--tm-surface);
         }
 
@@ -316,8 +321,11 @@
 
         .st-section-label {
             font-family: var(--font-mono);
-            font-size: 0.8125rem;
-            color: var(--tm-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--tm-yellow);
+            border-left: 2px solid var(--tm-yellow);
+            padding-left: 0.625rem;
             margin-bottom: 1rem;
         }
 
@@ -442,24 +450,6 @@
 
         .st-submit-row {
             margin-top: 2rem;
-        }
-
-        .st-btn {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            color: var(--tm-bg);
-            background: var(--tm-yellow);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 0.75rem 1.75rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: opacity var(--transition-fast);
-        }
-
-        .st-btn:hover {
-            opacity: 0.88;
         }
 
         .st-btn:disabled {

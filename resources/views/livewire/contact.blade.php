@@ -56,7 +56,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="co-btn" wire:loading.attr="disabled">
+            <button type="submit" class="btn btn-primary co-btn" wire:loading.attr="disabled">
                 <span wire:loading.remove>$ send --message</span>
                 <span wire:loading>// sending...</span>
             </button>
@@ -73,16 +73,16 @@
         }
 
         .co-page-header {
-            margin-bottom: 2.5rem;
+            max-width: 520px;
+            margin: 0 auto 2.5rem;
         }
 
         .co-command {
             font-family: var(--font-mono);
-            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--tm-yellow);
-            margin-bottom: 0.625rem;
-            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
         }
 
         .co-subtitle {
@@ -114,6 +114,7 @@
             flex-direction: column;
             gap: 1.25rem;
             max-width: 520px;
+            margin: 0 auto;
         }
 
         .co-form-row {
@@ -165,21 +166,6 @@
 
         .co-btn {
             align-self: flex-start;
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--tm-bg);
-            background: var(--tm-yellow);
-            border: none;
-            border-radius: var(--border-radius-sm);
-            padding: 0.625rem 1.25rem;
-            cursor: pointer;
-            transition: opacity var(--transition-fast);
-            letter-spacing: -0.01em;
-        }
-
-        .co-btn:hover {
-            opacity: 0.88;
         }
 
         .co-btn:disabled {
@@ -192,6 +178,8 @@
             padding-top: 1.75rem;
             border-top: 1px solid var(--tm-border);
             max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .co-cta p {

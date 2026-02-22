@@ -12,7 +12,7 @@
                 <span class="sc-success-badge">[OK]</span> company submitted — pending review
             </div>
             <div style="margin-top: 1.5rem;">
-                <a href="{{ route('companies') }}" class="sc-btn">$ view --companies</a>
+                <a href="{{ route('companies') }}" class="btn btn-primary sc-btn"><span>$ view --companies</span></a>
             </div>
         @else
             <div class="sc-form-card">
@@ -268,7 +268,7 @@
                     </div>
 
                     <div class="sc-submit-row">
-                        <button type="submit" class="sc-btn" wire:loading.attr="disabled">
+                        <button type="submit" class="btn btn-primary sc-btn" wire:loading.attr="disabled">
                             <span wire:loading.remove>$ submit --company</span>
                             <span wire:loading>// submitting...</span>
                         </button>
@@ -297,11 +297,15 @@
 
         .sc-page-header {
             margin-bottom: 2.5rem;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .sc-command {
             font-family: var(--font-mono);
             font-size: 1.5rem;
+            font-weight: 600;
             color: var(--tm-yellow);
             margin-bottom: 0.5rem;
         }
@@ -332,6 +336,7 @@
             border-radius: var(--border-radius-lg);
             padding: 2.5rem;
             max-width: 680px;
+            margin: 0 auto;
             background: var(--tm-surface);
         }
 
@@ -354,8 +359,11 @@
 
         .sc-section-label {
             font-family: var(--font-mono);
-            font-size: 0.8125rem;
-            color: var(--tm-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--tm-yellow);
+            border-left: 2px solid var(--tm-yellow);
+            padding-left: 0.625rem;
             margin-bottom: 1rem;
         }
 
@@ -472,24 +480,6 @@
 
         .sc-submit-row {
             margin-top: 2rem;
-        }
-
-        .sc-btn {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            color: var(--tm-bg);
-            background: var(--tm-yellow);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 0.75rem 1.75rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: opacity var(--transition-fast);
-        }
-
-        .sc-btn:hover {
-            opacity: 0.88;
         }
 
         .sc-btn:disabled {
