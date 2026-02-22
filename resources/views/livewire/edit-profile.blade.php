@@ -1,81 +1,162 @@
 <div class="page-container">
     <livewire:header />
 
-    <section class="section main-content" style="padding-top: var(--spacing-12);">
-        <div class="section-header">
-            <h2 class="section-title">Edit Profile</h2>
-            <p class="section-subtitle">Update your profile information</p>
-        </div>
+    <section class="ep-main">
+        <div class="ep-inner">
+            <div class="ep-header">
+                <div class="ep-title">$ profile --edit</div>
+                <div class="ep-subtitle">// update your profile information</div>
+            </div>
 
-        <div class="form-card">
-            <form wire:submit.prevent="save" class="edit-form">
-                <div class="form-section">
-                    <div class="form-section-header">
-                        <h3 class="form-section-title">Profile Information</h3>
+            <form wire:submit.prevent="save" class="ep-form">
+                {{-- Profile Information --}}
+                <div class="ep-section">
+                    <div class="ep-section-label">// profile-information</div>
+
+                    <div class="ep-field">
+                        <label class="ep-label" for="name">name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            wire:model="name"
+                            autocomplete="name"
+                            class="tm-input @error('name') ep-input-error @enderror"
+                        >
+                        @error('name')
+                            <div class="ep-error">[ERROR] {{ $message }}</div>
+                        @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" wire:model="name" class="form-control @error('name') is-invalid @enderror">
-                        @error('name') <div class="error-message">{{ $message }}</div> @enderror
+                    <div class="ep-field">
+                        <label class="ep-label" for="email">email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            wire:model="email"
+                            autocomplete="email"
+                            class="tm-input @error('email') ep-input-error @enderror"
+                        >
+                        @error('email')
+                            <div class="ep-error">[ERROR] {{ $message }}</div>
+                        @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" wire:model="email" class="form-control @error('email') is-invalid @enderror">
-                        @error('email') <div class="error-message">{{ $message }}</div> @enderror
+                    <div class="ep-field">
+                        <label class="ep-label" for="phone">
+                            phone <span class="ep-optional">// optional</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="phone"
+                            wire:model="phone"
+                            autocomplete="tel"
+                            class="tm-input @error('phone') ep-input-error @enderror"
+                        >
+                        @error('phone')
+                            <div class="ep-error">[ERROR] {{ $message }}</div>
+                        @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="phone">Phone (optional)</label>
-                        <input type="text" id="phone" wire:model="phone" class="form-control @error('phone') is-invalid @enderror">
-                        @error('phone') <div class="error-message">{{ $message }}</div> @enderror
+                    <div class="ep-field">
+                        <label class="ep-label" for="city">
+                            city <span class="ep-optional">// optional</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="city"
+                            wire:model="city"
+                            autocomplete="address-level2"
+                            class="tm-input @error('city') ep-input-error @enderror"
+                        >
+                        @error('city')
+                            <div class="ep-error">[ERROR] {{ $message }}</div>
+                        @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label for="city">City (optional)</label>
-                        <input type="text" id="city" wire:model="city" class="form-control @error('city') is-invalid @enderror">
-                        @error('city') <div class="error-message">{{ $message }}</div> @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="company">Company (optional)</label>
-                        <input type="text" id="company" wire:model="company" class="form-control @error('company') is-invalid @enderror">
-                        @error('company') <div class="error-message">{{ $message }}</div> @enderror
+                    <div class="ep-field">
+                        <label class="ep-label" for="company">
+                            company <span class="ep-optional">// optional</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="company"
+                            wire:model="company"
+                            autocomplete="organization"
+                            class="tm-input @error('company') ep-input-error @enderror"
+                        >
+                        @error('company')
+                            <div class="ep-error">[ERROR] {{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
-                <div class="form-section">
-                    <div class="password-section-header">
-                        <h3 class="form-section-title">Password</h3>
-                        <button type="button" class="btn btn-secondary btn-sm-toggle" wire:click="toggleChangePassword">
-                            {{ $change_password ? 'Cancel' : 'Change Password' }}
+                {{-- Password Section --}}
+                <div class="ep-section">
+                    <div class="ep-password-header">
+                        <div class="ep-section-label">// password</div>
+                        <button
+                            type="button"
+                            class="ep-toggle-btn"
+                            wire:click="toggleChangePassword"
+                        >
+                            {{ $change_password ? '// cancel' : '$ change --password' }}
                         </button>
                     </div>
 
                     @if($change_password)
-                        <div class="form-group">
-                            <label for="current_password">Current Password</label>
-                            <input type="password" id="current_password" wire:model="current_password" class="form-control @error('current_password') is-invalid @enderror">
-                            @error('current_password') <div class="error-message">{{ $message }}</div> @enderror
+                        <div class="ep-field">
+                            <label class="ep-label" for="current_password">current-password</label>
+                            <input
+                                type="password"
+                                id="current_password"
+                                wire:model="current_password"
+                                autocomplete="current-password"
+                                class="tm-input @error('current_password') ep-input-error @enderror"
+                            >
+                            @error('current_password')
+                                <div class="ep-error">[ERROR] {{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label for="password">New Password</label>
-                            <input type="password" id="password" wire:model="password" class="form-control @error('password') is-invalid @enderror">
-                            @error('password') <div class="error-message">{{ $message }}</div> @enderror
+                        <div class="ep-field">
+                            <label class="ep-label" for="password">new-password</label>
+                            <input
+                                type="password"
+                                id="password"
+                                wire:model="password"
+                                autocomplete="new-password"
+                                class="tm-input @error('password') ep-input-error @enderror"
+                            >
+                            @error('password')
+                                <div class="ep-error">[ERROR] {{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label for="password_confirmation">Confirm New Password</label>
-                            <input type="password" id="password_confirmation" wire:model="password_confirmation" class="form-control">
+                        <div class="ep-field">
+                            <label class="ep-label" for="password_confirmation">confirm-new-password</label>
+                            <input
+                                type="password"
+                                id="password_confirmation"
+                                wire:model="password_confirmation"
+                                autocomplete="new-password"
+                                class="tm-input"
+                            >
                         </div>
                     @endif
                 </div>
 
-                <div class="form-actions">
-                    <a href="{{ route('member') }}" class="btn btn-secondary">Back</a>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                {{-- Form Actions --}}
+                <div class="ep-actions">
+                    <a href="{{ route('member') }}" class="ep-back-link">$ back --to-profile</a>
+                    <button
+                        type="submit"
+                        class="ep-submit-btn"
+                        wire:loading.attr="disabled"
+                        wire:loading.class="ep-btn-loading"
+                    >
+                        <span wire:loading.remove>$ save --changes</span>
+                        <span wire:loading>// saving...</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -88,150 +169,197 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background: var(--tm-bg);
         }
 
-        .main-content {
+        .ep-main {
             flex: 1;
+            padding: 3rem 1.25rem 4rem;
         }
 
-        .form-card {
-            background: white;
-            border: 1px solid var(--gray-200);
-            border-radius: var(--border-radius-2xl);
-            padding: var(--spacing-10);
+        .ep-inner {
             max-width: 640px;
             margin: 0 auto;
         }
 
-        .edit-form {
-            display: flex;
-            flex-direction: column;
+        /* Header */
+        .ep-header {
+            margin-bottom: 2rem;
         }
 
-        .form-section {
-            margin-bottom: var(--spacing-8);
-            padding-bottom: var(--spacing-8);
-            border-bottom: 1px solid var(--gray-100);
+        .ep-title {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--tm-yellow);
+            letter-spacing: 0.02em;
         }
 
-        .form-section:last-of-type {
+        .ep-subtitle {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            color: var(--tm-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Form card */
+        .ep-form {
+            background: var(--tm-surface);
+            border: 1px solid var(--tm-border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* Sections */
+        .ep-section {
+            padding: 1.75rem 2rem;
+            border-bottom: 1px solid var(--tm-border);
+        }
+
+        .ep-section:last-of-type {
             border-bottom: none;
         }
 
-        .form-section-header {
-            margin-bottom: var(--spacing-6);
+        .ep-section-label {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8125rem;
+            color: var(--tm-muted);
+            margin-bottom: 1.25rem;
         }
 
-        .form-section-title {
-            font-size: 1.0625rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            letter-spacing: -0.02em;
-        }
-
-        .password-section-header {
+        .ep-password-header {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: var(--spacing-5);
+            margin-bottom: 1.25rem;
+            gap: 1rem;
         }
 
-        .btn-sm-toggle {
-            padding: 0.375rem 0.875rem;
-            font-size: 0.8125rem;
+        .ep-password-header .ep-section-label {
+            margin-bottom: 0;
         }
 
-        .form-group {
-            margin-bottom: var(--spacing-5);
-        }
-
-        label {
-            display: block;
-            margin-bottom: var(--spacing-2);
-            font-weight: 600;
-            font-size: 0.8125rem;
-            color: var(--gray-700);
-        }
-
-        .form-control {
-            display: block;
-            width: 100%;
-            padding: 0.625rem 0.875rem;
-            font-size: 0.9375rem;
-            font-family: inherit;
-            line-height: 1.5;
-            color: var(--gray-900);
-            background-color: white;
-            border: 1px solid var(--gray-300);
-            border-radius: var(--border-radius-lg);
-            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-        }
-
-        .form-control:focus {
-            border-color: var(--gray-900);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.08);
-        }
-
-        .is-invalid {
-            border-color: #ef4444;
-        }
-
-        .is-invalid:focus {
-            border-color: #ef4444;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-        }
-
-        .error-message {
-            color: #ef4444;
-            font-size: 0.8125rem;
-            margin-top: var(--spacing-1);
-        }
-
-        .form-actions {
-            display: flex;
-            gap: var(--spacing-3);
-            justify-content: flex-end;
-            padding-top: var(--spacing-4);
-        }
-
-        .btn {
-            padding: 0.625rem 1.25rem;
-            border: none;
-            border-radius: var(--border-radius-lg);
-            font-weight: 600;
+        .ep-toggle-btn {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.75rem;
+            color: var(--tm-blue);
+            background: transparent;
+            border: 1px solid var(--tm-border);
+            padding: 0.3rem 0.75rem;
+            border-radius: 2px;
             cursor: pointer;
-            transition: all var(--transition-fast);
-            text-decoration: none;
-            display: inline-flex;
+            transition: color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .ep-toggle-btn:hover {
+            color: var(--tm-yellow);
+            border-color: var(--tm-yellow);
+        }
+
+        /* Fields */
+        .ep-field {
+            margin-bottom: 1.25rem;
+        }
+
+        .ep-field:last-child {
+            margin-bottom: 0;
+        }
+
+        .ep-label {
+            display: block;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8125rem;
+            color: var(--tm-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .ep-optional {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.75rem;
+            color: var(--tm-muted);
+        }
+
+        .ep-input-error {
+            border-color: #ff6b6b !important;
+        }
+
+        .ep-error {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.75rem;
+            color: #ff6b6b;
+            margin-top: 0.375rem;
+        }
+
+        /* Actions */
+        .ep-actions {
+            padding: 1.5rem 2rem;
+            display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            gap: 1rem;
+            background: var(--tm-bg);
+            border-top: 1px solid var(--tm-border);
+        }
+
+        .ep-back-link {
+            font-family: 'Courier New', Courier, monospace;
             font-size: 0.875rem;
+            color: var(--tm-blue);
+            text-decoration: none;
+            transition: color 0.15s ease;
         }
 
-        .btn-primary {
-            background-color: var(--gray-900);
-            color: white;
+        .ep-back-link:hover {
+            color: var(--tm-yellow);
         }
 
-        .btn-primary:hover {
-            background-color: var(--gray-800);
+        .ep-submit-btn {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--tm-bg);
+            background: var(--tm-yellow);
+            border: none;
+            padding: 0.625rem 1.5rem;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: opacity 0.15s ease;
         }
 
-        .btn-secondary {
-            background-color: white;
-            color: var(--gray-700);
-            border: 1px solid var(--gray-300);
+        .ep-submit-btn:hover {
+            opacity: 0.88;
         }
 
-        .btn-secondary:hover {
-            background-color: var(--gray-50);
-            border-color: var(--gray-400);
+        .ep-submit-btn:disabled,
+        .ep-btn-loading {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
-        @media (max-width: 768px) {
-            .form-card {
-                padding: var(--spacing-6);
+        /* Responsive */
+        @media (max-width: 640px) {
+            .ep-main {
+                padding: 2rem 1rem 3rem;
+            }
+
+            .ep-section {
+                padding: 1.25rem 1rem;
+            }
+
+            .ep-actions {
+                padding: 1.25rem 1rem;
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+
+            .ep-submit-btn {
+                text-align: center;
+                width: 100%;
+            }
+
+            .ep-back-link {
+                text-align: center;
+                display: block;
             }
         }
     </style>
