@@ -34,7 +34,7 @@
                         <a href="{{ route('admin.dashboard') }}" class="nav-item">./admin<span class="nav-cursor">|</span></a>
                     @endif
                 @else
-                    <a href="{{ route('register') }}" class="nav-register">$ register --now</a>
+                    <a href="{{ route('register') }}" class="nav-register"><span>$ register --now</span></a>
                 @endauth
             </nav>
         </div>
@@ -164,6 +164,12 @@
             background: var(--tm-yellow);
             transform: translateX(-100%);
             transition: transform var(--transition-base);
+            z-index: 0;
+        }
+
+        .nav-register span {
+            position: relative;
+            z-index: 1;
         }
 
         .nav-register:hover::before {
