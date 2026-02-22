@@ -1,21 +1,19 @@
-<div class="page-container">
-    @livewire('header')
-
+<div class="admin-page">
     <x-admin-nav />
 
-    <section class="section main-content" style="padding-top: 2rem;">
-        <div class="section-header">
-            <h2 class="section-title">Admin: Board Members</h2>
-            <p class="section-subtitle">Manage the board members displayed on the site.</p>
+    <div class="admin-body">
+        <div class="admin-page-header">
+            <h1 class="admin-page-title">Board Members</h1>
+            <p class="admin-page-desc">Manage the board members displayed on the site.</p>
         </div>
 
         @if(session('message'))
-            <div class="flash-message" style="max-width: 1000px; margin: 0 auto 1rem;">
+            <div class="flash-message">
                 {{ session('message') }}
             </div>
         @endif
 
-        <div class="card" style="max-width: 1000px; margin: 0 auto;">
+        <div class="card">
             <div class="toolbar">
                 <a href="{{ route('admin.board-members.create') }}" class="btn-create">+ New Member</a>
             </div>
@@ -66,13 +64,46 @@
                 </div>
             @endif
         </div>
-    </section>
-
-    @livewire('footer')
+    </div>
 
     <style>
-        .page-container { display: flex; flex-direction: column; min-height: 100vh; }
-        .main-content { flex: 1; }
+        .admin-page {
+            min-height: 100vh;
+            background: var(--gray-50);
+        }
+
+        .admin-body {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-8) var(--spacing-6);
+        }
+
+        .admin-page-header {
+            margin-bottom: var(--spacing-8);
+        }
+
+        .admin-page-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--gray-950);
+            letter-spacing: -0.03em;
+            margin-bottom: 0.25rem;
+        }
+
+        .admin-page-desc {
+            color: var(--gray-500);
+            font-size: 0.9375rem;
+        }
+
+        .admin-page-desc a {
+            color: var(--laravel-red);
+            text-decoration: none;
+        }
+
+        .admin-page-desc a:hover {
+            text-decoration: underline;
+        }
 
         .toolbar {
             display: flex;

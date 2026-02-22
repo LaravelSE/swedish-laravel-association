@@ -1,21 +1,19 @@
-<div class="page-container">
-    @livewire('header')
-
+<div class="admin-page">
     <x-admin-nav />
 
-    <section class="section main-content" style="padding-top: 2rem;">
-        <div class="section-header">
-            <h2 class="section-title">Admin: Dashboard</h2>
-            <p class="section-subtitle">Overview of the site.</p>
+    <div class="admin-body">
+        <div class="admin-page-header">
+            <h1 class="admin-page-title">Dashboard</h1>
+            <p class="admin-page-desc">Overview of the site.</p>
         </div>
 
         @if(session('message'))
-            <div class="flash-message" style="max-width: 1000px; margin: 0 auto 1rem;">
+            <div class="flash-message" class="admin-flash">
                 {{ session('message') }}
             </div>
         @endif
 
-        <div class="dashboard-grid" style="max-width: 1000px; margin: 0 auto;">
+        <div class="dashboard-grid">
             <a href="{{ route('admin.companies') }}?status=pending" class="stat-card stat-card-pending">
                 <span class="stat-number">{{ $pendingCompaniesCount }}</span>
                 <span class="stat-label">Pending Companies</span>
@@ -35,7 +33,7 @@
         </div>
 
         @if($recentPendingCompanies->isNotEmpty())
-            <div class="card" style="max-width: 1000px; margin: 1.5rem auto 0;">
+            <div class="card" class="admin-card">
                 <div class="pending-header">
                     <h3 class="pending-title">Companies: needs review</h3>
                     <a href="{{ route('admin.companies') }}" class="view-all-link">View all &rarr;</a>
@@ -70,7 +68,7 @@
         @endif
 
         @if($recentPendingTalks->isNotEmpty())
-            <div class="card" style="max-width: 1000px; margin: 1.5rem auto 0;">
+            <div class="card" class="admin-card">
                 <div class="pending-header">
                     <h3 class="pending-title">Talks: needs review</h3>
                     <a href="{{ route('admin.talks') }}" class="view-all-link">View all &rarr;</a>
@@ -103,19 +101,36 @@
                 </div>
             </div>
         @endif
-    </section>
-
-    @livewire('footer')
+    </div>
 
     <style>
-        .page-container {
-            display: flex;
-            flex-direction: column;
+        .admin-page {
             min-height: 100vh;
+            background: var(--gray-50);
         }
 
-        .main-content {
-            flex: 1;
+        .admin-body {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-8) var(--spacing-6);
+        }
+
+        .admin-page-header {
+            margin-bottom: var(--spacing-8);
+        }
+
+        .admin-page-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--gray-950);
+            letter-spacing: -0.03em;
+            margin-bottom: 0.25rem;
+        }
+
+        .admin-page-desc {
+            color: var(--gray-500);
+            font-size: 0.9375rem;
         }
 
         .dashboard-grid {
@@ -154,43 +169,38 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
 
-        .stat-card-pending {
-            background-color: #fef3cd;
-            color: #856404;
-        }
-
-        .stat-card-approved {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .stat-card-rejected {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .stat-card-talks {
-            background-color: #fce8ff;
-            color: #7c3aed;
-        }
-
+        .stat-card-pending,
+        .stat-card-approved,
+        .stat-card-rejected,
+        .stat-card-talks,
         .stat-card-users {
-            background-color: #e8f0fe;
-            color: #1a56db;
+            background: white;
+            color: var(--gray-950);
+            border: 1px solid var(--gray-200);
         }
 
         .stat-number {
+            font-family: 'Syne', sans-serif;
             font-size: 2.5rem;
-            font-weight: 700;
+            font-weight: 800;
             line-height: 1;
+            color: var(--gray-950);
         }
 
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            opacity: 0.85;
+            letter-spacing: 0.06em;
+            color: var(--gray-500);
+        }
+
+        .admin-flash {
+            margin-bottom: 1rem;
+        }
+
+        .admin-card {
+            margin-top: 1.5rem;
         }
 
         .pending-header {
