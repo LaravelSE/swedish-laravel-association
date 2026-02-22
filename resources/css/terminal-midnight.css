@@ -257,7 +257,7 @@ body {
 }
 
 .card:hover {
-    border-color: rgba(74, 101, 128, 0.6);
+    border-color: var(--tm-muted);
 }
 
 .card-grid {
