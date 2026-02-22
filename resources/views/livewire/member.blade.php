@@ -1,146 +1,118 @@
 <div class="page-container">
     @livewire('header')
 
-    <section class="section main-content" style="padding-top: var(--spacing-12);">
-        <div class="section-header">
-            <h2 class="section-title">Member Area</h2>
-            <p class="section-subtitle">Welcome to the Swedish Laravel Association member area</p>
+    <section class="mp-section main-content">
+        <div class="mp-header">
+            <p class="mp-command">$ member --profile --user="{{ $user->name }}"</p>
+            <p class="mp-subtitle">// member area — swedish laravel association</p>
         </div>
 
         @if(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session('message') }}
+        <div class="mp-alert">
+            <span class="mp-ok">[OK]</span> {{ session('message') }}
         </div>
         @endif
 
-        <div class="cards-container">
-            <div class="member-card">
-                <div class="member-card-inner">
-                    <h3 class="member-card-title">Your Profile</h3>
+        <div class="mp-cards">
+            {{-- Profile Card --}}
+            <div class="mp-card">
+                <p class="mp-card-title">// profile --info</p>
 
-                    <div class="profile-details">
-                        <div class="profile-item">
-                            <span class="profile-label">Name</span>
-                            <span class="profile-value">{{ $user->name }}</span>
-                        </div>
-
-                        <div class="profile-item">
-                            <span class="profile-label">Email</span>
-                            <span class="profile-value">{{ $user->email }}</span>
-                        </div>
-
-                        @if($user->phone)
-                        <div class="profile-item">
-                            <span class="profile-label">Phone</span>
-                            <span class="profile-value">{{ $user->phone }}</span>
-                        </div>
-                        @endif
-
-                        @if($user->city)
-                        <div class="profile-item">
-                            <span class="profile-label">City</span>
-                            <span class="profile-value">{{ $user->city }}</span>
-                        </div>
-                        @endif
-
-                        @if($user->company)
-                        <div class="profile-item">
-                            <span class="profile-label">Company</span>
-                            <span class="profile-value">{{ $user->company }}</span>
-                        </div>
-                        @endif
-
-                        <div class="profile-item">
-                            <span class="profile-label">Member since</span>
-                            <span class="profile-value">{{ $user->created_at->format('F j, Y') }}</span>
-                        </div>
+                <div class="mp-profile-rows">
+                    <div class="mp-row">
+                        <span class="mp-key">name</span>
+                        <span class="mp-val">{{ $user->name }}</span>
                     </div>
-
-                    <div class="member-actions">
-                        <a href="{{ route('member.edit') }}" class="btn btn-primary">Edit Profile</a>
-                        <button wire:click="logout" class="btn btn-danger">Logout</button>
+                    <div class="mp-row">
+                        <span class="mp-key">email</span>
+                        <span class="mp-val">{{ $user->email }}</span>
                     </div>
+                    @if($user->phone)
+                    <div class="mp-row">
+                        <span class="mp-key">phone</span>
+                        <span class="mp-val">{{ $user->phone }}</span>
+                    </div>
+                    @endif
+                    @if($user->city)
+                    <div class="mp-row">
+                        <span class="mp-key">city</span>
+                        <span class="mp-val">{{ $user->city }}</span>
+                    </div>
+                    @endif
+                    @if($user->company)
+                    <div class="mp-row">
+                        <span class="mp-key">company</span>
+                        <span class="mp-val">{{ $user->company }}</span>
+                    </div>
+                    @endif
+                    <div class="mp-row">
+                        <span class="mp-key">member-since</span>
+                        <span class="mp-val">{{ $user->created_at->format('Y-m-d') }}</span>
+                    </div>
+                </div>
+
+                <div class="mp-actions">
+                    <a href="{{ route('member.edit') }}" class="mp-btn mp-btn-primary">$ edit --profile</a>
+                    <button wire:click="logout" class="mp-btn mp-btn-danger">$ logout --user</button>
                 </div>
             </div>
 
-            <div class="member-card">
-                <div class="member-card-inner">
-                    <h3 class="member-card-title">Membership</h3>
+            {{-- Membership Card --}}
+            <div class="mp-card">
+                <p class="mp-card-title">// membership --status</p>
 
-                    @if($subscriptionsEnabled)
-                        @if($user->subscribed())
-                            <div class="membership-status active">
-                                <div class="membership-header">
-                                    <div class="membership-badge active">Active</div>
-                                    <p>Your membership is active and in good standing.</p>
-                                </div>
+                @if($subscriptionsEnabled)
+                    @if($user->subscribed())
+                        <div class="mp-status-row">
+                            <span class="mp-status-active">[ACTIVE]</span>
+                            <span class="mp-status-desc">membership is active and in good standing</span>
+                        </div>
 
-                                <div class="membership-details">
-                                    <div class="membership-item">
-                                        <span class="membership-label">Status:</span>
-                                        <span class="membership-value">Active</span>
-                                    </div>
-
-                                    <div class="membership-item">
-                                        <span class="membership-label">Renewal Date:</span>
-                                        <span class="membership-value">{{ \Carbon\Carbon::createFromTimestamp($user->subscription()->asStripeSubscription()->current_period_end)->format('F j, Y') }}</span>
-                                    </div>
-
-                                    <div class="membership-item">
-                                        <span class="membership-label">Membership ID:</span>
-                                        <span class="membership-value membership-id">{{ substr($user->stripe_id, 0, 8) }}</span>
-                                    </div>
-                                </div>
-
-                                <div class="member-actions">
-                                    <a href="{{ route('member.billing') }}" class="btn btn-secondary">Manage Subscription</a>
-                                </div>
+                        <div class="mp-profile-rows">
+                            <div class="mp-row">
+                                <span class="mp-key">status</span>
+                                <span class="mp-val mp-val-active">active</span>
                             </div>
-                            <div class="membership-icon active">
-                                <i class="fas fa-check-circle"></i>
+                            <div class="mp-row">
+                                <span class="mp-key">renewal</span>
+                                <span class="mp-val">{{ \Carbon\Carbon::createFromTimestamp($user->subscription()->asStripeSubscription()->current_period_end)->format('Y-m-d') }}</span>
                             </div>
-                        @else
-                            <div class="membership-status inactive">
-                                <div class="membership-header">
-                                    <div class="membership-badge inactive">Inactive</div>
-                                    <p>You don't have an active membership yet.</p>
-                                </div>
-
-                                <div class="membership-details">
-                                    <p class="membership-pitch">Become a member to support the Swedish Laravel community and get access to exclusive content and events.</p>
-
-                                    <ul class="membership-benefits">
-                                        <li>Support the Swedish Laravel community</li>
-                                        <li>Get access to exclusive content</li>
-                                        <li>Participate in member-only events</li>
-                                        <li>Connect with other Laravel developers</li>
-                                    </ul>
-                                </div>
-
-                                <div class="member-actions">
-                                    <a href="{{ route('subscription.checkout') }}" class="btn btn-accent">Become a Member</a>
-                                </div>
-                            </div>
-                            <div class="membership-icon inactive">
-                                <i class="fas fa-times-circle"></i>
-                            </div>
-                        @endif
-                    @else
-                        <div class="membership-status">
-                            <div class="membership-header">
-                                <h4>Membership Information</h4>
-                                <p>Membership functionality is currently disabled.</p>
-                            </div>
-
-                            <div class="membership-details">
-                                <p>Membership subscriptions are not currently available. Please check back later.</p>
+                            <div class="mp-row">
+                                <span class="mp-key">member-id</span>
+                                <span class="mp-val mp-id">{{ substr($user->stripe_id, 0, 8) }}</span>
                             </div>
                         </div>
-                        <div class="membership-icon">
-                            <i class="fas fa-info-circle"></i>
+
+                        <div class="mp-actions">
+                            <a href="{{ route('member.billing') }}" class="mp-btn mp-btn-secondary">$ manage --subscription</a>
+                        </div>
+                    @else
+                        <div class="mp-status-row">
+                            <span class="mp-status-inactive">[INACTIVE]</span>
+                            <span class="mp-status-desc">no active membership found</span>
+                        </div>
+
+                        <div class="mp-pitch-block">
+                            <p class="mp-pitch">// become a member to support the swedish laravel community</p>
+                            <ul class="mp-benefits">
+                                <li><span class="mp-bullet">→</span> support the swedish laravel community</li>
+                                <li><span class="mp-bullet">→</span> access to exclusive content</li>
+                                <li><span class="mp-bullet">→</span> participate in member-only events</li>
+                                <li><span class="mp-bullet">→</span> connect with other laravel developers</li>
+                            </ul>
+                        </div>
+
+                        <div class="mp-actions">
+                            <a href="{{ route('subscription.checkout') }}" class="mp-btn mp-btn-primary">$ join --membership</a>
                         </div>
                     @endif
-                </div>
+                @else
+                    <div class="mp-status-row">
+                        <span class="mp-status-inactive">[DISABLED]</span>
+                        <span class="mp-status-desc">membership functionality is currently unavailable</span>
+                    </div>
+                    <p class="mp-pitch">// subscriptions are not currently available — check back later</p>
+                @endif
             </div>
         </div>
     </section>
@@ -152,253 +124,252 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background: var(--tm-bg);
         }
 
         .main-content {
             flex: 1;
         }
 
-        .alert {
-            padding: var(--spacing-4);
-            margin-bottom: var(--spacing-6);
-            border-radius: var(--border-radius-lg);
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .alert-success {
-            background-color: #ecfdf5;
-            color: #065f46;
-            border: 1px solid #bbf7d0;
-        }
-
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: var(--spacing-6);
+        .mp-section {
+            padding: var(--spacing-12) var(--spacing-6);
             max-width: 1000px;
             margin: 0 auto;
+            width: 100%;
         }
 
-        .member-card {
-            background: white;
-            border: 1px solid var(--gray-200);
-            border-radius: var(--border-radius-2xl);
-            transition: border-color var(--transition-base);
+        .mp-header {
+            margin-bottom: var(--spacing-8);
         }
 
-        .member-card:hover {
-            border-color: var(--gray-300);
-        }
-
-        .member-card-inner {
-            padding: var(--spacing-8);
-        }
-
-        .member-card-title {
+        .mp-command {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
             font-size: 1.125rem;
-            font-weight: 700;
-            color: var(--gray-900);
-            letter-spacing: -0.02em;
+            color: var(--tm-yellow);
+            margin-bottom: var(--spacing-1);
+        }
+
+        .mp-subtitle {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.8125rem;
+            color: var(--tm-muted);
+        }
+
+        .mp-alert {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.875rem;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.08);
+            border: 1px solid rgba(74, 222, 128, 0.25);
+            border-radius: 4px;
+            padding: var(--spacing-3) var(--spacing-4);
             margin-bottom: var(--spacing-6);
         }
 
-        .profile-details {
+        .mp-ok {
+            font-weight: 700;
+        }
+
+        .mp-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: var(--spacing-6);
+        }
+
+        .mp-card {
+            background: var(--tm-surface);
+            border: 1px solid var(--tm-border);
+            border-radius: 6px;
+            padding: var(--spacing-8);
             display: flex;
             flex-direction: column;
-            gap: var(--spacing-4);
         }
 
-        .profile-item {
+        .mp-card-title {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.8125rem;
+            color: var(--tm-muted);
+            margin-bottom: var(--spacing-6);
+            letter-spacing: 0.02em;
+        }
+
+        .mp-profile-rows {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-3);
+            flex: 1;
+        }
+
+        .mp-row {
             display: flex;
             align-items: baseline;
-        }
-
-        .profile-label {
-            font-weight: 600;
-            font-size: 0.8125rem;
-            color: var(--gray-500);
-            width: 120px;
-            flex-shrink: 0;
-        }
-
-        .profile-value {
-            color: var(--gray-900);
-            font-size: 0.9375rem;
-        }
-
-        .member-actions {
-            margin-top: var(--spacing-8);
-            padding-top: var(--spacing-6);
-            border-top: 1px solid var(--gray-100);
-            display: flex;
             gap: var(--spacing-3);
         }
 
-        .btn {
-            padding: 0.625rem 1.25rem;
-            border: none;
-            border-radius: var(--border-radius-lg);
-            font-weight: 600;
+        .mp-key {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.75rem;
+            color: var(--tm-muted);
+            min-width: 110px;
+            flex-shrink: 0;
+        }
+
+        .mp-val {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.875rem;
+            color: var(--tm-text);
+        }
+
+        .mp-val-active {
+            color: #4ade80;
+        }
+
+        .mp-id {
+            font-size: 0.8125rem;
+            background: rgba(77, 159, 212, 0.12);
+            color: var(--tm-blue);
+            padding: 0.125rem 0.5rem;
+            border-radius: 3px;
+        }
+
+        .mp-actions {
+            margin-top: var(--spacing-8);
+            padding-top: var(--spacing-5);
+            border-top: 1px solid var(--tm-border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-3);
+        }
+
+        .mp-btn {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.8125rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all var(--transition-fast);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.875rem;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+            border: 1px solid transparent;
         }
 
-        .btn-primary {
-            background-color: var(--gray-900);
-            color: white;
+        .mp-btn-primary {
+            background: var(--tm-yellow);
+            color: var(--tm-bg);
+            border-color: var(--tm-yellow);
         }
 
-        .btn-primary:hover {
-            background-color: var(--gray-800);
+        .mp-btn-primary:hover {
+            background: #f0c020;
+            border-color: #f0c020;
         }
 
-        .btn-accent {
-            background-color: var(--laravel-red);
-            color: white;
+        .mp-btn-secondary {
+            background: transparent;
+            color: var(--tm-blue);
+            border-color: var(--tm-blue);
         }
 
-        .btn-accent:hover {
-            background-color: var(--laravel-red-dark);
+        .mp-btn-secondary:hover {
+            background: rgba(77, 159, 212, 0.1);
         }
 
-        .btn-danger {
-            background-color: white;
-            color: #ef4444;
-            border: 1px solid var(--gray-300);
+        .mp-btn-danger {
+            background: transparent;
+            color: var(--tm-red, #ff6b6b);
+            border-color: var(--tm-red, #ff6b6b);
         }
 
-        .btn-danger:hover {
-            background-color: #fef2f2;
-            border-color: #fca5a5;
+        .mp-btn-danger:hover {
+            background: rgba(255, 107, 107, 0.1);
         }
 
-        .btn-secondary {
-            background-color: white;
-            color: var(--gray-700);
-            border: 1px solid var(--gray-300);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--gray-50);
-            border-color: var(--gray-400);
-        }
-
-        .membership-header {
-            margin-bottom: var(--spacing-5);
-        }
-
-        .membership-header h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: var(--spacing-2);
-        }
-
-        .membership-header p {
-            color: var(--gray-500);
-            font-size: 0.9375rem;
-        }
-
-        .membership-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: var(--spacing-3);
-            letter-spacing: 0.02em;
-        }
-
-        .membership-badge.active {
-            background-color: #dcfce7;
-            color: #166534;
-        }
-
-        .membership-badge.inactive {
-            background-color: var(--gray-100);
-            color: var(--gray-600);
-        }
-
-        .membership-details {
-            margin-bottom: var(--spacing-2);
-        }
-
-        .membership-item {
-            margin-bottom: var(--spacing-3);
+        .mp-status-row {
             display: flex;
-            align-items: baseline;
+            align-items: center;
+            gap: var(--spacing-3);
+            margin-bottom: var(--spacing-5);
+            flex-wrap: wrap;
         }
 
-        .membership-label {
-            font-weight: 600;
-            font-size: 0.8125rem;
-            width: 120px;
-            color: var(--gray-500);
-            flex-shrink: 0;
-        }
-
-        .membership-value {
-            font-size: 0.9375rem;
-            color: var(--gray-900);
-        }
-
-        .membership-id {
+        .mp-status-active {
             font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
             font-size: 0.8125rem;
-            background: var(--gray-100);
-            padding: 0.125rem 0.5rem;
-            border-radius: 4px;
+            font-weight: 700;
+            color: #4ade80;
         }
 
-        .membership-pitch {
-            color: var(--gray-600);
-            font-size: 0.9375rem;
+        .mp-status-inactive {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: var(--tm-muted);
+        }
+
+        .mp-status-desc {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.75rem;
+            color: var(--tm-muted);
+        }
+
+        .mp-pitch-block {
+            flex: 1;
+        }
+
+        .mp-pitch {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.8125rem;
+            color: var(--tm-muted);
             margin-bottom: var(--spacing-4);
         }
 
-        .membership-benefits {
+        .mp-benefits {
             list-style: none;
             padding: 0;
             display: flex;
             flex-direction: column;
-            gap: var(--spacing-3);
+            gap: var(--spacing-2);
         }
 
-        .membership-benefits li {
-            position: relative;
-            padding-left: var(--spacing-6);
-            color: var(--gray-600);
-            font-size: 0.9375rem;
+        .mp-benefits li {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.8125rem;
+            color: var(--tm-text);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
         }
 
-        .membership-benefits li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0.5em;
-            width: 6px;
-            height: 6px;
-            background: var(--laravel-red);
-            border-radius: 50%;
-        }
-
-        .membership-icon {
-            display: none;
-        }
-
-        .membership-status {
-            flex: 1;
+        .mp-bullet {
+            color: var(--tm-yellow);
+            flex-shrink: 0;
         }
 
         @media (max-width: 768px) {
-            .cards-container {
+            .mp-cards {
                 grid-template-columns: 1fr;
+            }
+
+            .mp-section {
+                padding: var(--spacing-8) var(--spacing-4);
+            }
+
+            .mp-command {
+                font-size: 0.875rem;
+                word-break: break-all;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .mp-key {
+                min-width: 90px;
+            }
+
+            .mp-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
