@@ -1,64 +1,93 @@
 <div class="page-container">
     @livewire('header')
 
-    <section class="section main-content" style="padding-top: 2rem;">
-        <div class="section-header">
-            <h2 class="section-title">Register</h2>
-            <p class="section-subtitle">Create a new account to join the Swedish Laravel Association</p>
-        </div>
-        <div class="card" style="max-width: 600px; margin: 0 auto;">
-            <form wire:submit.prevent="register" class="register-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" wire:model="name" class="form-control @error('name') is-invalid @enderror" autofocus>
-                    @error('name') <div class="error-message">{{ $message }}</div> @enderror
+    <section class="rg-section main-content">
+        <div class="rg-card">
+            <div class="rg-header">
+                <p class="rg-comment">// auth --register</p>
+                <p class="rg-subtitle">create a new member account</p>
+            </div>
+
+            <form wire:submit.prevent="register" class="rg-form">
+                <div class="rg-form-group">
+                    <label class="rg-label" for="name">name</label>
+                    <input type="text" id="name" wire:model="name"
+                        class="tm-input rg-input @error('name') rg-input-error @enderror"
+                        autofocus autocomplete="name">
+                    @error('name')
+                        <div class="rg-field-error"><span class="rg-error-badge">[ERROR]</span> {{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" wire:model="email" class="form-control @error('email') is-invalid @enderror">
-                    @error('email') <div class="error-message">{{ $message }}</div> @enderror
+                <div class="rg-form-group">
+                    <label class="rg-label" for="email">email</label>
+                    <input type="email" id="email" wire:model="email"
+                        class="tm-input rg-input @error('email') rg-input-error @enderror"
+                        autocomplete="username">
+                    @error('email')
+                        <div class="rg-field-error"><span class="rg-error-badge">[ERROR]</span> {{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="phone">Phone (optional)</label>
-                    <input type="tel" maxlength="20" id="phone" wire:model="phone" class="form-control @error('phone') is-invalid @enderror">
-                    @error('phone') <div class="error-message">{{ $message }}</div> @enderror
+                <div class="rg-form-group">
+                    <label class="rg-label" for="phone">phone <span class="rg-optional">// optional</span></label>
+                    <input type="tel" id="phone" wire:model="phone" maxlength="20"
+                        class="tm-input rg-input @error('phone') rg-input-error @enderror"
+                        autocomplete="tel">
+                    @error('phone')
+                        <div class="rg-field-error"><span class="rg-error-badge">[ERROR]</span> {{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="city">City (optional)</label>
-                    <input type="text" maxlength="150" id="city" wire:model="city" class="form-control @error('city') is-invalid @enderror">
-                    @error('city') <div class="error-message">{{ $message }}</div> @enderror
+                <div class="rg-form-group">
+                    <label class="rg-label" for="city">city <span class="rg-optional">// optional</span></label>
+                    <input type="text" id="city" wire:model="city" maxlength="150"
+                        class="tm-input rg-input @error('city') rg-input-error @enderror"
+                        autocomplete="address-level2">
+                    @error('city')
+                        <div class="rg-field-error"><span class="rg-error-badge">[ERROR]</span> {{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="company">Company (optional)</label>
-                    <input type="text" maxlength="150" id="company" wire:model="company" class="form-control @error('company') is-invalid @enderror">
-                    @error('company') <div class="error-message">{{ $message }}</div> @enderror
+                <div class="rg-form-group">
+                    <label class="rg-label" for="company">company <span class="rg-optional">// optional</span></label>
+                    <input type="text" id="company" wire:model="company" maxlength="150"
+                        class="tm-input rg-input @error('company') rg-input-error @enderror"
+                        autocomplete="organization">
+                    @error('company')
+                        <div class="rg-field-error"><span class="rg-error-badge">[ERROR]</span> {{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" wire:model="password" class="form-control @error('password') is-invalid @enderror">
-                    @error('password') <div class="error-message">{{ $message }}</div> @enderror
+                <div class="rg-form-group">
+                    <label class="rg-label" for="password">password</label>
+                    <input type="password" id="password" wire:model="password"
+                        class="tm-input rg-input @error('password') rg-input-error @enderror"
+                        autocomplete="new-password">
+                    @error('password')
+                        <div class="rg-field-error"><span class="rg-error-badge">[ERROR]</span> {{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="password_confirmation">Confirm Password</label>
-                    <input type="password" id="password_confirmation" wire:model="password_confirmation" class="form-control">
+                <div class="rg-form-group">
+                    <label class="rg-label" for="password_confirmation">confirm-password</label>
+                    <input type="password" id="password_confirmation" wire:model="password_confirmation"
+                        class="tm-input rg-input"
+                        autocomplete="new-password">
                 </div>
 
-                <div class="form-group" style="text-align: center;">
-                    <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
-                        <span wire:loading.remove>Register</span>
-                        <span wire:loading>Processing...</span>
+                <div class="rg-form-group">
+                    <button type="submit" class="rg-btn" wire:loading.attr="disabled">
+                        <span wire:loading.remove>$ register --user</span>
+                        <span wire:loading>// registering...</span>
                     </button>
                 </div>
             </form>
 
-            <div style="margin-top: var(--spacing-6); padding-top: var(--spacing-6); border-top: 1px solid var(--gray-200); text-align: center;">
-                <p>Already have an account? <a href="{{ route('login') }}">Log in</a></p>
+            <div class="rg-divider"></div>
+
+            <div class="rg-links">
+                <a href="{{ route('login') }}" class="rg-link">$ login --existing-user</a>
             </div>
         </div>
     </section>
@@ -71,47 +100,143 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        
+
         .main-content {
             flex: 1;
         }
-        
-        .register-form {
-            margin: 2rem 0;
+
+        .rg-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-12) var(--spacing-4);
         }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .form-control {
-            display: block;
+
+        .rg-card {
+            background: var(--tm-surface);
+            border: 1px solid var(--tm-border);
+            border-radius: 4px;
+            padding: var(--spacing-8);
             width: 100%;
-            padding: 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            max-width: 520px;
         }
-        .form-control:focus {
-            border-color: #FF2D20;
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(255, 45, 32, 0.25);
+
+        .rg-header {
+            margin-bottom: var(--spacing-8);
         }
-        .is-invalid {
-            border-color: #dc3545;
+
+        .rg-comment {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 1.1rem;
+            color: var(--tm-muted);
+            margin: 0 0 var(--spacing-2);
         }
-        .error-message {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
+
+        .rg-subtitle {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--tm-muted);
+            margin: 0;
+            opacity: 0.7;
         }
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
+
+        .rg-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-5);
+        }
+
+        .rg-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-1);
+        }
+
+        .rg-label {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--tm-text);
+            text-transform: lowercase;
+        }
+
+        .rg-optional {
+            font-size: 0.72rem;
+            color: var(--tm-muted);
+            opacity: 0.7;
+        }
+
+        .rg-input {
+            width: 100%;
+        }
+
+        .rg-input-error {
+            border-color: #ff6b6b !important;
+        }
+
+        .rg-field-error {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.78rem;
+            color: #ff6b6b;
+            margin-top: var(--spacing-1);
+        }
+
+        .rg-error-badge {
+            font-weight: 700;
+        }
+
+        .rg-btn {
+            width: 100%;
+            padding: var(--spacing-3) var(--spacing-4);
+            background: transparent;
+            border: 1px solid var(--tm-yellow);
+            color: var(--tm-yellow);
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.15s ease, color 0.15s ease;
+            text-align: center;
+        }
+
+        .rg-btn:hover:not(:disabled) {
+            background: var(--tm-yellow);
+            color: var(--tm-bg);
+        }
+
+        .rg-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .rg-divider {
+            border: none;
+            border-top: 1px solid var(--tm-border);
+            margin: var(--spacing-6) 0;
+        }
+
+        .rg-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-3);
+            align-items: flex-start;
+        }
+
+        .rg-link {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.82rem;
+            color: var(--tm-blue);
+            text-decoration: none;
+            transition: color 0.15s ease;
+        }
+
+        .rg-link:hover {
+            color: var(--tm-yellow);
+        }
+
+        @media (max-width: 480px) {
+            .rg-card {
+                padding: var(--spacing-6) var(--spacing-4);
+            }
         }
     </style>
 </div>
