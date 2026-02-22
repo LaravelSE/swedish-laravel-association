@@ -18,10 +18,10 @@ test('submit company page can be rendered', function () {
 
 test('guest users see registration fields', function () {
     Livewire::test(SubmitCompany::class)
-        ->assertSee('Create Account')
-        ->assertSee('Name')
-        ->assertSee('Email')
-        ->assertSee('Password');
+        ->assertSee('create-account')
+        ->assertSee('name')
+        ->assertSee('email')
+        ->assertSee('password');
 });
 
 test('logged in users do not see registration fields', function () {
@@ -29,8 +29,8 @@ test('logged in users do not see registration fields', function () {
 
     Livewire::actingAs($user)
         ->test(SubmitCompany::class)
-        ->assertDontSee('Create Account')
-        ->assertSee('Submitting as');
+        ->assertDontSee('create-account')
+        ->assertSee('submitting-as');
 });
 
 test('guest user can submit company and create account', function () {
