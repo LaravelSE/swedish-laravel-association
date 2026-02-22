@@ -77,12 +77,12 @@
             border-radius: 0;
             object-fit: cover;
             border: 1px solid var(--tm-border);
-            filter: grayscale(20%);
-            transition: filter var(--transition-base), border-color var(--transition-base);
+            filter: grayscale(100%) brightness(0.85);
+            transition: filter 0.3s ease, border-color var(--transition-base);
         }
 
         .board-card:hover .board-avatar img {
-            filter: grayscale(0%);
+            filter: grayscale(0%) brightness(1);
             border-color: var(--tm-muted);
         }
 
