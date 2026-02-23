@@ -2,7 +2,7 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-label">// swedish_laravel_association</div>
-            <h1 class="hero-title"><span class="hero-prompt">&gt;</span> Build with Laravel.<br>Grow with Sweden.</h1>
+            <h1 class="hero-title"><span class="hero-prompt">&gt;</span> Build with Laravel.<br>Grow with the Community.</h1>
             <p class="hero-description"><span class="hero-comment">#</span> We bring together Laravel developers across Sweden through meetups, conferences, and an active online community.</p>
             <div class="hero-cta">
                 <a href="https://bit.ly/laravel-sweden-slack" class="btn btn-primary btn-hero" target="_blank" rel="noopener noreferrer">
