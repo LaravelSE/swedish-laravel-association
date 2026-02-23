@@ -508,7 +508,7 @@
         }
 
         .no-events-dim {
-            color: var(--tm-border);
+            color: var(--tm-muted);
         }
 
         @media (max-width: 640px) {
