@@ -395,8 +395,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
     * {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
+        animation-duration: 1.5s !important;
+        transition-duration: 1.5s !important;
     }
     html { scroll-behavior: auto; }
 }

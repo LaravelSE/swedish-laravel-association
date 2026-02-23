@@ -73,7 +73,7 @@
         }
 
         .nav-cursor {
-            display: none;
+            visibility: hidden;
             animation: blink 1s step-end infinite;
             color: var(--tm-yellow);
             font-weight: 700;
@@ -82,7 +82,7 @@
 
         .nav-item:hover .nav-cursor,
         .nav-item:focus .nav-cursor {
-            display: inline;
+            visibility: visible;
         }
 
         .mobile-menu-button {
