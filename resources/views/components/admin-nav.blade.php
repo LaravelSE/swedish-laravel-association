@@ -10,6 +10,24 @@
     $current = request()->route()?->getName() ?? '';
 @endphp
 
+<header class="admin-header">
+    <div class="admin-header-inner">
+        <div class="admin-header-left">
+            <a href="{{ route('home') }}" class="admin-logo">
+                <img src="{{ asset('square-logo.jpg') }}" alt="Laravel Sweden" width="28" height="28">
+                <span class="admin-logo-text">Laravel Sweden</span>
+            </a>
+            <span class="admin-badge">Admin</span>
+        </div>
+        <div class="admin-header-right">
+            <a href="{{ route('home') }}" class="admin-back-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                Back to site
+            </a>
+        </div>
+    </div>
+</header>
+
 <nav class="admin-subnav">
     <div class="admin-subnav-inner">
         @foreach($links as $link)
@@ -20,41 +38,3 @@
         @endforeach
     </div>
 </nav>
-
-<style>
-    .admin-subnav {
-        background: white;
-        border-bottom: 1px solid var(--gray-200);
-    }
-
-    .admin-subnav-inner {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 var(--spacing-6);
-        display: flex;
-        gap: 0;
-        overflow-x: auto;
-    }
-
-    .admin-subnav-link {
-        display: inline-block;
-        padding: 0.75rem 1rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: var(--gray-600);
-        text-decoration: none;
-        border-bottom: 2px solid transparent;
-        white-space: nowrap;
-        transition: color 0.15s, border-color 0.15s;
-    }
-
-    .admin-subnav-link:hover {
-        color: var(--laravel-red);
-    }
-
-    .admin-subnav-link.active {
-        color: var(--laravel-red);
-        border-bottom-color: var(--laravel-red);
-        font-weight: 600;
-    }
-</style>

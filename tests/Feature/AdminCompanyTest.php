@@ -101,3 +101,35 @@ test('admin can reject a company', function () {
     expect($company->status)->toBe('rejected');
     expect($company->admin_notes)->toBe('Not relevant');
 });
+
+test('non-admin cannot approve company directly', function () {
+    $user = User::factory()->create();
+    $company = Company::factory()->create();
+
+    Livewire::actingAs($user)
+        ->test(CompanyReview::class, ['company' => $company])
+        ->call('approve')
+        ->assertForbidden();
+
+    expect($company->fresh()->status)->toBe('pending');
+});
+
+test('non-admin cannot reject company directly', function () {
+    $user = User::factory()->create();
+    $company = Company::factory()->create();
+
+    Livewire::actingAs($user)
+        ->test(CompanyReview::class, ['company' => $company])
+        ->call('reject')
+        ->assertForbidden();
+
+    expect($company->fresh()->status)->toBe('pending');
+});
+
+test('status is not mass assignable on company model', function () {
+    $company = Company::factory()->create();
+
+    $company->fill(['status' => 'approved']);
+
+    expect($company->status)->toBe('pending');
+});

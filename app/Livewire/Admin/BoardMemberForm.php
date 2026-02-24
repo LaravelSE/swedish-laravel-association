@@ -22,14 +22,16 @@ class BoardMemberForm extends Component
 
     public $photo = null;
 
-    public function mount(?BoardMember $boardMember = null): void
+    public function mount($boardMember = null): void
     {
-        if ($boardMember?->exists) {
-            $this->boardMember = $boardMember;
-            $this->name = $boardMember->name;
-            $this->role = $boardMember->role;
-            $this->company = $boardMember->company ?? '';
-            $this->sortOrder = $boardMember->sort_order;
+        if ($boardMember) {
+            $this->boardMember = $boardMember instanceof BoardMember
+                ? $boardMember
+                : BoardMember::findOrFail($boardMember);
+            $this->name = $this->boardMember->name;
+            $this->role = $this->boardMember->role;
+            $this->company = $this->boardMember->company ?? '';
+            $this->sortOrder = $this->boardMember->sort_order;
         }
     }
 
@@ -58,7 +60,13 @@ class BoardMemberForm extends Component
         ];
 
         if ($this->photo) {
-            $data['image_path'] = $this->photo->store('board-members', 'public');
+            $imagePath = $this->photo->store('board-members', 'public');
+            if ($imagePath === false) {
+                $this->addError('photo', 'Failed to upload the photo. Please try again.');
+
+                return;
+            }
+            $data['image_path'] = $imagePath;
         }
 
         if ($this->boardMember?->exists) {

@@ -3,23 +3,24 @@
 namespace App\Livewire;
 
 use App\Models\Company;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class CompaniesListing extends Component
 {
+    use WithPagination;
+
     public string $cityFilter = '';
 
-    public function render()
+    public function updatedCityFilter(): void
+    {
+        $this->resetPage();
+    }
+
+    public function render(): View
     {
         $query = Company::query()->approved()->orderBy('name');
-
-        if ($this->cityFilter) {
-            $query->where('city', $this->cityFilter);
-        }
-
-        /** @var Collection<int, Company> $companies */
-        $companies = $query->get();
 
         $cities = Company::query()->approved()
             ->select('city')
@@ -27,8 +28,12 @@ class CompaniesListing extends Component
             ->orderBy('city')
             ->pluck('city');
 
+        if ($this->cityFilter) {
+            $query->where('city', $this->cityFilter);
+        }
+
         return view('livewire.companies-listing', [
-            'companies' => $companies,
+            'companies' => $query->paginate(24),
             'cities' => $cities,
         ])->layout('components.layouts.app', ['title' => 'Companies Using Laravel in Sweden - Swedish Laravel Association']);
     }

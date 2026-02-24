@@ -1,23 +1,27 @@
-<div class="page-container">
-    @livewire('header')
-
+<div class="admin-page">
     <x-admin-nav />
 
-    <section class="section main-content" style="padding-top: 2rem;">
-        <div class="section-header">
-            <h2 class="section-title">{{ $boardMember?->exists ? 'Edit: '.$boardMember->name : 'New Board Member' }}</h2>
-            <p class="section-subtitle">
+    <div class="admin-body">
+        <div class="admin-page-header">
+            <h1 class="admin-page-title">{{ $boardMember?->exists ? 'Edit: '.$boardMember->name : 'New Board Member' }}</h1>
+            <p class="admin-page-desc">
                 <a href="{{ route('admin.board-members') }}">&larr; Back to list</a>
             </p>
         </div>
 
         @if(session('message'))
-            <div class="flash-message" style="max-width: 600px; margin: 0 auto 1rem;">
+            <div class="flash-message flash-success">
                 {{ session('message') }}
             </div>
         @endif
 
-        <div class="card" style="max-width: 600px; margin: 0 auto;">
+        @if(session('error'))
+            <div class="flash-message flash-error">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <div class="card">
 
             <div class="form-row">
                 <div class="form-group">
@@ -73,113 +77,7 @@
             </div>
 
         </div>
-    </section>
+    </div>
 
-    @livewire('footer')
-
-    <style>
-        .page-container { display: flex; flex-direction: column; min-height: 100vh; }
-        .main-content { flex: 1; }
-
-        .form-group { margin-bottom: 1rem; }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .form-row { grid-template-columns: 1fr; }
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-            font-size: 0.9rem;
-            color: var(--gray-700);
-        }
-
-        .required { color: #FF2D20; }
-
-        .form-control {
-            display: block;
-            width: 100%;
-            padding: 0.5rem 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            box-sizing: border-box;
-        }
-
-        .form-control:focus {
-            border-color: #FF2D20;
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(255, 45, 32, 0.25);
-        }
-
-        .form-control.is-invalid { border-color: #dc3545; }
-        .error-message { color: #dc3545; font-size: 0.85rem; margin-top: 0.25rem; }
-
-        .current-photo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .current-photo-label {
-            font-size: 0.85rem;
-            color: var(--gray-500);
-        }
-
-        .photo-preview {
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            margin-bottom: 0.75rem;
-        }
-
-        .field-hint {
-            font-size: 0.8rem;
-            color: var(--gray-500);
-            margin-top: 0.25rem;
-            margin-bottom: 0;
-        }
-
-        .action-buttons { display: flex; gap: 1rem; margin-top: 1.5rem; align-items: center; }
-
-        .btn {
-            padding: 0.625rem 1.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-        .btn-save { background-color: #FF2D20; color: white; }
-        .btn-save:hover:not(:disabled) { background-color: #e0261b; }
-
-        .btn-cancel { background-color: var(--gray-100, #f3f4f6); color: var(--gray-700); }
-        .btn-cancel:hover { background-color: var(--gray-200, #e5e7eb); }
-
-        .flash-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-        }
-
-        .section-subtitle a { color: #FF2D20; text-decoration: none; }
-        .section-subtitle a:hover { text-decoration: underline; }
-    </style>
+    
 </div>

@@ -1,27 +1,25 @@
-<div class="page-container">
-    @livewire('header')
-
+<div class="admin-page">
     <x-admin-nav />
 
-    <section class="section main-content" style="padding-top: 2rem;">
-        <div class="section-header">
-            <h2 class="section-title">Admin: Users</h2>
-            <p class="section-subtitle">Manage user roles and access.</p>
+    <div class="admin-body">
+        <div class="admin-page-header">
+            <h1 class="admin-page-title">Users</h1>
+            <p class="admin-page-desc">Manage user roles and access.</p>
         </div>
 
         @if(session('message'))
-            <div class="flash-message flash-success" style="max-width: 1000px; margin: 0 auto 1rem;">
+            <div class="flash-message flash-success">
                 {{ session('message') }}
             </div>
         @endif
 
         @if(session('error'))
-            <div class="flash-message flash-error" style="max-width: 1000px; margin: 0 auto 1rem;">
+            <div class="flash-message flash-error">
                 {{ session('error') }}
             </div>
         @endif
 
-        <div class="card" style="max-width: 1000px; margin: 0 auto;">
+        <div class="card">
             <div class="filter-bar">
                 <label for="roleFilter">Filter by role:</label>
                 <select id="roleFilter" wire:model.live="roleFilter" class="filter-select">
@@ -96,176 +94,11 @@
                         </tbody>
                     </table>
                 </div>
+
+                {{ $users->links() }}
             @endif
         </div>
-    </section>
+    </div>
 
-    @livewire('footer')
-
-    <style>
-        .page-container {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .main-content {
-            flex: 1;
-        }
-
-        .filter-bar {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .filter-bar label {
-            font-weight: 500;
-            white-space: nowrap;
-            margin-bottom: 0;
-        }
-
-        .filter-select {
-            padding: 0.5rem 0.75rem;
-            font-size: 1rem;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            background-color: #fff;
-            appearance: auto;
-        }
-
-        .filter-select:focus {
-            border-color: #FF2D20;
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(255, 45, 32, 0.25);
-        }
-
-        .users-table-wrapper {
-            overflow-x: auto;
-        }
-
-        .users-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .users-table th,
-        .users-table td {
-            padding: 0.75rem 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--gray-200);
-        }
-
-        .users-table th {
-            font-weight: 600;
-            color: var(--gray-700);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .users-table tbody tr:hover {
-            background-color: var(--gray-50, #f9fafb);
-        }
-
-        .user-name {
-            font-weight: 600;
-            color: var(--gray-900);
-        }
-
-        .user-name-link {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .user-name-link:hover { text-decoration: underline; color: #FF2D20; }
-
-        .role-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .role-admin {
-            background-color: #e8f0fe;
-            color: #1a56db;
-        }
-
-        .role-user {
-            background-color: var(--gray-100, #f3f4f6);
-            color: var(--gray-600, #4b5563);
-        }
-
-        .action-cell {
-            white-space: nowrap;
-        }
-
-        .action-btn {
-            padding: 0.375rem 0.875rem;
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.15s;
-        }
-
-        .action-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .action-btn-promote {
-            background-color: #e8f0fe;
-            color: #1a56db;
-        }
-
-        .action-btn-promote:hover:not(:disabled) {
-            background-color: #d0e0fd;
-        }
-
-        .action-btn-demote {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .action-btn-demote:hover:not(:disabled) {
-            background-color: #f1c0c5;
-        }
-
-        .you-badge {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--gray-400, #9ca3af);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--gray-600);
-        }
-
-        .flash-message {
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-        }
-
-        .flash-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .flash-error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-    </style>
+    
 </div>

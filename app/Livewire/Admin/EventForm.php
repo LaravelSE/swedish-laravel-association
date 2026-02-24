@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Event;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class EventForm extends Component
@@ -33,20 +34,22 @@ class EventForm extends Component
     /** @var list<array{name: string, description: string}> */
     public array $organizers = [['name' => '', 'description' => '']];
 
-    public function mount(?Event $event = null): void
+    public function mount($event = null): void
     {
-        if ($event?->exists) {
-            $this->event = $event;
-            $this->title = $event->title;
-            $this->datetimeInput = $event->datetime->format('Y-m-d\TH:i');
-            $this->location = $event->location;
-            $this->description = $event->description;
-            $this->link = $event->link ?? '';
-            $this->closing = $event->closing ?? '';
-            $this->details = $event->details ?: [''];
-            $this->schedule = $event->schedule ?: [['time' => '', 'activity' => '']];
-            $this->footer = $event->footer ?: [''];
-            $this->organizers = $event->organizers ?: [['name' => '', 'description' => '']];
+        if ($event) {
+            $this->event = $event instanceof Event
+                ? $event
+                : Event::findOrFail($event);
+            $this->title = $this->event->title;
+            $this->datetimeInput = $this->event->datetime->format('Y-m-d\TH:i');
+            $this->location = $this->event->location;
+            $this->description = $this->event->description;
+            $this->link = $this->event->link ?? '';
+            $this->closing = $this->event->closing ?? '';
+            $this->details = $this->event->details ?: [''];
+            $this->schedule = $this->event->schedule ?: [['time' => '', 'activity' => '']];
+            $this->footer = $this->event->footer ?: [''];
+            $this->organizers = $this->event->organizers ?: [['name' => '', 'description' => '']];
         }
     }
 
@@ -154,7 +157,7 @@ class EventForm extends Component
         }
     }
 
-    public function render()
+    public function render(): View
     {
         $title = $this->event?->exists ? 'Edit: '.$this->event->title : 'New Event';
 

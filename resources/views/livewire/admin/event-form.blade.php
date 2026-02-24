@@ -1,23 +1,27 @@
-<div class="page-container">
-    @livewire('header')
-
+<div class="admin-page">
     <x-admin-nav />
 
-    <section class="section main-content" style="padding-top: 2rem;">
-        <div class="section-header">
-            <h2 class="section-title">{{ $event?->exists ? 'Edit: '.$event->title : 'New Event' }}</h2>
-            <p class="section-subtitle">
+    <div class="admin-body">
+        <div class="admin-page-header">
+            <h1 class="admin-page-title">{{ $event?->exists ? 'Edit: '.$event->title : 'New Event' }}</h1>
+            <p class="admin-page-desc">
                 <a href="{{ route('admin.events') }}">&larr; Back to list</a>
             </p>
         </div>
 
         @if(session('message'))
-            <div class="flash-message" style="max-width: 800px; margin: 0 auto 1rem;">
+            <div class="flash-message flash-success">
                 {{ session('message') }}
             </div>
         @endif
 
-        <div class="card" style="max-width: 800px; margin: 0 auto;">
+        @if(session('error'))
+            <div class="flash-message flash-error">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <div class="card">
 
             {{-- Basic Info --}}
             <div class="form-section">
@@ -131,160 +135,7 @@
             </div>
 
         </div>
-    </section>
+    </div>
 
-    @livewire('footer')
-
-    <style>
-        .page-container { display: flex; flex-direction: column; min-height: 100vh; }
-        .main-content { flex: 1; }
-
-        .form-section {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--gray-200);
-        }
-
-        .form-section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--gray-900);
-        }
-
-        .form-section-hint {
-            font-size: 0.85rem;
-            color: var(--gray-500);
-            margin-bottom: 1rem;
-        }
-
-        .form-group { margin-bottom: 1rem; }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .form-row { grid-template-columns: 1fr; }
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-            font-size: 0.9rem;
-            color: var(--gray-700);
-        }
-
-        .required { color: #FF2D20; }
-
-        .form-control {
-            display: block;
-            width: 100%;
-            padding: 0.5rem 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            box-sizing: border-box;
-        }
-
-        .form-control:focus {
-            border-color: #FF2D20;
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(255, 45, 32, 0.25);
-        }
-
-        .form-control.is-invalid { border-color: #dc3545; }
-        .error-message { color: #dc3545; font-size: 0.85rem; margin-top: 0.25rem; }
-
-        .dynamic-row {
-            display: flex;
-            gap: 0.5rem;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
-        }
-
-        .dynamic-row .form-control { flex: 1; }
-
-        .schedule-row .time-input { max-width: 80px; }
-
-        .organizer-block {
-            display: flex;
-            gap: 0.5rem;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-            padding: 0.75rem;
-            background: var(--gray-50, #f9fafb);
-            border-radius: 0.25rem;
-        }
-
-        .organizer-fields { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
-
-        .btn-remove {
-            background: none;
-            border: 1px solid var(--gray-300, #d1d5db);
-            color: var(--gray-500);
-            border-radius: 0.25rem;
-            width: 28px;
-            height: 28px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            line-height: 1;
-            padding: 0;
-            flex-shrink: 0;
-            margin-top: 4px;
-        }
-
-        .btn-remove:hover { background: #f8d7da; border-color: #dc3545; color: #dc3545; }
-
-        .btn-add {
-            background: none;
-            border: 1px dashed var(--gray-300, #d1d5db);
-            color: var(--gray-500);
-            border-radius: 0.25rem;
-            padding: 0.375rem 0.75rem;
-            cursor: pointer;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-
-        .btn-add:hover { border-color: #FF2D20; color: #FF2D20; }
-
-        .action-buttons { display: flex; gap: 1rem; margin-top: 1.5rem; align-items: center; }
-
-        .btn {
-            padding: 0.625rem 1.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-        .btn-save { background-color: #FF2D20; color: white; }
-        .btn-save:hover:not(:disabled) { background-color: #e0261b; }
-
-        .btn-cancel { background-color: var(--gray-100, #f3f4f6); color: var(--gray-700); }
-        .btn-cancel:hover { background-color: var(--gray-200, #e5e7eb); }
-
-        .flash-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-        }
-
-        .section-subtitle a { color: #FF2D20; text-decoration: none; }
-        .section-subtitle a:hover { text-decoration: underline; }
-    </style>
+    
 </div>

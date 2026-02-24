@@ -18,10 +18,10 @@ test('submit company page can be rendered', function () {
 
 test('guest users see registration fields', function () {
     Livewire::test(SubmitCompany::class)
-        ->assertSee('Create Account')
-        ->assertSee('Name')
-        ->assertSee('Email')
-        ->assertSee('Password');
+        ->assertSee('create-account')
+        ->assertSee('name')
+        ->assertSee('email')
+        ->assertSee('password');
 });
 
 test('logged in users do not see registration fields', function () {
@@ -29,8 +29,8 @@ test('logged in users do not see registration fields', function () {
 
     Livewire::actingAs($user)
         ->test(SubmitCompany::class)
-        ->assertDontSee('Create Account')
-        ->assertSee('Submitting as');
+        ->assertDontSee('create-account')
+        ->assertSee('submitting-as');
 });
 
 test('guest user can submit company and create account', function () {
@@ -265,4 +265,20 @@ test('optional fields can be left empty', function () {
     expect($company->industry)->toBeNull();
     expect($company->size)->toBeNull();
     expect($company->description)->toBeNull();
+});
+
+test('guest is authenticated after submitting company', function () {
+    Livewire::test(SubmitCompany::class)
+        ->set('name', 'Auth Test User')
+        ->set('email', 'auth-test@example.com')
+        ->set('password', 'password123')
+        ->set('password_confirmation', 'password123')
+        ->set('companyName', 'Auth Test Corp')
+        ->set('city', 'Stockholm')
+        ->set('submitterRelationship', 'I work there')
+        ->call('submit')
+        ->assertSet('submitted', true);
+
+    expect(auth()->check())->toBeTrue();
+    expect(auth()->user()->email)->toBe('auth-test@example.com');
 });

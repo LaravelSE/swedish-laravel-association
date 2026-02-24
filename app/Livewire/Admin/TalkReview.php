@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Talk;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class TalkReview extends Component
@@ -79,7 +80,7 @@ class TalkReview extends Component
         session()->flash('message', 'Notes saved.');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.admin.talk-review')
             ->layout('components.layouts.app', ['title' => 'Admin: Review Talk - Swedish Laravel Association']);

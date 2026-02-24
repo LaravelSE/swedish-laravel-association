@@ -67,5 +67,5 @@ it('shows loading state when submitting', function () {
         ->set('email', 'john@example.com')
         ->set('message', 'This is a test message.')
         ->call('submitForm')
-        ->assertSee('Sending...');
+        ->assertSee('// sending...');
 });

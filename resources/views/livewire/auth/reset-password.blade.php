@@ -1,93 +1,60 @@
 <div class="page-container">
     @livewire('header')
 
-    <section class="section main-content" style="padding-top: 4rem;">
-        <div class="section-header">
-            <h2 class="section-title">Reset Password</h2>
-            <p class="section-subtitle">Create a new password for your account</p>
-        </div>
-        <div class="card" style="max-width: 600px; margin: 0 auto;">
-            <form wire:submit.prevent="resetPassword" class="reset-password-form">
+    <section class="rp-section main-content">
+        <div class="rp-card">
+            <div class="rp-header">
+                <p class="rp-comment">$ set --new-password</p>
+                <p class="rp-subtitle">enter a new password for your account</p>
+            </div>
+
+            <form wire:submit.prevent="resetPassword" class="rp-form">
                 <input type="hidden" wire:model="token">
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" wire:model="email" class="form-control @error('email') is-invalid @enderror" autofocus>
-                    @error('email') <div class="error-message">{{ $message }}</div> @enderror
+                <div class="rp-form-group">
+                    <label class="rp-label" for="email">email</label>
+                    <input type="email" id="email" wire:model="email"
+                        class="tm-input rp-input @error('email') rp-input-error @enderror"
+                        autofocus autocomplete="username">
+                    @error('email')
+                        <div class="rp-field-error"><span class="rp-error-badge">[ERROR]</span> {{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="password">New Password</label>
-                    <input type="password" id="password" wire:model="password" class="form-control @error('password') is-invalid @enderror">
-                    @error('password') <div class="error-message">{{ $message }}</div> @enderror
+                <div class="rp-form-group">
+                    <label class="rp-label" for="password">new password</label>
+                    <input type="password" id="password" wire:model="password"
+                        class="tm-input rp-input @error('password') rp-input-error @enderror"
+                        autocomplete="new-password">
+                    @error('password')
+                        <div class="rp-field-error"><span class="rp-error-badge">[ERROR]</span> {{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group">
-                    <label for="password_confirmation">Confirm New Password</label>
-                    <input type="password" id="password_confirmation" wire:model="password_confirmation" class="form-control">
+                <div class="rp-form-group">
+                    <label class="rp-label" for="password_confirmation">confirm new password</label>
+                    <input type="password" id="password_confirmation" wire:model="password_confirmation"
+                        class="tm-input rp-input"
+                        autocomplete="new-password">
                 </div>
 
-                <div class="form-group" style="text-align: center;">
-                    <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
-                        <span wire:loading.remove>Reset Password</span>
-                        <span wire:loading>Processing...</span>
+                <div class="rp-form-group">
+                    <button type="submit" class="btn btn-primary rp-btn" wire:loading.attr="disabled">
+                        <span wire:loading.remove>$ reset --password</span>
+                        <span wire:loading>// resetting...</span>
                     </button>
                 </div>
             </form>
+
+            <div class="rp-divider"></div>
+
+            <div class="rp-links">
+                <a href="{{ route('login') }}" class="rp-link">$ back --to-login</a>
+            </div>
         </div>
     </section>
 
-    <div style="margin-top: 4rem;"></div>
-
     @livewire('footer')
 
-    <style>
-        .page-container {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        
-        .main-content {
-            flex: 1;
-        }
-        
-        .reset-password-form {
-            margin: 2rem 0;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-control {
-            display: block;
-            width: 100%;
-            padding: 0.75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-        
-        .form-control:focus {
-            border-color: #FF2D20;
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(255, 45, 32, 0.25);
-        }
-        
-        .is-invalid {
-            border-color: #dc3545;
-        }
-        
-        .error-message {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-    </style>
+    
 </div>

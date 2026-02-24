@@ -37,8 +37,6 @@ class UserDetail extends Component
 
     public function render(): \Illuminate\View\View
     {
-        $this->user->loadMissing(['talks', 'companies']);
-
         return view('livewire.admin.user-detail', [
             'talks' => $this->user->talks()->latest()->get(),
             'companies' => $this->user->companies()->latest()->get(),
