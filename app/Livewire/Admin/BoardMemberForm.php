@@ -22,14 +22,16 @@ class BoardMemberForm extends Component
 
     public $photo = null;
 
-    public function mount(?BoardMember $boardMember = null): void
+    public function mount($boardMember = null): void
     {
-        if ($boardMember?->exists) {
-            $this->boardMember = $boardMember;
-            $this->name = $boardMember->name;
-            $this->role = $boardMember->role;
-            $this->company = $boardMember->company ?? '';
-            $this->sortOrder = $boardMember->sort_order;
+        if ($boardMember) {
+            $this->boardMember = $boardMember instanceof BoardMember
+                ? $boardMember
+                : BoardMember::findOrFail($boardMember);
+            $this->name = $this->boardMember->name;
+            $this->role = $this->boardMember->role;
+            $this->company = $this->boardMember->company ?? '';
+            $this->sortOrder = $this->boardMember->sort_order;
         }
     }
 

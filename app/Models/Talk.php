@@ -55,6 +55,15 @@ class Talk extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function setStatusAttribute(string $value): void
+    {
+        if (! in_array($value, self::STATUSES)) {
+            throw new \InvalidArgumentException("Invalid talk status: {$value}");
+        }
+
+        $this->attributes['status'] = $value;
+    }
+
     public function scopePending(Builder $query): Builder
     {
         return $query->where('status', 'pending');

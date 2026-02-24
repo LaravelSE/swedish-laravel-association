@@ -53,6 +53,8 @@
                         </tbody>
                     </table>
                 </div>
+
+                {{ $companies->links() }}
             @endif
         </div>
     </div>

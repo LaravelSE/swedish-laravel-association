@@ -67,6 +67,8 @@
                         </tbody>
                     </table>
                 </div>
+
+                {{ $talks->links() }}
             @endif
         </div>
     </div>

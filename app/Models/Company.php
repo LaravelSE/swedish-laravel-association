@@ -12,6 +12,9 @@ class Company extends Model
     /** @use HasFactory<\Database\Factories\CompanyFactory> */
     use HasFactory;
 
+    /** @var list<string> */
+    public const STATUSES = ['pending', 'approved', 'rejected'];
+
     /**
      * Available company sizes.
      *
@@ -59,6 +62,15 @@ class Company extends Model
         return [
             'is_sponsor' => 'boolean',
         ];
+    }
+
+    public function setStatusAttribute(string $value): void
+    {
+        if (! in_array($value, self::STATUSES)) {
+            throw new \InvalidArgumentException("Invalid company status: {$value}");
+        }
+
+        $this->attributes['status'] = $value;
     }
 
     /**

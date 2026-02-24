@@ -54,6 +54,8 @@
                         </tbody>
                     </table>
                 </div>
+
+                {{ $companies->links() }}
             @endif
 
             <div class="cl-cta-bar">

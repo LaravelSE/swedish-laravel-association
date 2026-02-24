@@ -6,11 +6,19 @@ use App\Models\Talk;
 use Illuminate\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class TalkList extends Component
 {
+    use WithPagination;
+
     #[Url(as: 'status')]
     public string $statusFilter = '';
+
+    public function updatedStatusFilter(): void
+    {
+        $this->resetPage();
+    }
 
     public function render(): View
     {
@@ -24,7 +32,7 @@ class TalkList extends Component
         }
 
         return view('livewire.admin.talk-list', [
-            'talks' => $query->get(),
+            'talks' => $query->paginate(25),
         ])->layout('components.layouts.app', ['title' => 'Admin: Talks - Swedish Laravel Association']);
     }
 }

@@ -5,10 +5,18 @@ namespace App\Livewire\Admin;
 use App\Models\User;
 use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class UserList extends Component
 {
+    use WithPagination;
+
     public string $roleFilter = '';
+
+    public function updatedRoleFilter(): void
+    {
+        $this->resetPage();
+    }
 
     public function promoteToAdmin(User $user): void
     {
@@ -47,7 +55,7 @@ class UserList extends Component
         }
 
         return view('livewire.admin.user-list', [
-            'users' => $query->get(),
+            'users' => $query->paginate(25),
         ])->layout('components.layouts.app', ['title' => 'Admin: Users - Swedish Laravel Association']);
     }
 }
