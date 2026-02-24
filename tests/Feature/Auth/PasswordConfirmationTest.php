@@ -1,34 +1,35 @@
 <?php
 
+use App\Livewire\EditProfile;
 use App\Models\User;
+use Livewire\Livewire;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-test('confirm password screen can be rendered', function () {
+test('password can be changed via edit profile', function () {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->get('/confirm-password');
+    Livewire::actingAs($user)
+        ->test(EditProfile::class)
+        ->call('toggleChangePassword')
+        ->set('current_password', 'password')
+        ->set('password', 'new-password')
+        ->set('password_confirmation', 'new-password')
+        ->call('save')
+        ->assertRedirect(route('member'));
 
-    $response->assertStatus(200);
+    expect(\Illuminate\Support\Facades\Hash::check('new-password', $user->fresh()->password))->toBeTrue();
 });
 
-test('password can be confirmed', function () {
+test('password is not changed with incorrect current password', function () {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->post('/confirm-password', [
-        'password' => 'password',
-    ]);
-
-    $response->assertRedirect();
-    $response->assertSessionHasNoErrors();
-});
-
-test('password is not confirmed with invalid password', function () {
-    $user = User::factory()->create();
-
-    $response = $this->actingAs($user)->post('/confirm-password', [
-        'password' => 'wrong-password',
-    ]);
-
-    $response->assertSessionHasErrors();
+    Livewire::actingAs($user)
+        ->test(EditProfile::class)
+        ->call('toggleChangePassword')
+        ->set('current_password', 'wrong-password')
+        ->set('password', 'new-password')
+        ->set('password_confirmation', 'new-password')
+        ->call('save')
+        ->assertHasErrors('current_password');
 });
