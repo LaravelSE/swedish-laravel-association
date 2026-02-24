@@ -266,3 +266,19 @@ test('optional fields can be left empty', function () {
     expect($company->size)->toBeNull();
     expect($company->description)->toBeNull();
 });
+
+test('guest is authenticated after submitting company', function () {
+    Livewire::test(SubmitCompany::class)
+        ->set('name', 'Auth Test User')
+        ->set('email', 'auth-test@example.com')
+        ->set('password', 'password123')
+        ->set('password_confirmation', 'password123')
+        ->set('companyName', 'Auth Test Corp')
+        ->set('city', 'Stockholm')
+        ->set('submitterRelationship', 'I work there')
+        ->call('submit')
+        ->assertSet('submitted', true);
+
+    expect(auth()->check())->toBeTrue();
+    expect(auth()->user()->email)->toBe('auth-test@example.com');
+});
