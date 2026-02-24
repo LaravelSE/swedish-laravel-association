@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Component;
@@ -110,42 +111,49 @@ class SubmitCompany extends Component
     {
         $this->validate();
 
-        if (! Auth::check()) {
-            $user = User::create([
-                'name' => $this->name,
-                'email' => $this->email,
-                'phone' => $this->userPhone,
-                'password' => Hash::make($this->password),
-            ]);
-
-            event(new Registered($user));
-            Auth::login($user);
-        } else {
-            $user = Auth::user();
-        }
-
         $logoPath = null;
         if ($this->logo) {
             $logoPath = $this->logo->store('company-logos', 'public');
+            if ($logoPath === false) {
+                $this->addError('logo', 'Failed to upload the logo. Please try again.');
+
+                return;
+            }
         }
 
-        Company::create([
-            'user_id' => $user->id,
-            'name' => $this->companyName,
-            'city' => $this->city,
-            'website' => $this->website ?: null,
-            'industry' => $this->industry ?: null,
-            'size' => $this->size ?: null,
-            'description' => $this->description ?: null,
-            'contact_email' => $this->contactEmail ?: null,
-            'phone' => $this->phone ?: null,
-            'address' => $this->address ?: null,
-            'logo_path' => $logoPath,
-            'linkedin' => $this->linkedin ?: null,
-            'github' => $this->github ?: null,
-            'twitter' => $this->twitter ?: null,
-            'submitter_relationship' => $this->submitterRelationship,
-        ]);
+        DB::transaction(function () use ($logoPath) {
+            if (! Auth::check()) {
+                $user = User::create([
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'phone' => $this->userPhone,
+                    'password' => Hash::make($this->password),
+                ]);
+
+                event(new Registered($user));
+                Auth::login($user);
+            } else {
+                $user = Auth::user();
+            }
+
+            Company::create([
+                'user_id' => $user->id,
+                'name' => $this->companyName,
+                'city' => $this->city,
+                'website' => $this->website ?: null,
+                'industry' => $this->industry ?: null,
+                'size' => $this->size ?: null,
+                'description' => $this->description ?: null,
+                'contact_email' => $this->contactEmail ?: null,
+                'phone' => $this->phone ?: null,
+                'address' => $this->address ?: null,
+                'logo_path' => $logoPath,
+                'linkedin' => $this->linkedin ?: null,
+                'github' => $this->github ?: null,
+                'twitter' => $this->twitter ?: null,
+                'submitter_relationship' => $this->submitterRelationship,
+            ]);
+        });
 
         $this->submitted = true;
     }

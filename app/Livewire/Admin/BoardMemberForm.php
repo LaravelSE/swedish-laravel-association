@@ -58,7 +58,13 @@ class BoardMemberForm extends Component
         ];
 
         if ($this->photo) {
-            $data['image_path'] = $this->photo->store('board-members', 'public');
+            $imagePath = $this->photo->store('board-members', 'public');
+            if ($imagePath === false) {
+                $this->addError('photo', 'Failed to upload the photo. Please try again.');
+
+                return;
+            }
+            $data['image_path'] = $imagePath;
         }
 
         if ($this->boardMember?->exists) {

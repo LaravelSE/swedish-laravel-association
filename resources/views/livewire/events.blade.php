@@ -51,7 +51,7 @@
                         @if($this->isExpanded($event->id))
                             <div class="event-details">
                                 @foreach($event->details as $detail)
-                                    <p>{!! $detail !!}</p>
+                                    <p>{{ $detail }}</p>
                                 @endforeach
 
                                 <h4 class="event-subtitle"># Schedule</h4>
@@ -67,7 +67,7 @@
                                 </table>
 
                                 @foreach($event->footer as $footer)
-                                    <p>{!! $footer !!}</p>
+                                    <p>{{ $footer }}</p>
                                     @if(!$loop->last)
                                         <br>
                                     @endif
@@ -149,7 +149,7 @@
                         @if($this->isExpanded($event->id))
                             <div class="event-details">
                                 @foreach($event->details as $detail)
-                                    <p>{!! $detail !!}</p>
+                                    <p>{{ $detail }}</p>
                                 @endforeach
 
                                 <h4 class="event-subtitle"># Schedule</h4>
@@ -165,7 +165,7 @@
                                 </table>
 
                                 @foreach($event->footer as $footer)
-                                    <p>{!! $footer !!}</p>
+                                    <p>{{ $footer }}</p>
                                     @if(!$loop->last)
                                         <br>
                                     @endif

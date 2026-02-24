@@ -32,7 +32,7 @@ class EventSeeder extends Seeder
                 ],
                 'footer' => [
                     'The venue is less than a 10-minute walk from Norrköping Central Station (1h 15min by train from Stockholm). Parking is available in the nearby parking garage and street parking in the area.',
-                    '<a href="https://lu.ma/event/evt-HA56UTb2tSc6T9t" class="luma-checkout--button" data-luma-action="checkout" data-luma-event-id="evt-HA56UTb2tSc6T9t">Register for Event</a>',
+                    'Register via the button above or visit lu.ma for more details.',
                 ],
                 'organizers' => [
                     ['name' => 'Åtta91', 'description' => 'Åtta91 is a digital agency based in Norrköping that specializes in web development and digital solutions for businesses.'],
