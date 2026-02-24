@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Event;
+use Illuminate\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -11,7 +12,7 @@ class EventList extends Component
     #[Url(as: 'filter')]
     public string $timeFilter = 'upcoming';
 
-    public function render()
+    public function render(): View
     {
         $query = Event::query()->orderBy('datetime');
 

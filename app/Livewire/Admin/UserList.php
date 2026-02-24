@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\User;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class UserList extends Component
@@ -35,7 +36,7 @@ class UserList extends Component
         session()->flash('message', $user->name.' is no longer an admin.');
     }
 
-    public function render()
+    public function render(): View
     {
         $query = User::query()->latest();
 

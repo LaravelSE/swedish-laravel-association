@@ -5,11 +5,12 @@ namespace App\Livewire\Admin;
 use App\Models\Company;
 use App\Models\Talk;
 use App\Models\User;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Dashboard extends Component
 {
-    public function render()
+    public function render(): View
     {
         return view('livewire.admin.dashboard', [
             'pendingCompaniesCount' => Company::pending()->count(),

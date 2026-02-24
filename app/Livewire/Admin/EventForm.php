@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Event;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class EventForm extends Component
@@ -154,7 +155,7 @@ class EventForm extends Component
         }
     }
 
-    public function render()
+    public function render(): View
     {
         $title = $this->event?->exists ? 'Edit: '.$this->event->title : 'New Event';
 

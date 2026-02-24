@@ -4,15 +4,22 @@ namespace App\Livewire;
 
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class CompaniesListing extends Component
 {
     public string $cityFilter = '';
 
-    public function render()
+    public function render(): View
     {
         $query = Company::query()->approved()->orderBy('name');
+
+        $cities = Company::query()->approved()
+            ->select('city')
+            ->distinct()
+            ->orderBy('city')
+            ->pluck('city');
 
         if ($this->cityFilter) {
             $query->where('city', $this->cityFilter);
@@ -20,12 +27,6 @@ class CompaniesListing extends Component
 
         /** @var Collection<int, Company> $companies */
         $companies = $query->get();
-
-        $cities = Company::query()->approved()
-            ->select('city')
-            ->distinct()
-            ->orderBy('city')
-            ->pluck('city');
 
         return view('livewire.companies-listing', [
             'companies' => $companies,

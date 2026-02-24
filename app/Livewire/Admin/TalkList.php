@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Talk;
+use Illuminate\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -11,14 +12,14 @@ class TalkList extends Component
     #[Url(as: 'status')]
     public string $statusFilter = '';
 
-    public function render()
+    public function render(): View
     {
         $query = Talk::query()
             ->with('user')
             ->orderByRaw("CASE WHEN status = 'pending' THEN 0 WHEN status = 'interested' THEN 1 WHEN status = 'scheduled' THEN 2 WHEN status = 'done' THEN 3 ELSE 4 END")
             ->latest();
 
-        if ($this->statusFilter) {
+        if ($this->statusFilter && in_array($this->statusFilter, Talk::STATUSES)) {
             $query->where('status', $this->statusFilter);
         }
 

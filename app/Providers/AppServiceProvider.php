@@ -23,11 +23,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Mail::extend('brevo', function () {
+            $key = config('services.brevo.key');
+
+            if (! $key) {
+                throw new \RuntimeException('Brevo API key is not configured. Set BREVO_KEY in your .env file.');
+            }
+
             return (new BrevoTransportFactory)->create(
                 new Dsn(
                     'brevo+api',
                     'default',
-                    config('services.brevo.key')
+                    $key
                 )
             );
         });

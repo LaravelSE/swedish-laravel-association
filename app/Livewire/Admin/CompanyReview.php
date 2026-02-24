@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Company;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class CompanyReview extends Component
@@ -43,7 +44,7 @@ class CompanyReview extends Component
         $this->redirect(route('admin.companies'), navigate: true);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.admin.company-review')
             ->layout('components.layouts.app', ['title' => 'Review: '.$this->company->name.' - Swedish Laravel Association']);

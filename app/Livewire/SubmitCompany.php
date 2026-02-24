@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -158,7 +159,7 @@ class SubmitCompany extends Component
         $this->submitted = true;
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.submit-company', [
             'availableSizes' => Company::SIZES,

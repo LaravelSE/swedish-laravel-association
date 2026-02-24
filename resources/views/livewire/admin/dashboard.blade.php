@@ -8,8 +8,14 @@
         </div>
 
         @if(session('message'))
-            <div class="flash-message" class="admin-flash">
+            <div class="flash-message flash-success">
                 {{ session('message') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="flash-message flash-error">
+                {{ session('error') }}
             </div>
         @endif
 
