@@ -2,18 +2,37 @@
 
 namespace App\Models;
 
+use Database\Factories\CompanyFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 class Company extends Model
 {
-    /** @use HasFactory<\Database\Factories\CompanyFactory> */
+    /** @use HasFactory<CompanyFactory> */
     use HasFactory;
+
+    use LogsActivity;
 
     /** @var list<string> */
     public const STATUSES = ['pending', 'approved', 'rejected'];
+
+    /**
+     * Log status changes (who approved/rejected) to the activity_log table.
+     * The causer is resolved automatically from the authenticated user.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['status'])
+            ->logOnlyDirty()
+            ->dontLogEmptyChanges()
+            ->useLogName('company')
+            ->setDescriptionForEvent(fn (string $event): string => "company status {$event}");
+    }
 
     /**
      * Available company sizes.
