@@ -2,6 +2,7 @@
     $links = [
         ['label' => 'Dashboard',     'route' => 'admin.dashboard'],
         ['label' => 'Companies',     'route' => 'admin.companies'],
+        ['label' => 'Jobs',          'route' => 'admin.jobs'],
         ['label' => 'Talks',         'route' => 'admin.talks'],
         ['label' => 'Events',        'route' => 'admin.events'],
         ['label' => 'Board Members', 'route' => 'admin.board-members'],
