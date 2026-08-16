@@ -2,17 +2,37 @@
 
 namespace App\Models;
 
+use Database\Factories\TalkFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 class Talk extends Model
 {
-    /** @use HasFactory<\Database\Factories\TalkFactory> */
+    /** @use HasFactory<TalkFactory> */
     use HasFactory;
 
+    use LogsActivity;
+
     public const STATUSES = ['pending', 'interested', 'scheduled', 'done', 'rejected'];
+
+    /**
+     * Log status changes (who moved the talk through the pipeline) to the
+     * activity_log table. The causer is resolved automatically from the
+     * authenticated user.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['status'])
+            ->logOnlyDirty()
+            ->dontLogEmptyChanges()
+            ->useLogName('talk')
+            ->setDescriptionForEvent(fn (string $event): string => "talk status {$event}");
+    }
 
     /**
      * The attributes that are mass assignable.
