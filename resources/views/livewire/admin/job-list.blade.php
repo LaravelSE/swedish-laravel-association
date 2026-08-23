@@ -32,9 +32,7 @@
                     <table class="companies-table">
                         <thead>
                             <tr>
-                                <th>Title</th>
-                                <th>Company</th>
-                                <th>Location</th>
+                                <th>Job</th>
                                 <th>Search</th>
                                 <th>Posted</th>
                                 <th>Status</th>
@@ -46,9 +44,8 @@
                                 <tr wire:key="admin-job-{{ $job->id }}">
                                     <td class="company-name">
                                         <a href="{{ $job->url }}" target="_blank" rel="noopener" class="review-link">{{ $job->title }}</a>
+                                        <div class="muted job-sub">{{ $job->company_name }} &middot; {{ $job->short_location }}</div>
                                     </td>
-                                    <td>{{ $job->company_name }}</td>
-                                    <td>{{ $job->short_location }}</td>
                                     <td class="muted">{{ $job->keyword }}</td>
                                     <td class="muted">{{ optional($job->posted_date)->format('Y-m-d') }}</td>
                                     <td>
@@ -206,6 +203,11 @@
         .reviewer-note {
             margin-top: 0.25rem;
             font-size: 0.75rem;
+        }
+
+        .job-sub {
+            margin-top: 0.25rem;
+            font-weight: 400;
         }
 
         .status-badge {

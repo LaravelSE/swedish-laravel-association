@@ -3704,7 +3704,8 @@ font-weight: 600;
 .filter-select {
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
-    border: 1px solid #ced4da;
+    color: var(--tm-text);
+    border: 1px solid var(--tm-border);
     border-radius: 0.25rem;
     background-color: var(--tm-surface);
     appearance: auto;
@@ -3923,9 +3924,9 @@ font-weight: 600;
     padding: 0.75rem;
     font-size: 1rem;
     line-height: 1.5;
-    color: #495057;
+    color: var(--tm-text);
     background-color: var(--tm-surface);
-    border: 1px solid #ced4da;
+    border: 1px solid var(--tm-border);
     border-radius: 0.25rem;
     resize: vertical;
 }
@@ -4038,7 +4039,8 @@ font-weight: 600;
 .filter-select {
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
-    border: 1px solid #ced4da;
+    color: var(--tm-text);
+    border: 1px solid var(--tm-border);
     border-radius: 0.25rem;
     background-color: var(--tm-surface);
     appearance: auto;
@@ -4201,9 +4203,9 @@ font-weight: 600;
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
     line-height: 1.5;
-    color: #495057;
+    color: var(--tm-text);
     background-color: var(--tm-surface);
-    border: 1px solid #ced4da;
+    border: 1px solid var(--tm-border);
     border-radius: 0.25rem;
     box-sizing: border-box;
 }
@@ -4356,7 +4358,8 @@ font-weight: 600;
 .filter-select {
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
-    border: 1px solid #ced4da;
+    color: var(--tm-text);
+    border: 1px solid var(--tm-border);
     border-radius: 0.25rem;
     background-color: var(--tm-surface);
     appearance: auto;
@@ -4577,9 +4580,9 @@ font-weight: 600;
     padding: 0.75rem;
     font-size: 1rem;
     line-height: 1.5;
-    color: #495057;
+    color: var(--tm-text);
     background-color: var(--tm-surface);
-    border: 1px solid #ced4da;
+    border: 1px solid var(--tm-border);
     border-radius: 0.25rem;
     resize: vertical;
 }
@@ -4689,7 +4692,8 @@ font-weight: 600;
 .filter-select {
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
-    border: 1px solid #ced4da;
+    color: var(--tm-text);
+    border: 1px solid var(--tm-border);
     border-radius: 0.25rem;
     background-color: var(--tm-surface);
     appearance: auto;
@@ -4752,8 +4756,8 @@ font-weight: 600;
 }
 
 .role-admin {
-    background-color: #e8f0fe;
-    color: #1a56db;
+    background-color: rgba(77, 159, 212, 0.15);
+    color: var(--tm-blue);
 }
 
 .role-user {
@@ -4781,12 +4785,12 @@ font-weight: 600;
 }
 
 .action-btn-promote {
-    background-color: #e8f0fe;
-    color: #1a56db;
+    background-color: rgba(77, 159, 212, 0.15);
+    color: var(--tm-blue);
 }
 
 .action-btn-promote:hover:not(:disabled) {
-    background-color: #d0e0fd;
+    background-color: rgba(77, 159, 212, 0.28);
 }
 
 .action-btn-demote {
@@ -4795,7 +4799,7 @@ font-weight: 600;
 }
 
 .action-btn-demote:hover:not(:disabled) {
-    background-color: #f1c0c5;
+    background-color: rgba(255, 107, 107, 0.25);
 }
 
 .you-badge {
@@ -4924,7 +4928,7 @@ font-weight: 600;
     letter-spacing: 0.05em;
 }
 
-.role-admin { background-color: #e8f0fe; color: #1a56db; }
+.role-admin { background-color: rgba(77, 159, 212, 0.15); color: var(--tm-blue); }
 .role-user { background-color: var(--gray-100, #f3f4f6); color: var(--gray-600, #4b5563); }
 
 .profile-details { margin: 0 0 1.5rem; }
@@ -4966,11 +4970,11 @@ font-weight: 600;
 
 .action-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.action-btn-promote { background-color: #e8f0fe; color: #1a56db; }
-.action-btn-promote:hover:not(:disabled) { background-color: #d0e0fd; }
+.action-btn-promote { background-color: rgba(77, 159, 212, 0.15); color: var(--tm-blue); }
+.action-btn-promote:hover:not(:disabled) { background-color: rgba(77, 159, 212, 0.28); }
 
 .action-btn-demote { background-color: rgba(255, 107, 107, 0.12); color: var(--tm-red); }
-.action-btn-demote:hover:not(:disabled) { background-color: #f1c0c5; }
+.action-btn-demote:hover:not(:disabled) { background-color: rgba(255, 107, 107, 0.25); }
 
 .you-note { font-size: 0.8rem; color: var(--tm-muted); }
 
@@ -5279,9 +5283,9 @@ font-weight: 600;
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
     line-height: 1.5;
-    color: #495057;
+    color: var(--tm-text);
     background-color: var(--tm-surface);
-    border: 1px solid #ced4da;
+    border: 1px solid var(--tm-border);
     border-radius: 0.25rem;
     box-sizing: border-box;
 }
