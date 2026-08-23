@@ -32,9 +32,7 @@
                     <table class="companies-table">
                         <thead>
                             <tr>
-                                <th>Title</th>
-                                <th>Company</th>
-                                <th>Location</th>
+                                <th>Job</th>
                                 <th>Search</th>
                                 <th>Posted</th>
                                 <th>Status</th>
@@ -46,9 +44,8 @@
                                 <tr wire:key="admin-job-{{ $job->id }}">
                                     <td class="company-name">
                                         <a href="{{ $job->url }}" target="_blank" rel="noopener" class="review-link">{{ $job->title }}</a>
+                                        <div class="muted job-sub">{{ $job->company_name }} &middot; {{ $job->short_location }}</div>
                                     </td>
-                                    <td>{{ $job->company_name }}</td>
-                                    <td>{{ $job->short_location }}</td>
                                     <td class="muted">{{ $job->keyword }}</td>
                                     <td class="muted">{{ optional($job->posted_date)->format('Y-m-d') }}</td>
                                     <td>
@@ -107,7 +104,7 @@
         }
 
         .admin-page-title {
-            font-family: 'Syne', sans-serif;
+            font-family: var(--font);
             font-size: 1.75rem;
             font-weight: 800;
             color: var(--gray-950);
@@ -121,9 +118,9 @@
         }
 
         .flash-banner {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: rgba(74, 222, 128, 0.12);
+            color: var(--tm-green);
+            border: 1px solid rgba(74, 222, 128, 0.35);
             border-radius: 0.5rem;
             padding: 0.75rem 1rem;
             margin-bottom: 1.5rem;
@@ -146,16 +143,17 @@
         .filter-select {
             padding: 0.5rem 0.75rem;
             font-size: 1rem;
-            border: 1px solid #ced4da;
+            border: 1px solid var(--tm-border);
             border-radius: 0.25rem;
-            background-color: #fff;
+            background-color: var(--tm-surface);
+            color: var(--tm-text);
             appearance: auto;
         }
 
         .filter-select:focus {
-            border-color: #FF2D20;
+            border-color: var(--tm-yellow);
             outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(255, 45, 32, 0.25);
+            box-shadow: 0 0 0 0.2rem rgba(245, 213, 99, 0.25);
         }
 
         .companies-table-wrapper {
@@ -189,7 +187,7 @@
         }
 
         .companies-table tbody tr:hover {
-            background-color: var(--gray-50, #f9fafb);
+            background-color: var(--tm-surface-hover);
         }
 
         .company-name {
@@ -207,6 +205,11 @@
             font-size: 0.75rem;
         }
 
+        .job-sub {
+            margin-top: 0.25rem;
+            font-weight: 400;
+        }
+
         .status-badge {
             display: inline-block;
             padding: 0.25rem 0.75rem;
@@ -219,22 +222,22 @@
         }
 
         .status-pending {
-            background-color: #fef3cd;
-            color: #856404;
+            background-color: rgba(245, 213, 99, 0.12);
+            color: var(--tm-yellow);
         }
 
         .status-approved {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: rgba(74, 222, 128, 0.12);
+            color: var(--tm-green);
         }
 
         .status-rejected {
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: rgba(255, 107, 107, 0.12);
+            color: var(--tm-red);
         }
 
         .review-link {
-            color: #FF2D20;
+            color: var(--tm-yellow);
             text-decoration: none;
             font-weight: 500;
         }
@@ -262,16 +265,16 @@
             font-size: 1.25rem;
             line-height: 1;
             font-weight: 700;
-            color: var(--gray-600, #4b5563);
-            background: #fff;
-            border: 1px solid var(--gray-300, #d1d5db);
+            color: var(--tm-muted);
+            background: var(--tm-surface);
+            border: 1px solid var(--tm-border);
             border-radius: 0.375rem;
             cursor: pointer;
         }
 
         .btn-dots:hover {
-            background: var(--gray-50, #f9fafb);
-            color: var(--gray-900, #111827);
+            background: var(--tm-surface-hover);
+            color: var(--tm-text);
         }
 
         .actions-menu {
@@ -280,8 +283,8 @@
             top: calc(100% + 0.25rem);
             z-index: 20;
             min-width: 12rem;
-            background: #fff;
-            border: 1px solid var(--gray-200, #e5e7eb);
+            background: var(--tm-surface-2);
+            border: 1px solid var(--tm-border);
             border-radius: 0.5rem;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
             padding: 0.25rem;
@@ -296,9 +299,7 @@
             padding: 0.5rem 0.75rem;
             font-size: 0.875rem;
             font-weight: 500;
-            /* explicit dark color: the menu is always on a white background,
-               so don't depend on the theme's gray scale */
-            color: #1f2937;
+            color: var(--tm-text);
             background: transparent;
             border: 0;
             border-radius: 0.375rem;
@@ -308,17 +309,17 @@
         }
 
         .menu-item:hover {
-            background: #f3f4f6;
-            color: #111827;
+            background: var(--tm-surface-hover);
+            color: var(--gray-950);
         }
 
         .menu-item-danger {
-            color: #b02a37;
+            color: var(--tm-red);
         }
 
         .menu-item-danger:hover {
-            background: #fdeced;
-            color: #b02a37;
+            background: rgba(255, 107, 107, 0.12);
+            color: var(--tm-red);
         }
 
         .empty-state {
