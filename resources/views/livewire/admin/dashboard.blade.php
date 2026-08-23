@@ -39,7 +39,7 @@
         </div>
 
         @if($recentPendingCompanies->isNotEmpty())
-            <div class="card" class="admin-card">
+            <div class="card admin-card">
                 <div class="pending-header">
                     <h3 class="pending-title">Companies: needs review</h3>
                     <a href="{{ route('admin.companies') }}" class="view-all-link">View all &rarr;</a>
@@ -74,7 +74,7 @@
         @endif
 
         @if($recentPendingTalks->isNotEmpty())
-            <div class="card" class="admin-card">
+            <div class="card admin-card">
                 <div class="pending-header">
                     <h3 class="pending-title">Talks: needs review</h3>
                     <a href="{{ route('admin.talks') }}" class="view-all-link">View all &rarr;</a>
