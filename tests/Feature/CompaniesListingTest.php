@@ -2,9 +2,10 @@
 
 use App\Livewire\CompaniesListing;
 use App\Models\Company;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 test('companies listing page can be rendered', function () {
     $response = $this->get('/companies');
@@ -45,4 +46,13 @@ test('empty state is shown when no companies match filter', function () {
 test('submit company link is shown on listing page', function () {
     Livewire::test(CompaniesListing::class)
         ->assertSee('Submit it');
+});
+
+test('pagination uses the terminal midnight theme', function () {
+    Company::factory()->approved()->count(30)->create();
+
+    Livewire::test(CompaniesListing::class)
+        ->assertSee('tm-pagination', escape: false)
+        ->assertSee('next &raquo;', escape: false)
+        ->assertDontSee('Showing', escape: false);
 });
