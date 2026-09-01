@@ -80,9 +80,7 @@
                     </table>
                 </div>
 
-                <div class="pagination-bar">
-                    {{ $jobs->links() }}
-                </div>
+                {{ $jobs->links() }}
             @endif
         </div>
     </div>
